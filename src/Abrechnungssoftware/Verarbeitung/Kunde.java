@@ -1,4 +1,4 @@
-package Verarbeitung;
+package Abrechnungssoftware.Verarbeitung;
 
 public class Kunde {
 	String
