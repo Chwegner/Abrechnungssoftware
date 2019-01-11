@@ -93,6 +93,7 @@ public class MenuBarController
     {
         mainController.getMainPane().getChildren().clear();
         mainController.getMainPane().getChildren().add(mainController.getStammdatenAendernController().getStammdatenAendern());
+        mainController.getStammdatenAendernController().DatensaetzeEinsetzen();
     }
 
 
