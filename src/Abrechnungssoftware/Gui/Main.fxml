@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="vBox" fx:id="main" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Abrechnungssoftware.Gui.MainController">
+    <children>
+        <fx:include fx:id="menuBar" source="fxml/MenuBar.fxml" />
+        <VBox id="mainPane" fx:id="mainPane" stylesheets="@css/MainStyle.css" VBox.vgrow="ALWAYS">
+            <children>
+                <fx:include fx:id="uebersicht" source="fxml/Uebersicht.fxml" />
+                <fx:include fx:id="drucken" source="fxml/Drucken.fxml" />
+                <fx:include fx:id="offeneRechnungen" source="fxml/OffeneRechnungen.fxml" />
+                <fx:include fx:id="bezahlteRechnungen" source="fxml/BezahlteRechnungen.fxml" />
+                <fx:include fx:id="auftragErstellen" source="fxml/AuftragErstellen.fxml" />
+                <fx:include fx:id="offeneAuftraege" source="fxml/OffeneAuftraege.fxml" />
+                <fx:include fx:id="kundenAnlegen" source="fxml/KundenAnlegen.fxml" />
+                <fx:include fx:id="kundenUebersicht" source="fxml/KundenUebersicht.fxml" />
+                <fx:include fx:id="stammdatenAendern" source="fxml/StammdatenAendern.fxml" />
+                <fx:include fx:id="rechnungErstellen" source="fxml/RechnungErstellen.fxml" />
+            </children>
+        </VBox>
+    </children>
+</VBox>

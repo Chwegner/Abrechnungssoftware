@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<MenuBar id="MenuBar" fx:id="menuBar" stylesheets="@../css/MenuBar.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Abrechnungssoftware.Gui.controllers.MenuBarController">
+
+
+    <menus>
+
+        <Menu mnemonicParsing="false" text="Datei">
+            <items>
+                <MenuItem fx:id="uebersichtButton" mnemonicParsing="false" onAction="#UebersichtFensterAufrufen" text="Übersicht" />
+                <MenuItem fx:id="beendenButton" mnemonicParsing="false" onAction="#Exit" text="Beenden" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Rechnung">
+            <items>
+                <MenuItem fx:id="rechnungErstellenButton" mnemonicParsing="false" onAction="#RechnungErstellenAufrufen" text="Rechnung Erstelllen" />
+                <MenuItem fx:id="offeneRechnungenButton" mnemonicParsing="false" onAction="#OffeneRechnungenAufrufen" text="offene Rechnungen" />
+                <MenuItem fx:id="bezahlteRechnungenButton" mnemonicParsing="false" onAction="#BezahlteRechnungenAufrufen" text="bezahlte Rechnungen" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Auftrag">
+            <items>
+                <MenuItem fx:id="auftragErstellenButton" mnemonicParsing="false" onAction="#AuftragErstellenAufrufen" text="Auftrag erstellen" />
+                <MenuItem fx:id="offeneAuftraegeButton" mnemonicParsing="false" onAction="#OffeneAuftraegeAufrufen" text="offene Aufträge" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Kunden">
+            <items>
+                <MenuItem fx:id="kundenAnlegenButton" mnemonicParsing="false" onAction="#KundenAnlegenAufrufen" text="Kunden anlegen" />
+                <MenuItem fx:id="kundenUebersichtButton" mnemonicParsing="false" onAction="#KundenUebersichtAufrufen" text="Kundenübersicht" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Stammdaten">
+            <items>
+                <MenuItem fx:id="stammdatenAendernButton" mnemonicParsing="false" onAction="#StammdatenAendernAufrufen" text="Ändern" />
+            </items>
+        </Menu>
+    </menus>
+   <effect>
+      <InnerShadow color="#000000e5" />
+   </effect>
+
+</MenuBar>
