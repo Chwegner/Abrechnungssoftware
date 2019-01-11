@@ -14,7 +14,7 @@ public class main {
 	
 	public static void main(String[] args){
 		
-		Verarbeitung.Auftrag auftr = new Verarbeitung.Auftrag();
+		Auftrag auftr = new Auftrag();
 		
 		int tage = auftr.getArbeitstage("01.01.2019", "31.01.2019");
 		System.out.println(tage);
