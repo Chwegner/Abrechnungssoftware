@@ -35,7 +35,7 @@
         <Menu mnemonicParsing="false" text="Kunden">
             <items>
                 <MenuItem fx:id="kundenAnlegenButton" mnemonicParsing="false" onAction="#KundenAnlegenAufrufen" text="Kunden anlegen" />
-                <MenuItem fx:id="kundenUebersichtButton" mnemonicParsing="false" onAction="#KundenUebersichtAufrufen" text="Kundenübersicht" />
+                <MenuItem fx:id="kundenUebersichtButton" mnemonicParsing="false" onAction="#KundenUebersichtAufrufen" text="Kunden Bearbeiten" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Stammdaten">
