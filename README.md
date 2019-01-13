@@ -1,5 +1,7 @@
 # Abrechnungssoftware
 
+<h3><u>Projektbeschreibung:</u></h3>
+
 **Aufgabe:** 
 <br>
 Der Auftraggeber arbeitet im IT-Dienstleistungssektor und 
@@ -48,8 +50,26 @@ ausgerichtet entwickelt wird.
 </ul>
 <br>
 <hr>
+<h3><u>Projektumsetzung:</u></h3>
+
+**Technik:**
 <br>
-# Projektumsetzung
+<ul>
+<li>Java (Java-FX)
+<li>CSS
+<li>MySQL
+</ul>
+
+<hr>
+
+<h3><u>Team:</u></h3>
+ <a href="https://github.com/andre-bogdan">Andre Bogdan</a>
+ <br>
+ <a href="https://github.com/OstSan">Manuel Osterholzer</a>
+ <br>
+ <a href="https://github.com/Chwegner">Christian Wegner</a>
+
+
 
 
 
