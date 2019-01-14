@@ -26,8 +26,6 @@ public class MainController extends Application
     @FXML
     private UebersichtController uebersichtController;
     @FXML
-    private DruckenController druckenController;
-    @FXML
     private RechnungErstellenController rechnungErstellenController;
     @FXML
     private AuftragErstellenController auftragErstellenController;
@@ -43,10 +41,9 @@ public class MainController extends Application
     private void initialize()
     {
         db.db_open();
-        
+
         menuBarController.injectMainController(this);
         uebersichtController.injectMainController(this);
-        druckenController.injectMainController(this);
         rechnungErstellenController.injectMainController(this);
         auftragErstellenController.injectMainController(this);
         kundenAnlegenController.injectMainController(this);
@@ -61,11 +58,6 @@ public class MainController extends Application
     public VBox getMainPane()
     {
         return mainPane;
-    }
-
-    public DruckenController getDruckenController()
-    {
-        return druckenController;
     }
 
     public UebersichtController getUebersichtController()

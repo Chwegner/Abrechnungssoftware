@@ -10,7 +10,6 @@
         <VBox id="mainPane" fx:id="mainPane" stylesheets="@css/MainStyle.css" VBox.vgrow="ALWAYS">
             <children>
                 <fx:include fx:id="uebersicht" source="fxml/Uebersicht.fxml" />
-                <fx:include fx:id="drucken" source="fxml/Drucken.fxml" />
                 <fx:include fx:id="auftragErstellen" source="fxml/AuftragErstellen.fxml" />
                 <fx:include fx:id="kundenAnlegen" source="fxml/KundenAnlegen.fxml" />
                 <fx:include fx:id="kundenUebersicht" source="fxml/KundenUebersicht.fxml" />
