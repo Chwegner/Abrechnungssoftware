@@ -1,9 +1,9 @@
 package Abrechnungssoftware.Gui.controllers;
 
+import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.MainController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -19,14 +19,12 @@ public class StammdatenAendernController
     @FXML
     private TextField iban, bic;
     @FXML
-    private Button stammdatenButton;
-    @FXML
     private Label meldung;
 
 
     private MainController mainController;
-
-    private Stammdaten stammdaten;
+    DB_CON db = mainController.getDb();
+    Stammdaten stammdaten = mainController.getStammdaten();
 
     public void injectMainController(MainController mainController)
     {
@@ -44,9 +42,7 @@ public class StammdatenAendernController
 
         try
         {
-            mainController.getDb().LoadStammdaten(stammdaten);
-
-            System.out.println(stammdaten.getNachname());
+            db.LoadStammdaten(stammdaten);
 
             firma.setText(stammdaten.getFirma());
             vorname.setText(stammdaten.getVorname());
@@ -65,6 +61,7 @@ public class StammdatenAendernController
 
         } catch (Exception e)
         {
+            e.printStackTrace();
             meldung.setText("Fehler beim Lesen!");
         }
     }
@@ -73,6 +70,9 @@ public class StammdatenAendernController
     {
         try
         {
+
+            db.LoadStammdaten(stammdaten);
+
             stammdaten.setFirma(firma.getText());
             stammdaten.setVorname(vorname.getText());
             stammdaten.setNachname(nachname.getText());
@@ -94,6 +94,7 @@ public class StammdatenAendernController
             meldung.setTextFill(Color.GREEN);
         } catch (Exception e)
         {
+            e.printStackTrace();
             meldung.setText("Fehler beim Speichern!");
         }
     }

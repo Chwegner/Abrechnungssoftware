@@ -84,7 +84,7 @@ public class DB_CON {
                 stamm.setFirma(resultSet.getString("firma"));
                 stamm.setVorname(resultSet.getString("vorname"));
                 stamm.setNachname(resultSet.getString("nachname"));
-                stamm.setStr(resultSet.getString("str"));
+                stamm.setStr(resultSet.getString("strasse"));
                 stamm.setHsnr(resultSet.getString("hsnr"));
                 stamm.setPlz(resultSet.getString("plz"));
                 stamm.setOrt(resultSet.getString("ort"));
@@ -114,7 +114,7 @@ public class DB_CON {
                     "firma = '"+daten.getFirma()+"'," +
                     "vorname = '"+daten.getVorname()+"'," +
                     "nachname = '"+daten.getNachname()+"'," +
-                    "str = '"+daten.getStr()+"'" +
+                    "strasse = '"+daten.getStr()+"'" +
                     "hsnr = '"+daten.getHsnr()+"'" +
                     "plz = '"+daten.getPlz()+"'" +
                     "ort = '"+daten.getOrt()+"'" +
