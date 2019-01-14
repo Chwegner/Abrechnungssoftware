@@ -1,6 +1,10 @@
 package Abrechnungssoftware.DB;
 
 
+import Abrechnungssoftware.Verarbeitung.Kunde;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -29,7 +34,7 @@ public class DB_CON {
     protected ArrayList kundenliste;
     protected ArrayList auftragliste;
     protected ArrayList rechnungliste;
-    //public ObservableList<Kunden> observableList = FXCollections.observableList(list);
+    protected ObservableList data;
 
 
     public DB_CON(){
@@ -134,22 +139,25 @@ public class DB_CON {
         }
     }
 
-    public ArrayList LoadKundenList() {
+    public ObservableList LoadKundenList() {
         try {
             statement = connection.createStatement();
             String sqlQuery = "";
 
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-
+                ObservableList row = FXCollections.observableArrayList();
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    row.add(resultSet.getString(i));
+                }
+                data.add(row);
             }
             statement.close();
 
         } catch (Exception e){
 
         }
-
-        return kundenliste;
+        return data;
     }
 
     public void EditKunde(int ID) {
