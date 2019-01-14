@@ -4,6 +4,8 @@ package Abrechnungssoftware.DB;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,10 +33,10 @@ public class DB_CON {
     protected String pass;
     protected Reader reader = null;
     protected Stammdaten stamm;
-    protected ArrayList kundenliste;
+    protected ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
     protected ArrayList auftragliste;
     protected ArrayList rechnungliste;
-    protected ObservableList data;
+
 
 
     public DB_CON(){
@@ -139,25 +141,42 @@ public class DB_CON {
         }
     }
 
-    public ObservableList LoadKundenList() {
+    public ArrayList LoadKundenList() {
         try {
             statement = connection.createStatement();
             String sqlQuery = "";
 
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-                ObservableList row = FXCollections.observableArrayList();
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    row.add(resultSet.getString(i));
-                }
-                data.add(row);
+//                firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, email,
+//                        apName, apVorname, apTelefon, apEmail;
+//                double
+//                        stundenSatz ;
+                Kunde kunde = new Kunde();
+                kunde.setId(resultSet.getInt("id"));
+                kunde.setFirma(resultSet.getString("firma"));
+                kunde.setStrasse(resultSet.getString("strasse"));
+                kunde.setHausnummer(resultSet.getString("hsnr"));
+                kunde.setPlz(resultSet.getString("plz"));
+                kunde.setOrt(resultSet.getString("ort"));
+                kunde.setTelefon(resultSet.getString("telefon"));
+                kunde.setFax(resultSet.getString("telefax"));
+                kunde.setWeb(resultSet.getString("web"));
+                kunde.setEmail(resultSet.getString("email"));
+                kunde.setAnrede(resultSet.getString("anrede"));
+                kunde.setApVorname(resultSet.getString("ap_vorname"));
+                kunde.setApName(resultSet.getString("ap_name"));
+                kunde.setApTelefon(resultSet.getString("ap_telefon"));
+                kunde.setApEmail(resultSet.getString("ap_email"));
+                kunde.setStundenSatz(resultSet.getDouble("stdsatz"));
+                kundenliste.add(kunde);
             }
             statement.close();
 
         } catch (Exception e){
 
         }
-        return data;
+        return kundenliste;
     }
 
     public void EditKunde(int ID) {
