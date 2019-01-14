@@ -1,8 +1,6 @@
 package Abrechnungssoftware.Gui.controllers;
 
 import Abrechnungssoftware.Gui.MainController;
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
 
 public class MenuBarController
 {
@@ -26,18 +24,12 @@ public class MenuBarController
         System.exit(0);
     }
 
-
-    public void DruckFensterAufrufen()
-    {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getDruckenController().getDrucken());
-
-    }
-
     public void UebersichtFensterAufrufen()
     {
         mainController.getMainPane().getChildren().clear();
+        mainController.getUebersichtController().KundenListeEinfuegen();
         mainController.getMainPane().getChildren().add(mainController.getUebersichtController().getUebersicht());
+
 
     }
 
