@@ -8,124 +8,185 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 public class Auftrag {
-	String bezeichnung, von, bis;
-	int arbeitstage, korrekturtage;
-	Kunde kunde;
+    String bezeichnung, von, bis;
+    int arbeitstage, korrekturtage;
+    Kunde kunde;
 //	Stammdaten stammdaten;
 
-	// Methoden
-	// getter / setter
+    // Methoden
+    // getter / setter
 
-	// generieren von Auftraegen
-	public void auftragErstellen() {
-		//TODO
+    // generieren von Auftraegen
+    public void auftragErstellen() {
+        //TODO
 
-	}
+    }
 
-	public int getArbeitstage(String von, String bis) {
+    public int getArbeitstage(String von, String bis) {
 
-		// Lokale Variable zur Ausgabe der Arbeitstage
-		int arbeitstage = 0;
-		Date anfang = null;
-		Date ende = null;
+        // Lokale Variable zur Ausgabe der Arbeitstage
+        int arbeitstage = 0;
+        Date anfang = null;
+        Date ende = null;
 
-		// Datumsformat festlegen
-		SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        // Datumsformat festlegen
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
-		// Eingaben parsen
-		try {
-			anfang = df.parse(von);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        // Eingaben parsen
+        try {
+            anfang = df.parse(von);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		try {
-			ende = df.parse(bis);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            ende = df.parse(bis);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		// Calender-Objekt erstellen
-		Calendar calAnfang = new GregorianCalendar();
-		calAnfang.setTimeZone(TimeZone.getTimeZone("CET"));
-		calAnfang.setFirstDayOfWeek(1);
-		calAnfang.setTime(anfang);
+        // Calender-Objekt erstellen
+        Calendar calAnfang = new GregorianCalendar();
+        calAnfang.setTimeZone(TimeZone.getTimeZone("CET"));
+        calAnfang.setFirstDayOfWeek(1);
+        calAnfang.setTime(anfang);
 
-		Calendar calEnde = new GregorianCalendar();
-		calEnde.setTimeZone(TimeZone.getTimeZone("CET"));
-		calEnde.setTime(ende);
+        Calendar calEnde = new GregorianCalendar();
+        calEnde.setTimeZone(TimeZone.getTimeZone("CET"));
+        calEnde.setTime(ende);
 
-		// Berechnung der Arbeitstage
-		if (calEnde.getTimeInMillis() <= calAnfang.getTimeInMillis()) {
-			throw new IllegalArgumentException();
-		} else {
-			while (calEnde.getTimeInMillis() >= calAnfang.getTimeInMillis()) {
-				int dow = calAnfang.get(Calendar.DAY_OF_WEEK);
-				if ((dow != 7) && (dow != 6)) {
-					arbeitstage = arbeitstage + 1;
-				}
-				calAnfang.add(Calendar.DAY_OF_WEEK, 1);
-			}
-		}
+        // Berechnung der Arbeitstage
+        if (calEnde.getTimeInMillis() <= calAnfang.getTimeInMillis()) {
+            throw new IllegalArgumentException();
+        } else {
+            while (calEnde.getTimeInMillis() >= calAnfang.getTimeInMillis()) {
+                int dow = calAnfang.get(Calendar.DAY_OF_WEEK);
+                if ((dow != 7) && (dow != 6)) {
+                    arbeitstage = arbeitstage + 1;
+                }
+                calAnfang.add(Calendar.DAY_OF_WEEK, 1);
+            }
+        }
 
-		return arbeitstage;
-	}
+        return arbeitstage;
+    }
 
-	public String[][] getAbrechnungsIntervall(String von2, String bis2){
-		String[][] intervall = null;
-		Date anfangInt = null;
-		Date endeInt = null;
-		// Eingaben parsen
-		try {
-			anfangInt = df.parse(von2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public String[][] getAbrechnungsIntervall(String von2, String bis2) {
+        String[][] intervall = null;
+        String intervallStart, intervallEnde;
+        Date anfangInt = null;
+        Date endeInt = null;
+        String dStr, mStr, deStr, meStr;
 
-		try {
-			endeInt = df.parse(bis2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        // Datumsformat festlegen
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
-		// Calender-Objekt erstellen
-		Calendar calAnfangInt = new GregorianCalendar();
-		calAnfangInt.setTimeZone(TimeZone.getTimeZone("CET"));
-		calAnfangInt.setFirstDayOfWeek(1);
-		calAnfangInt.setTime(anfangInt);
+        // Eingaben parsen
+        try {
+            anfangInt = df.parse(von2);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		Calendar calEndeInt = new GregorianCalendar();
-		calEndeInt.setTimeZone(TimeZone.getTimeZone("CET"));
-		calEndeInt.setTime(endeInt);
+        try {
+            endeInt = df.parse(bis2);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		// Berechnung der Intervalle
-		if (calEndeInt.getTimeInMillis() <= calAnfangInt.getTimeInMillis()) {
-			throw new IllegalArgumentException();
-		} else {
-			//Laufvariable
-			int i = 0;
-			while (calEndeInt.getTimeInMillis() >= calAnfangInt.getTimeInMillis()) {
-				//Startdatum des Intervalls
-				int d = calAnfangInt.get(Calendar.DAY_OF_MONTH);
-				int m = calAnfangInt.get(Calendar.MONTH);
-				int y = calAnfangInt.get(Calendar.YEAR);
-				String intervallStart = d+"."+m+"."+y;
-				//Enddatum des Intervalls
-				calAnfangInt.add(Calendar.MONTH,1);
-				calAnfangInt.add(Calendar.DAY_OF_MONTH, -1);
-				if (calAnfangInt.getTimeInMillis() < calEndeInt.getTimeInMillis()) {
-					int de = calAnfangInt.get(Calendar.DAY_OF_MONTH);
-					int me = calAnfangInt.get(Calendar.MONTH);
-					int ye = calAnfangInt.get(Calendar.YEAR);
+        // Calender-Objekt erstellen
+        Calendar calAnfangInt = new GregorianCalendar();
+        calAnfangInt.setTimeZone(TimeZone.getTimeZone("CET"));
+        calAnfangInt.setFirstDayOfWeek(1);
+        calAnfangInt.setTime(anfangInt);
 
-				}
-				calAnfang.add(Calendar.DAY_OF_WEEK, 1);
-			}
+        Calendar calEndeInt = new GregorianCalendar();
+        calEndeInt.setTimeZone(TimeZone.getTimeZone("CET"));
+        calEndeInt.setTime(endeInt);
 
-			return intervall;
-		}
-	}
+        // Berechnung der Intervalle
+        if (calEndeInt.getTimeInMillis() <= calAnfangInt.getTimeInMillis()) {
+            throw new IllegalArgumentException();
+        } else {
+            //Laufvariable
+            int i = 0;
+            while (calEndeInt.getTimeInMillis() >= calAnfangInt.getTimeInMillis()) {
+                //Startdatum des Intervalls
+                int d = calAnfangInt.get(Calendar.DAY_OF_MONTH);
+                int m = calAnfangInt.get(Calendar.MONTH);
+                int y = calAnfangInt.get(Calendar.YEAR);
+                //Formatierung fuer d aendern
+
+                if (d < 10) {
+                    dStr = "0" + d;
+                } else {
+                    dStr = Integer.toString(d);
+                }
+                //Formatierung fuer m aendern
+                if (m < 10) {
+                    mStr = "0" + m;
+                } else {
+                    mStr = Integer.toString(m);
+                }
+
+                intervallStart = dStr + "." + mStr + "." + y;
+
+                //Enddatum des Intervalls
+                calAnfangInt.add(Calendar.MONTH, 1);
+                calAnfangInt.add(Calendar.DAY_OF_MONTH, -1);
+                //Der gesamte Zeiraum ist laenger als 1 Monat
+                if (calAnfangInt.getTimeInMillis() < calEndeInt.getTimeInMillis()) {
+                    int de = calAnfangInt.get(Calendar.DAY_OF_MONTH);
+                    int me = calAnfangInt.get(Calendar.MONTH);
+                    int ye = calAnfangInt.get(Calendar.YEAR);
+                    //Formatierung fuer d aendern
+                    if (de < 10) {
+                        deStr = "0" + Integer.toString(de);
+                    } else {
+                        deStr = Integer.toString(de);
+                    }
+                    //Formatierung fuer m aendern
+                    if (me < 10) {
+                        meStr = "0" + Integer.toString(me);
+                    } else {
+                        meStr = Integer.toString(me);
+                    }
+
+                    intervallEnde = deStr + "." + meStr + "." + y;
+
+                } else {
+                    //Der geamte Zeitraum ist nicht laenger als 1 Monat
+                    int de = calEndeInt.get(Calendar.DAY_OF_MONTH);
+                    int me = calEndeInt.get(Calendar.MONTH);
+                    int ye = calEndeInt.get(Calendar.YEAR);
+                    //Formatierung fuer d aendern
+                    if (de < 10) {
+                        deStr = "0" + Integer.toString(de);
+                    } else {
+                        deStr = Integer.toString(de);
+                    }
+                    //Formatierung fuer m aendern
+                    if (me < 10) {
+                        meStr = "0" + Integer.toString(me);
+                    } else {
+                        meStr = Integer.toString(me);
+                    }
+
+                    intervallEnde = deStr + "." + meStr + "." + y;
+                }
+                //Anfangsdatum und Enddatum in array schreiben
+                intervall[i][i] = intervallStart;
+                intervall[i][i + 1] = intervallEnde;
+                //Laufvariable hochzaehlen
+                i++;
+                //Monat hochsetzen
+                calAnfangInt.add(Calendar.MONTH, 1);
+            }
+            return intervall;
+        }
+    }
+}
