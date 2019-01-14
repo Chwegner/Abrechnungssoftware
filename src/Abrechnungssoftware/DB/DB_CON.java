@@ -110,22 +110,22 @@ public class DB_CON {
     public void SaveStammdaten(Stammdaten daten) {
         try {
             statement = connection.createStatement();
-            String sqlQuery = "UPDATE stammdaten SET" +
+            String sqlQuery = "UPDATE stammdaten SET " +
                     "firma = '"+daten.getFirma()+"'," +
                     "vorname = '"+daten.getVorname()+"'," +
                     "nachname = '"+daten.getNachname()+"'," +
-                    "strasse = '"+daten.getStr()+"'" +
-                    "hsnr = '"+daten.getHsnr()+"'" +
-                    "plz = '"+daten.getPlz()+"'" +
-                    "ort = '"+daten.getOrt()+"'" +
-                    "telefon = '"+daten.getTelefon()+"'" +
-                    "telefax = '"+daten.getTelefax()+"'" +
-                    "web = '"+daten.getWeb()+"'" +
-                    "email = '"+daten.getEmail()+"'" +
-                    "bankname = '"+daten.getBankname()+"'" +
-                    "kontoinhaber = '" + daten.getKontoinhaber() +"'" +
-                    "bic = '"+daten.getBic()+"'" +
-                    "iban = '"+daten.getIban()+"'" +
+                    "strasse = '"+daten.getStr()+"'," +
+                    "hsnr = '"+daten.getHsnr()+"'," +
+                    "plz = '"+daten.getPlz()+"'," +
+                    "ort = '"+daten.getOrt()+"'," +
+                    "telefon = '"+daten.getTelefon()+"'," +
+                    "telefax = '"+daten.getTelefax()+"'," +
+                    "web = '"+daten.getWeb()+"'," +
+                    "email = '"+daten.getEmail()+"'," +
+                    "bankname = '"+daten.getBankname()+"'," +
+                    "kontoinhaber = '" + daten.getKontoinhaber() +"'," +
+                    "bic = '"+daten.getBic()+"'," +
+                    "iban = '"+daten.getIban()+"'," +
                     "steuernummer = '"+daten.getSteuernummer()+"' where id = '1'";
             statement.executeUpdate(sqlQuery);
             statement.close();
