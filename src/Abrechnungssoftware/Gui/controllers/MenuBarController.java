@@ -26,14 +26,6 @@ public class MenuBarController
         System.exit(0);
     }
 
-
-    public void DruckFensterAufrufen()
-    {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getDruckenController().getDrucken());
-
-    }
-
     public void UebersichtFensterAufrufen()
     {
         mainController.getMainPane().getChildren().clear();
