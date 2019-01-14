@@ -29,9 +29,10 @@ public class DB_CON {
     protected ArrayList kundenliste;
     protected ArrayList auftragliste;
     protected ArrayList rechnungliste;
+    //public ObservableList<Kunden> observableList = FXCollections.observableList(list);
 
 
-    public DB_CON(Stammdaten stamm){
+    public DB_CON(){
         this.stamm = stamm;
         try {
             reader = new FileReader("system.ini");
@@ -73,7 +74,7 @@ public class DB_CON {
         }
     }
 
-    public Stammdaten LoadStammdaten() {
+    public Stammdaten LoadStammdaten(Stammdaten stamm) {
         try {
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM stammdaten WHERE id = '1'";
@@ -113,8 +114,19 @@ public class DB_CON {
                     "firma = '"+daten.getFirma()+"'," +
                     "vorname = '"+daten.getVorname()+"'," +
                     "nachname = '"+daten.getNachname()+"'," +
-                    "str = '"+daten.getStr()+"'";
-            // TODO : weiter auffüllen
+                    "str = '"+daten.getStr()+"'" +
+                    "hsnr = '"+daten.getHsnr()+"'" +
+                    "plz = '"+daten.getPlz()+"'" +
+                    "ort = '"+daten.getOrt()+"'" +
+                    "telefon = '"+daten.getTelefon()+"'" +
+                    "telefax = '"+daten.getTelefax()+"'" +
+                    "web = '"+daten.getWeb()+"'" +
+                    "email = '"+daten.getEmail()+"'" +
+                    "bankname = '"+daten.getBankname()+"'" +
+                    "kontoinhaber = '" + daten.getKontoinhaber() +"'" +
+                    "bic = '"+daten.getBic()+"'" +
+                    "iban = '"+daten.getIban()+"'" +
+                    "steuernummer = '"+daten.getSteuernummer()+"' where id = '1'";
             statement.executeUpdate(sqlQuery);
             statement.close();
         } catch (Exception e) {
@@ -123,6 +135,19 @@ public class DB_CON {
     }
 
     public ArrayList LoadKundenList() {
+        try {
+            statement = connection.createStatement();
+            String sqlQuery = "";
+
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+
+            }
+            statement.close();
+
+        } catch (Exception e){
+
+        }
 
         return kundenliste;
     }
