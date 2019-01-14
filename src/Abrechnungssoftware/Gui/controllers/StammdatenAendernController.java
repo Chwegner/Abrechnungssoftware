@@ -1,5 +1,6 @@
 package Abrechnungssoftware.Gui.controllers;
 
+import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.MainController;
 import javafx.fxml.FXML;
@@ -26,8 +27,6 @@ public class StammdatenAendernController
 
     private MainController mainController;
 
-    private Stammdaten stammdaten;
-
     public void injectMainController(MainController mainController)
     {
         this.mainController = mainController;
@@ -44,7 +43,9 @@ public class StammdatenAendernController
 
         try
         {
-            mainController.getDb().LoadStammdaten(stammdaten);
+            DB_CON db = mainController.getDb();
+            Stammdaten stammdaten = mainController.getStammdaten();
+            db.LoadStammdaten(stammdaten);
 
             System.out.println(stammdaten.getNachname());
 
@@ -65,6 +66,7 @@ public class StammdatenAendernController
 
         } catch (Exception e)
         {
+            e.printStackTrace();
             meldung.setText("Fehler beim Lesen!");
         }
     }
@@ -73,6 +75,10 @@ public class StammdatenAendernController
     {
         try
         {
+            DB_CON db = mainController.getDb();
+            Stammdaten stammdaten = mainController.getStammdaten();
+            db.LoadStammdaten(stammdaten);
+
             stammdaten.setFirma(firma.getText());
             stammdaten.setVorname(vorname.getText());
             stammdaten.setNachname(nachname.getText());
