@@ -2,6 +2,7 @@ package Abrechnungssoftware.Gui;
 
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.controllers.*;
+import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ public class MainController extends Application
     private VBox mainPane;
     DB_CON db = new DB_CON();
     Stammdaten stammdaten = new Stammdaten();
+    Kunde kunde = new Kunde();
 
     /// Controllerklassen verbinden ///
 
@@ -25,8 +27,6 @@ public class MainController extends Application
     private MenuBarController menuBarController;
     @FXML
     private UebersichtController uebersichtController;
-    @FXML
-    private DruckenController druckenController;
     @FXML
     private RechnungErstellenController rechnungErstellenController;
     @FXML
@@ -43,10 +43,9 @@ public class MainController extends Application
     private void initialize()
     {
         db.db_open();
-        
+
         menuBarController.injectMainController(this);
         uebersichtController.injectMainController(this);
-        druckenController.injectMainController(this);
         rechnungErstellenController.injectMainController(this);
         auftragErstellenController.injectMainController(this);
         kundenAnlegenController.injectMainController(this);
@@ -61,11 +60,6 @@ public class MainController extends Application
     public VBox getMainPane()
     {
         return mainPane;
-    }
-
-    public DruckenController getDruckenController()
-    {
-        return druckenController;
     }
 
     public UebersichtController getUebersichtController()
@@ -112,6 +106,12 @@ public class MainController extends Application
     {
         return stammdaten;
     }
+
+    public Kunde getKunde()
+    {
+        return kunde;
+    }
+
     /// App starten ///
 
     @Override

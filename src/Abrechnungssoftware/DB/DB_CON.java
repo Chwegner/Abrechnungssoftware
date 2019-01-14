@@ -1,6 +1,12 @@
 package Abrechnungssoftware.DB;
 
 
+import Abrechnungssoftware.Verarbeitung.Kunde;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -26,10 +33,10 @@ public class DB_CON {
     protected String pass;
     protected Reader reader = null;
     protected Stammdaten stamm;
-    protected ArrayList kundenliste;
+    protected ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
     protected ArrayList auftragliste;
     protected ArrayList rechnungliste;
-    //public ObservableList<Kunden> observableList = FXCollections.observableList(list);
+
 
 
     public DB_CON(){
@@ -110,22 +117,22 @@ public class DB_CON {
     public void SaveStammdaten(Stammdaten daten) {
         try {
             statement = connection.createStatement();
-            String sqlQuery = "UPDATE stammdaten SET" +
+            String sqlQuery = "UPDATE stammdaten SET " +
                     "firma = '"+daten.getFirma()+"'," +
                     "vorname = '"+daten.getVorname()+"'," +
                     "nachname = '"+daten.getNachname()+"'," +
-                    "strasse = '"+daten.getStr()+"'" +
-                    "hsnr = '"+daten.getHsnr()+"'" +
-                    "plz = '"+daten.getPlz()+"'" +
-                    "ort = '"+daten.getOrt()+"'" +
-                    "telefon = '"+daten.getTelefon()+"'" +
-                    "telefax = '"+daten.getTelefax()+"'" +
-                    "web = '"+daten.getWeb()+"'" +
-                    "email = '"+daten.getEmail()+"'" +
-                    "bankname = '"+daten.getBankname()+"'" +
-                    "kontoinhaber = '" + daten.getKontoinhaber() +"'" +
-                    "bic = '"+daten.getBic()+"'" +
-                    "iban = '"+daten.getIban()+"'" +
+                    "strasse = '"+daten.getStr()+"'," +
+                    "hsnr = '"+daten.getHsnr()+"'," +
+                    "plz = '"+daten.getPlz()+"'," +
+                    "ort = '"+daten.getOrt()+"'," +
+                    "telefon = '"+daten.getTelefon()+"'," +
+                    "telefax = '"+daten.getTelefax()+"'," +
+                    "web = '"+daten.getWeb()+"'," +
+                    "email = '"+daten.getEmail()+"'," +
+                    "bankname = '"+daten.getBankname()+"'," +
+                    "kontoinhaber = '" + daten.getKontoinhaber() +"'," +
+                    "bic = '"+daten.getBic()+"'," +
+                    "iban = '"+daten.getIban()+"'," +
                     "steuernummer = '"+daten.getSteuernummer()+"' where id = '1'";
             statement.executeUpdate(sqlQuery);
             statement.close();
@@ -141,14 +148,34 @@ public class DB_CON {
 
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-
+//                firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, email,
+//                        apName, apVorname, apTelefon, apEmail;
+//                double
+//                        stundenSatz ;
+                Kunde kunde = new Kunde();
+                kunde.setId(resultSet.getInt("id"));
+                kunde.setFirma(resultSet.getString("firma"));
+                kunde.setStrasse(resultSet.getString("strasse"));
+                kunde.setHausnummer(resultSet.getString("hsnr"));
+                kunde.setPlz(resultSet.getString("plz"));
+                kunde.setOrt(resultSet.getString("ort"));
+                kunde.setTelefon(resultSet.getString("telefon"));
+                kunde.setFax(resultSet.getString("telefax"));
+                kunde.setWeb(resultSet.getString("web"));
+                kunde.setEmail(resultSet.getString("email"));
+                kunde.setAnrede(resultSet.getString("anrede"));
+                kunde.setApVorname(resultSet.getString("ap_vorname"));
+                kunde.setApName(resultSet.getString("ap_name"));
+                kunde.setApTelefon(resultSet.getString("ap_telefon"));
+                kunde.setApEmail(resultSet.getString("ap_email"));
+                kunde.setStundenSatz(resultSet.getDouble("stdsatz"));
+                kundenliste.add(kunde);
             }
             statement.close();
 
         } catch (Exception e){
 
         }
-
         return kundenliste;
     }
 

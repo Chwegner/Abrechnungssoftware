@@ -1,12 +1,19 @@
 package Abrechnungssoftware.Verarbeitung;
 
 public class Kunde {
+	int id;
 	String
-	firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, email,
-	apName, apVorname, apTelefon, apEmail;
+	firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, web, email,
+	anrede, apName, apVorname, apTelefon, apEmail;
 	double
 	stundenSatz ;
-	
+
+	public void setId(int id){
+		this.id = id;
+	}
+	public int getId(){
+		return id;
+	}
 	public String getFirma() {
 		return firma;
 	}
@@ -43,6 +50,7 @@ public class Kunde {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
+
 	public String getPlz() {
 		return plz;
 	}
@@ -61,6 +69,12 @@ public class Kunde {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
+	public void setWeb(String web){
+		this.web = web;
+	}
+	public String getWeb(){
+		return web;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -69,6 +83,12 @@ public class Kunde {
 	}
 	public String getApName() {
 		return apName;
+	}
+	public void setAnrede(String anrede){
+		this.anrede = anrede;
+	}
+	public String getAnrede(){
+		return anrede;
 	}
 	public void setApName(String apName) {
 		this.apName = apName;

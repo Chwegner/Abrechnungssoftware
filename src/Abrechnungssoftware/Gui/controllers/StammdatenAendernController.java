@@ -23,8 +23,6 @@ public class StammdatenAendernController
 
 
     private MainController mainController;
-    DB_CON db = mainController.getDb();
-    Stammdaten stammdaten = mainController.getStammdaten();
 
     public void injectMainController(MainController mainController)
     {
@@ -42,6 +40,8 @@ public class StammdatenAendernController
 
         try
         {
+            DB_CON db = mainController.getDb();
+            Stammdaten stammdaten = mainController.getStammdaten();
             db.LoadStammdaten(stammdaten);
 
             firma.setText(stammdaten.getFirma());
@@ -70,7 +70,8 @@ public class StammdatenAendernController
     {
         try
         {
-
+            DB_CON db = mainController.getDb();
+            Stammdaten stammdaten = mainController.getStammdaten();
             db.LoadStammdaten(stammdaten);
 
             stammdaten.setFirma(firma.getText());

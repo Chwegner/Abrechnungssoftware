@@ -1,6 +1,6 @@
 # Abrechnungssoftware
 
-<h3><u>Projektbeschreibung:</u></h3>
+<h3>Projektbeschreibung:</h3>
 
 **Aufgabe:** 
 <br>
@@ -50,7 +50,7 @@ ausgerichtet entwickelt wird.
 </ul>
 <br>
 <hr>
-<h3><u>Projektumsetzung:</u></h3>
+<h3>Projektumsetzung:</h3>
 
 **Technik:**
 <br>
@@ -62,7 +62,7 @@ ausgerichtet entwickelt wird.
 
 <hr>
 
-<h3><u>Team:</u></h3>
+<h3>Team:</h3>
  <a href="https://github.com/andre-bogdan">Andre Bogdan</a>
  <br>
  <a href="https://github.com/OstSan">Manuel Osterholzer</a>
