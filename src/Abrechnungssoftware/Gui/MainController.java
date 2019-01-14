@@ -2,6 +2,7 @@ package Abrechnungssoftware.Gui;
 
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.controllers.*;
+import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ public class MainController extends Application
     private VBox mainPane;
     DB_CON db = new DB_CON();
     Stammdaten stammdaten = new Stammdaten();
+    Kunde kunde = new Kunde();
 
     /// Controllerklassen verbinden ///
 
@@ -104,6 +106,12 @@ public class MainController extends Application
     {
         return stammdaten;
     }
+
+    public Kunde getKunde()
+    {
+        return kunde;
+    }
+
     /// App starten ///
 
     @Override
