@@ -8,11 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import Abrechnungssoftware.DB.DB_CON;
 
 public class MainController extends Application
+
 {
     @FXML
     private VBox mainPane;
+    DB_CON db = new DB_CON();
 
     /// Controllerklassen verbinden ///
 
@@ -25,13 +28,7 @@ public class MainController extends Application
     @FXML
     private RechnungErstellenController rechnungErstellenController;
     @FXML
-    private OffeneRechnungenController offeneRechnungenController;
-    @FXML
-    private BezahlteRechnungenController bezahlteRechnungenController;
-    @FXML
     private AuftragErstellenController auftragErstellenController;
-    @FXML
-    private OffeneAuftraegeController offeneAuftraegeController;
     @FXML
     private KundenAnlegenController kundenAnlegenController;
     @FXML
@@ -43,14 +40,13 @@ public class MainController extends Application
     @FXML
     private void initialize()
     {
+        db.db_open();
+
         menuBarController.injectMainController(this);
         uebersichtController.injectMainController(this);
         druckenController.injectMainController(this);
         rechnungErstellenController.injectMainController(this);
-        offeneRechnungenController.injectMainController(this);
-        bezahlteRechnungenController.injectMainController(this);
         auftragErstellenController.injectMainController(this);
-        offeneAuftraegeController.injectMainController(this);
         kundenAnlegenController.injectMainController(this);
         kundenUebersichtController.injectMainController(this);
         stammdatenAendernController.injectMainController(this);
@@ -85,11 +81,6 @@ public class MainController extends Application
         return auftragErstellenController;
     }
 
-    public BezahlteRechnungenController getBezahlteRechnungenController()
-    {
-        return bezahlteRechnungenController;
-    }
-
     public KundenAnlegenController getKundenAnlegenController()
     {
         return kundenAnlegenController;
@@ -98,16 +89,6 @@ public class MainController extends Application
     public KundenUebersichtController getKundenUebersichtController()
     {
         return kundenUebersichtController;
-    }
-
-    public OffeneAuftraegeController getOffeneAuftraegeController()
-    {
-        return offeneAuftraegeController;
-    }
-
-    public OffeneRechnungenController getOffeneRechnungenController()
-    {
-        return offeneRechnungenController;
     }
 
     public RechnungErstellenController getRechnungErstellenController()
@@ -120,6 +101,10 @@ public class MainController extends Application
         return stammdatenAendernController;
     }
 
+    public DB_CON getDb()
+    {
+        return db;
+    }
 
     /// App starten ///
 

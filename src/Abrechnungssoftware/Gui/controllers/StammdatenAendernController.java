@@ -44,6 +44,10 @@ public class StammdatenAendernController
 
         try
         {
+            mainController.getDb().LoadStammdaten(stammdaten);
+
+            System.out.println(stammdaten.getNachname());
+
             firma.setText(stammdaten.getFirma());
             vorname.setText(stammdaten.getVorname());
             nachname.setText(stammdaten.getNachname());
@@ -83,6 +87,8 @@ public class StammdatenAendernController
             stammdaten.setBankname(bank.getText());
             stammdaten.setIban(iban.getText());
             stammdaten.setBic(bic.getText());
+
+            mainController.getDb().SaveStammdaten(stammdaten);
 
             meldung.setText("Änderungen gespeichert!");
             meldung.setTextFill(Color.GREEN);

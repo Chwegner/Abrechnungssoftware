@@ -22,14 +22,11 @@
         <Menu mnemonicParsing="false" text="Rechnung">
             <items>
                 <MenuItem fx:id="rechnungErstellenButton" mnemonicParsing="false" onAction="#RechnungErstellenAufrufen" text="Rechnung Erstelllen" />
-                <MenuItem fx:id="offeneRechnungenButton" mnemonicParsing="false" onAction="#OffeneRechnungenAufrufen" text="offene Rechnungen" />
-                <MenuItem fx:id="bezahlteRechnungenButton" mnemonicParsing="false" onAction="#BezahlteRechnungenAufrufen" text="bezahlte Rechnungen" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Auftrag">
             <items>
                 <MenuItem fx:id="auftragErstellenButton" mnemonicParsing="false" onAction="#AuftragErstellenAufrufen" text="Auftrag erstellen" />
-                <MenuItem fx:id="offeneAuftraegeButton" mnemonicParsing="false" onAction="#OffeneAuftraegeAufrufen" text="offene Aufträge" />
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Kunden">

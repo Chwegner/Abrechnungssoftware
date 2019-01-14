@@ -48,31 +48,11 @@ public class MenuBarController
 
     }
 
-    public void OffeneRechnungenAufrufen()
-    {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getOffeneRechnungenController().getOffeneRechnungen());
-
-    }
-
-    public void BezahlteRechnungenAufrufen()
-    {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getBezahlteRechnungenController().getBezahlteRechnungen());
-
-    }
 
     public void AuftragErstellenAufrufen()
     {
         mainController.getMainPane().getChildren().clear();
         mainController.getMainPane().getChildren().add(mainController.getAuftragErstellenController().getAuftragErstellen());
-
-    }
-
-    public void OffeneAuftraegeAufrufen()
-    {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getOffeneAuftraegeController().getOffeneAuftraege());
 
     }
 
