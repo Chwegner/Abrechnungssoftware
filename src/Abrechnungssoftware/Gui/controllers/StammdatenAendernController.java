@@ -4,7 +4,6 @@ import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.MainController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,12 +19,12 @@ public class StammdatenAendernController
     @FXML
     private TextField iban, bic;
     @FXML
-    private Button stammdatenButton;
-    @FXML
     private Label meldung;
 
 
     private MainController mainController;
+    DB_CON db = mainController.getDb();
+    Stammdaten stammdaten = mainController.getStammdaten();
 
     public void injectMainController(MainController mainController)
     {
@@ -43,11 +42,7 @@ public class StammdatenAendernController
 
         try
         {
-            DB_CON db = mainController.getDb();
-            Stammdaten stammdaten = mainController.getStammdaten();
             db.LoadStammdaten(stammdaten);
-
-            System.out.println(stammdaten.getNachname());
 
             firma.setText(stammdaten.getFirma());
             vorname.setText(stammdaten.getVorname());
@@ -75,8 +70,7 @@ public class StammdatenAendernController
     {
         try
         {
-            DB_CON db = mainController.getDb();
-            Stammdaten stammdaten = mainController.getStammdaten();
+
             db.LoadStammdaten(stammdaten);
 
             stammdaten.setFirma(firma.getText());
@@ -100,6 +94,7 @@ public class StammdatenAendernController
             meldung.setTextFill(Color.GREEN);
         } catch (Exception e)
         {
+            e.printStackTrace();
             meldung.setText("Fehler beim Speichern!");
         }
     }
