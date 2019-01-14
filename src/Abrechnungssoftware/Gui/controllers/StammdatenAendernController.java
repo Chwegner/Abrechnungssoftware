@@ -17,7 +17,8 @@ public class StammdatenAendernController
     @FXML
     private TextField firma, vorname, nachname, strasse, nummer, ort, plz, telefon, telefax, website, mail, bank;
     @FXML
-    private TextField iban, bic;
+    private TextField iban, bic, inhaber, steuernr;
+
     @FXML
     private Label meldung;
 
@@ -55,7 +56,9 @@ public class StammdatenAendernController
             telefax.setText(stammdaten.getTelefax());
             website.setText(stammdaten.getWeb());
             mail.setText(stammdaten.getEmail());
+            steuernr.setText(stammdaten.getSteuernummer());
             bank.setText(stammdaten.getBankname());
+            inhaber.setText(stammdaten.getKontoinhaber());
             iban.setText(stammdaten.getIban());
             bic.setText(stammdaten.getBic());
 
@@ -85,7 +88,9 @@ public class StammdatenAendernController
             stammdaten.setTelefax(telefax.getText());
             stammdaten.setWeb(website.getText());
             stammdaten.setEmail(mail.getText());
+            stammdaten.setSteuernummer(steuernr.getText());
             stammdaten.setBankname(bank.getText());
+            stammdaten.setKontoinhaber(inhaber.getText());
             stammdaten.setIban(iban.getText());
             stammdaten.setBic(bic.getText());
 
