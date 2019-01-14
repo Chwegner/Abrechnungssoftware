@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Properties;
 
 
-public class DB_CON {
+public class DB_CON
+{
 
     protected Connection connection;
     protected Statement statement;
@@ -38,10 +39,11 @@ public class DB_CON {
     protected ArrayList rechnungliste;
 
 
-
-    public DB_CON(){
+    public DB_CON()
+    {
         this.stamm = stamm;
-        try {
+        try
+        {
             reader = new FileReader("system.ini");
             Properties prop = new Properties();
             prop.load(reader);
@@ -49,44 +51,57 @@ public class DB_CON {
             this.user = prop.getProperty("USER");
             this.pass = prop.getProperty("PWD");
             this.dbName = prop.getProperty("DATENBANK");
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e)
+        {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
-        } finally {
-            try {
+        } finally
+        {
+            try
+            {
                 reader.close();
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
             }
         }
-        try {
+        try
+        {
             Class.forName("com.mysql.jdbc.Driver");
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e)
+        {
             System.out.println("Fehler bei MySQL-JDBC-Bridge" + e);
             return;
         }
 
     }
 
-    /** Datenbankverbindung Öffnen
-     *
+    /**
+     * Datenbankverbindung Öffnen
      */
-    public void db_open(){
-        try {
+    public void db_open()
+    {
+        try
+        {
             String url = "jdbc:mysql://" + host + "/" + dbName;
             connection = DriverManager.getConnection(url, user, pass);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
 
         }
     }
 
-    public Stammdaten LoadStammdaten(Stammdaten stamm) {
-        try {
+    public Stammdaten LoadStammdaten(Stammdaten stamm)
+    {
+        try
+        {
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM stammdaten WHERE id = '1'";
             resultSet = statement.executeQuery(sqlQuery);
-            while (resultSet.next()) {
+            while (resultSet.next())
+            {
                 stamm.setId(resultSet.getInt("id"));
                 stamm.setFirma(resultSet.getString("firma"));
                 stamm.setVorname(resultSet.getString("vorname"));
@@ -108,46 +123,53 @@ public class DB_CON {
             }
             statement.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             System.out.println("Fehler bei Abfrage: " + e);
         }
         return stamm;
     }
 
-    public void SaveStammdaten(Stammdaten daten) {
-        try {
+    public void SaveStammdaten(Stammdaten daten)
+    {
+        try
+        {
             statement = connection.createStatement();
             String sqlQuery = "UPDATE stammdaten SET " +
-                    "firma = '"+daten.getFirma()+"'," +
-                    "vorname = '"+daten.getVorname()+"'," +
-                    "nachname = '"+daten.getNachname()+"'," +
-                    "strasse = '"+daten.getStr()+"'," +
-                    "hsnr = '"+daten.getHsnr()+"'," +
-                    "plz = '"+daten.getPlz()+"'," +
-                    "ort = '"+daten.getOrt()+"'," +
-                    "telefon = '"+daten.getTelefon()+"'," +
-                    "telefax = '"+daten.getTelefax()+"'," +
-                    "web = '"+daten.getWeb()+"'," +
-                    "email = '"+daten.getEmail()+"'," +
-                    "bankname = '"+daten.getBankname()+"'," +
-                    "kontoinhaber = '" + daten.getKontoinhaber() +"'," +
-                    "bic = '"+daten.getBic()+"'," +
-                    "iban = '"+daten.getIban()+"'," +
-                    "steuernummer = '"+daten.getSteuernummer()+"' where id = '1'";
+                    "firma = '" + daten.getFirma() + "'," +
+                    "vorname = '" + daten.getVorname() + "'," +
+                    "nachname = '" + daten.getNachname() + "'," +
+                    "strasse = '" + daten.getStr() + "'," +
+                    "hsnr = '" + daten.getHsnr() + "'," +
+                    "plz = '" + daten.getPlz() + "'," +
+                    "ort = '" + daten.getOrt() + "'," +
+                    "telefon = '" + daten.getTelefon() + "'," +
+                    "telefax = '" + daten.getTelefax() + "'," +
+                    "web = '" + daten.getWeb() + "'," +
+                    "email = '" + daten.getEmail() + "'," +
+                    "bankname = '" + daten.getBankname() + "'," +
+                    "kontoinhaber = '" + daten.getKontoinhaber() + "'," +
+                    "bic = '" + daten.getBic() + "'," +
+                    "iban = '" + daten.getIban() + "'," +
+                    "steuernummer = '" + daten.getSteuernummer() + "' where id = '1'";
             statement.executeUpdate(sqlQuery);
             statement.close();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
 
         }
     }
 
-    public ArrayList LoadKundenList() {
-        try {
+    public ArrayList LoadKundenList()
+    {
+        try
+        {
             statement = connection.createStatement();
             String sqlQuery = "";
 
             resultSet = statement.executeQuery(sqlQuery);
-            while (resultSet.next()) {
+            while (resultSet.next())
+            {
 //                firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, email,
 //                        apName, apVorname, apTelefon, apEmail;
 //                double
@@ -173,59 +195,72 @@ public class DB_CON {
             }
             statement.close();
 
-        } catch (Exception e){
+        } catch (Exception e)
+        {
 
         }
         return kundenliste;
     }
 
-    public void EditKunde(int ID) {
+    public void EditKunde(int ID)
+    {
 
     }
 
-    public void NewKunde() {
+    public void NewKunde()
+    {
 
     }
 
-    public void DeleteKunde(int ID) {
+    public void DeleteKunde(int ID)
+    {
 
     }
 
-    public void LoadKunde(int ID) {
+    public void LoadKunde(int ID)
+    {
 
     }
 
-    public void NewAuftrag(int KD_ID,String von,String bis,String grund) {
+    public void NewAuftrag(int KD_ID, String von, String bis, String grund)
+    {
 
     }
 
-    public ArrayList LoadAuftragList() {
+    public ArrayList LoadAuftragList()
+    {
 
         return auftragliste;
     }
 
-    public void LoadAuftrag(int ID) {
+    public void LoadAuftrag(int ID)
+    {
 
     }
 
-    public void DeleteAuftrag(int ID) {
+    public void DeleteAuftrag(int ID)
+    {
 
     }
 
-    public void EditAuftrag(int ID) {
+    public void EditAuftrag(int ID)
+    {
 
     }
 
-    public ArrayList LoadRechnungList() {
+    public ArrayList LoadRechnungList()
+    {
 
         return rechnungliste;
     }
 
-    public void LoadRechnung(int ID) {
+    public void LoadRechnung(int ID)
+    {
 
     }
 
-    public void NewRechnung() {
+    public void NewRechnung()
+    {
 
     }
 }
