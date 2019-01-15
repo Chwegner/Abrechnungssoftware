@@ -184,7 +184,7 @@ public class DB_CON {
                     "firma = '"+kunde.getFirma()+"'," +
                     "strasse = '"+kunde.getStrasse()+"'," +
                     "hsnr = '"+kunde.getHausnummer()+"'," +
-                    "plz = '"+kunde.getHausnummer()+"'," +
+                    "plz = '"+kunde.getPlz()+"'," +
                     "ort = '"+kunde.getOrt()+"'," +
                     "telefon = '"+kunde.getTelefon()+"'," +
                     "telefax = '"+kunde.getFax()+"'," +
@@ -222,7 +222,7 @@ public class DB_CON {
             statement.executeUpdate(sqlQuery);
             statement.close();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 
@@ -339,7 +339,7 @@ public class DB_CON {
                 "  MODIFY `id` tinyint(1) NOT NULL AUTO_INCREMENT";
         String query5 = "CREATE TABLE IF NOT EXISTS `kunden` (" +
                 "  `id` int(11) NOT NULL," +
-                "  `firma` int(11) NOT NULL," +
+                "  `firma` varchar(100) NOT NULL," +
                 "  `strasse` varchar(50) NOT NULL," +
                 "  `hsnr` varchar(20) NOT NULL," +
                 "  `plz` varchar(20) NOT NULL," +
@@ -359,6 +359,27 @@ public class DB_CON {
                 "  ADD PRIMARY KEY (`id`)";
         String query7 = "ALTER TABLE `kunden`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
+        String query8 = "CREATE TABLE `auftrag` (" +
+                "  `id` int(11) NOT NULL," +
+                "  `kunden_id` int(11) NOT NULL," +
+                "  `von` varchar(20) NOT NULL," +
+                "  `bis` varchar(20) NOT NULL," +
+                "  `grund` varchar(250) NOT NULL" +
+                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
+        String query9 = "ALTER TABLE `auftrag`" +
+                "  ADD PRIMARY KEY (`id`);";
+        String query10 = "ALTER TABLE `rechnung`" +
+                "  ADD PRIMARY KEY (`id`);";
+        String query11 = "CREATE TABLE `rechnung` (" +
+                "  `id` int(11) NOT NULL," +
+                "  `auftrag_id` int(11) NOT NULL," +
+                "  `re_nr` varchar(10) NOT NULL," +
+                "  `bezahlt` enum('ja','nein') NOT NULL DEFAULT 'nein'" +
+                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
+        String query12 = "ALTER TABLE `auftrag`" +
+                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
+        String query13 = "ALTER TABLE `rechnung`" +
+                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
 
         try{
             connection.setAutoCommit(false);
@@ -371,6 +392,12 @@ public class DB_CON {
             statement.addBatch(query5);
             statement.addBatch(query6);
             statement.addBatch(query7);
+            statement.addBatch(query8);
+            statement.addBatch(query9);
+            statement.addBatch(query10);
+            statement.addBatch(query11);
+            statement.addBatch(query12);
+            statement.addBatch(query13);
             statement.executeBatch();
             connection.commit();
             statement.close();
