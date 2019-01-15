@@ -1,10 +1,10 @@
 package Abrechnungssoftware.DB;
 
 
+import Abrechnungssoftware.Verarbeitung.Auftrag;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 
 import java.io.FileNotFoundException;
@@ -17,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 
@@ -34,8 +33,9 @@ public class DB_CON {
     protected Reader reader = null;
     protected Stammdaten stamm;
     protected Kunde kunde;
+    protected Auftrag auftrag;
     protected ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
-    protected ArrayList auftragliste;
+    protected ArrayList<Auftrag> auftragliste = new ArrayList<Auftrag>();
     protected ArrayList rechnungliste;
 
 
@@ -143,7 +143,7 @@ public class DB_CON {
         }
     }
 
-    public ArrayList LoadKundenList() {
+    public ArrayList<Kunde> LoadKundenList() {
         try {
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM kunden";
@@ -270,23 +270,65 @@ public class DB_CON {
     }
 
     public void NewAuftrag(int KD_ID,String von,String bis,String grund) {
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "INSERT INTO auftrag () VALUES ()";
+        }catch (Exception e){
 
+        }
     }
 
     public ArrayList LoadAuftragList() {
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "SELECT * FROM auftrag";
+
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+                Auftrag auftrag = new Auftrag();
+
+                auftragliste.add(auftrag);
+            }
+            statement.close();
+
+
+        }catch (Exception e){
+
+        }
 
         return auftragliste;
     }
 
-    public void LoadAuftrag(int ID) {
+    public Auftrag LoadAuftrag(int ID) {
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "SELECT * FROM auftrag WHERE id = '"+ID+"'";
 
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+
+            }
+
+            statement.close();
+        }catch (Exception e){
+
+        }
+        return auftrag;
     }
 
     public void DeleteAuftrag(int ID) {
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "DELETE FROM auftrag WHERE id = '"+ID+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
 
+        }catch (Exception e){
+
+        }
     }
 
-    public void EditAuftrag(int ID) {
+    public void EditAuftrag(int ID, Auftrag auftrag) {
 
     }
 
@@ -302,6 +344,8 @@ public class DB_CON {
     public void NewRechnung() {
 
     }
+
+
     public void db_close(){
         try{
             connection.close();
