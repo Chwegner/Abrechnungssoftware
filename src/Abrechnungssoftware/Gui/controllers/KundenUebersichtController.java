@@ -54,14 +54,8 @@ public class KundenUebersichtController
         kundentable.getColumns().add(spalte);
 
 
-        for (int i = 0; i < liste3.size(); i++)
-        {
-            Kunde k = observableList.get(i);
-            System.out.println(k.getFirma());
-            kundentable.getItems().add(k);
 
-
-        }
+            kundentable.getItems().add(observableList);
 
     }
 
