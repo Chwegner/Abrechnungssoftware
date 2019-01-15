@@ -32,7 +32,7 @@ public class DB_CON {
     protected String pass;
     protected Reader reader = null;
     protected Stammdaten stamm;
-    protected Kunde kunde;
+    //protected Kunde kunde;
     protected Auftrag auftrag;
     protected ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
     protected ArrayList<Auftrag> auftragliste = new ArrayList<Auftrag>();
@@ -143,7 +143,7 @@ public class DB_CON {
         }
     }
 
-    public ArrayList<Kunde> LoadKundenList() {
+    public ArrayList LoadKundenList() {
         try {
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM kunden";
@@ -161,9 +161,9 @@ public class DB_CON {
                 kunde.setFax(resultSet.getString("telefax"));
                 kunde.setWeb(resultSet.getString("web"));
                 kunde.setEmail(resultSet.getString("email"));
-                kunde.setAnrede(resultSet.getString("anrede"));
+                kunde.setAnrede(resultSet.getString("ap_anrede"));
                 kunde.setApVorname(resultSet.getString("ap_vorname"));
-                kunde.setApName(resultSet.getString("ap_name"));
+                kunde.setApName(resultSet.getString("ap_nachname"));
                 kunde.setApTelefon(resultSet.getString("ap_telefon"));
                 kunde.setApEmail(resultSet.getString("ap_email"));
                 kunde.setStundenSatz(resultSet.getDouble("stdsatz"));
@@ -172,7 +172,7 @@ public class DB_CON {
             statement.close();
 
         } catch (Exception e){
-
+            System.out.println("Fehler bei Abfrage: " + e);
         }
         return kundenliste;
     }
@@ -239,6 +239,7 @@ public class DB_CON {
     }
 
     public Kunde LoadKunde(int ID) {
+        Kunde kunde = new Kunde();
         try{
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM kunden WHERE id = '"+ID+"'";
@@ -263,7 +264,7 @@ public class DB_CON {
             statement.close();
 
         }catch(Exception e){
-
+            System.out.println("Fehler bei Abfrage: " + e);
         }
 
         return kunde;
