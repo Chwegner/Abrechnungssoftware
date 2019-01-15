@@ -53,7 +53,7 @@ public class KundenAnlegenController
             kunde.setWeb(website.getText());
             kunde.setEmail(mail.getText());
 
-            ////// SPEICHERN TODO ////
+            mainController.getDb().NewKunde(kunde);
 
         } catch (Exception e)
         {
