@@ -10,11 +10,76 @@ import java.util.TimeZone;
 public class Auftrag {
     String bezeichnung, von, bis;
     int arbeitstage, korrekturtage;
+    int abrechnungsintervall;
+    int Kundenid;
+    String[][] auswertung;
     Kunde kunde;
-//	Stammdaten stammdaten;
 
-    // Methoden
-    // getter / setter
+
+    public Auftrag(){
+
+    }
+
+    public Auftrag(String von, String bis,Kunde kunde,String bezeichnung){
+        this.setVon(von);
+        this.setBis(bis);
+        this.setBezeichnung(bezeichnung);
+        this.setKundenid(kunde.getId());
+        this.setAuswertung(this.getAbrechnungsIntervall(this.von,this.bis));
+        this.setAbrechnungsintervall(auswertung.length);
+
+
+    }
+
+
+    public String getBezeichnung() {
+        return bezeichnung;
+    }
+
+    public void setBezeichnung(String bezeichnung) {
+        this.bezeichnung = bezeichnung;
+    }
+
+    public String getVon() {
+        return von;
+    }
+
+    public void setVon(String von) {
+        this.von = von;
+    }
+
+    public String getBis() {
+        return bis;
+    }
+
+    public void setBis(String bis) {
+        this.bis = bis;
+    }
+
+    public int getAbrechnungsintervall() {
+        return abrechnungsintervall;
+    }
+
+    public void setAbrechnungsintervall(int abrechnungsintervall) {
+        this.abrechnungsintervall = abrechnungsintervall;
+    }
+
+    public int getKundenid() {
+        return Kundenid;
+    }
+
+    public void setKundenid(int kundenid) {
+        Kundenid = kundenid;
+    }
+
+    public String[][] getAuswertung() {
+        return auswertung;
+    }
+
+    public void setAuswertung(String[][] auswertung) {
+        this.auswertung = auswertung;
+    }
+
 
     // generieren von Auftraegen
     public void auftragErstellen() {
