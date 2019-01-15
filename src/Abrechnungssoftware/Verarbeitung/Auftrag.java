@@ -87,14 +87,12 @@ public class Auftrag {
         try {
             anfangInt = df.parse(von2);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         try {
             endeInt = df.parse(bis2);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -104,10 +102,65 @@ public class Auftrag {
         calAnfangInt.setFirstDayOfWeek(1);
         calAnfangInt.setTime(anfangInt);
 
+        //Calendar-Objekt zur Berechnung der Monate erstellen
+        Calendar calBegin = new GregorianCalendar();
+        calBegin.setTimeZone(TimeZone.getTimeZone("CET"));
+        calBegin.setTime(anfangInt);
+
+        //Testausgabe
+        System.out.println("calBegin: "+calBegin.getTime());
+
         Calendar calEndeInt = new GregorianCalendar();
         calEndeInt.setTimeZone(TimeZone.getTimeZone("CET"));
         calEndeInt.setTime(endeInt);
 
+        //Testausgabe
+        System.out.println("calEndeInt: "+calEndeInt.getTime());
+        System.out.println(calBegin.getTimeInMillis() < calEndeInt.getTimeInMillis());
+
+/*
+        //Berechnung fuer die Anzahl der Monate
+        int monate = 0;
+        int msec = 0;
+        while (calBegin.getTimeInMillis() <= calEndeInt.getTimeInMillis()){
+            monate++;
+            int mi = (calBegin.get(Calendar.MONTH)+1);
+            int yi = calBegin.get(Calendar.YEAR);
+            switch (mi){
+                case 1:
+                    msec = 1000*60*60*24*31;
+                case 2:
+                    if (((GregorianCalendar) calBegin).isLeapYear(yi)){
+                        msec = 1000*60*60*24*29;
+                    }else{
+                        msec = 1000*60*60*24*28;
+                    }
+                case 3:
+                    msec = 1000*60*60*24*31;
+                case 4:
+                    msec = 1000*60*60*24*30;
+                case 5:
+                    msec = 1000*60*60*24*31;
+                case 6:
+                    msec = 1000*60*60*24*30;
+                case 7:
+                    msec = 1000*60*60*24*31;
+                case 8:
+                    msec = 1000*60*60*24*31;
+                case 9:
+                    msec = 1000*60*60*24*30;
+                case 10:
+                    msec = 1000*60*60*24*31;
+                case 11:
+                    msec = 1000*60*60*24*30;
+                case 12:
+                    msec = 1000*60*60*24*31;
+            }
+            calBegin.setTimeInMillis(msec);
+            //Testausgabe
+            System.out.println(calBegin.getTime());
+        }
+*/
         // Berechnung der Intervalle
         if (calEndeInt.getTimeInMillis() <= calAnfangInt.getTimeInMillis()) {
             throw new IllegalArgumentException();
