@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class KundenUebersichtController
 {
@@ -24,7 +25,7 @@ public class KundenUebersichtController
     @FXML
     private TextField firma, name, vorname, strasse, nummer, ort, plz, telefon, telefax, website, mail;
     @FXML
-    private TableView kundentable;
+    private TableView<Kunde> kundenTable;
 
     private MainController mainController;
 
@@ -41,46 +42,83 @@ public class KundenUebersichtController
 
     public void KundenAuflisten()
     {
+
         DB_CON db = mainController.getDb();
-        Kunde kunde = mainController.getKunde();
 
-        ArrayList<Kunde> liste3 = db.LoadKundenList();
-        ObservableList<Kunde> observableList = FXCollections.observableList(liste3);
-        TableColumn<Kunde, String> spalte = new TableColumn<>("Firma");
-        spalte.setMinWidth(200);
-        spalte.setCellValueFactory(new PropertyValueFactory<>("firma"));
+        TableColumn<Kunde, String> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        kundentable.setItems(observableList);
-        kundentable.getColumns().add(spalte);
+        TableColumn<Kunde, String> firmaColumn = new TableColumn<>("Firma");
+        firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
+
+        kundenTable.getColumns().addAll(idColumn, firmaColumn);
+
+        ObservableList<Kunde> ob_liste = FXCollections.observableArrayList();
+        kundenTable.setItems(ob_liste);
+        ArrayList<Kunde> liste = db.LoadKundenList();
 
 
+        int i = 0;
+        for (Object element : liste)
+        {
+            Kunde temp = liste.get(i);
+            kundenTable.getItems().add(temp);
 
-            kundentable.getItems().add(observableList);
+
+            i++;
+        }
+    }
+
+
+    public void KundenAuswahl()
+    {
+
+
+        DB_CON db = mainController.getDb();
+
+        int index = kundenTable.getSelectionModel().getSelectedItem().getId();
+        Kunde k = db.LoadKunde(index);
+
+        firma.setText(k.getFirma());
+        anrede.setValue(k.getAnrede());
+        name.setText(k.getName());
+        vorname.setText(k.getVorname());
+        strasse.setText(k.getStrasse());
+        nummer.setText(k.getHausnummer());
+        ort.setText(k.getOrt());
+        plz.setText(k.getPlz());
+        telefon.setText(k.getTelefon());
+        telefax.setText(k.getFax());
+        website.setText(k.getWeb());
+        mail.setText(k.getEmail());
 
     }
 
 
-    public void KundeBearbeiten()
+    public void KundenBearbeiten()
     {
         try
         {
+
             DB_CON db = mainController.getDb();
             Kunde kunde = mainController.getKunde();
 
-            firma.setText(kunde.getFirma());
-            anrede.setValue(kunde.getAnrede());
-            name.setText(kunde.getName());
-            vorname.setText(kunde.getVorname());
-            strasse.setText(kunde.getStrasse());
-            nummer.setText(kunde.getHausnummer());
-            ort.setText(kunde.getOrt());
-            plz.setText(kunde.getPlz());
-            telefon.setText(kunde.getTelefon());
-            telefax.setText(kunde.getFax());
-            website.setText(kunde.getWeb());
-            mail.setText(kunde.getEmail());
+            kunde.setFirma(firma.getText());
+            kunde.setAnrede((String) anrede.getValue());
+            kunde.setName(name.getText());
+            kunde.setVorname(vorname.getText());
+            kunde.setStrasse(strasse.getText());
+            kunde.setHausnummer(nummer.getText());
+            kunde.setOrt(ort.getText());
+            kunde.setPlz(plz.getText());
+            kunde.setTelefon(telefon.getText());
+            kunde.setFax(telefax.getText());
+            kunde.setWeb(website.getText());
+            kunde.setEmail(mail.getText());
 
-            //mainController.getDb().EditKunde();
+            int index = kundenTable.getSelectionModel().getSelectedItem().getId();
+            db.EditKunde(index, kunde);
+
 
         } catch (Exception e)
         {
