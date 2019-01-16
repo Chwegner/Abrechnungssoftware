@@ -11,10 +11,8 @@ public class Auftrag {
     String bezeichnung, von, bis;
     int arbeitstage, korrekturtage;
     int abrechnungsintervall;
-    int Kundenid;
+    int Kundenid,id;
     String[][] auswertung;
-    Kunde kunde;
-
 
     public Auftrag(){
 
@@ -27,10 +25,16 @@ public class Auftrag {
         this.setKundenid(kunde.getId());
         this.setAuswertung(this.getAbrechnungsIntervall(this.von,this.bis));
         this.setAbrechnungsintervall(auswertung.length);
-
-
+        this.arbeitstage = this.getArbeitstage(this.von,this.bis);
     }
 
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
 
     public String getBezeichnung() {
         return bezeichnung;

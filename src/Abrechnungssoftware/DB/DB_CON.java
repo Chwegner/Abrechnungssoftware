@@ -3,45 +3,37 @@ package Abrechnungssoftware.DB;
 
 import Abrechnungssoftware.Verarbeitung.Auftrag;
 import Abrechnungssoftware.Verarbeitung.Kunde;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
 
 public class DB_CON {
 
-    protected Connection connection;
-    protected Statement statement;
-    protected ResultSet resultSet;
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
 
-    protected String host;
-    protected String dbName;
-    protected String user;
-    protected String pass;
-    protected Reader reader = null;
-    protected Stammdaten stamm;
+    private String host;
+    private String dbName;
+    private String user;
+    private String pass;
+    //private Stammdaten stamm;
     //protected Kunde kunde;
-    protected Auftrag auftrag;
-    protected ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
-    protected ArrayList<Auftrag> auftragliste = new ArrayList<Auftrag>();
-    protected ArrayList rechnungliste;
+    private Auftrag auftrag;
+    private ArrayList<Kunde> kundenliste = new ArrayList<>();
+    private ArrayList<Auftrag> auftragliste = new ArrayList<>();
+    private ArrayList rechnungliste;
 
 
 
     public DB_CON(){
-        this.stamm = stamm;
+        Reader reader = null;
         try {
             reader = new FileReader("system.ini");
             Properties prop = new Properties();
@@ -58,6 +50,7 @@ public class DB_CON {
             try {
                 reader.close();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         try {
@@ -65,7 +58,6 @@ public class DB_CON {
 
         } catch (ClassNotFoundException e) {
             System.out.println("Fehler bei MySQL-JDBC-Bridge" + e);
-            return;
         }
 
     }
@@ -78,7 +70,7 @@ public class DB_CON {
             String url = "jdbc:mysql://" + host + "/" + dbName;
             connection = DriverManager.getConnection(url, user, pass);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -139,7 +131,7 @@ public class DB_CON {
             statement.executeUpdate(sqlQuery);
             statement.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -202,7 +194,7 @@ public class DB_CON {
             statement.close();
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
     }
@@ -234,7 +226,7 @@ public class DB_CON {
             statement.close();
 
         }catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
@@ -270,13 +262,37 @@ public class DB_CON {
         return kunde;
     }
 
-    public void NewAuftrag(int KD_ID,String von,String bis,String grund) {
+    public void NewAuftrag(Auftrag auftrag) {
+        int id=0;
         try{
-            statement = connection.createStatement();
-            String sqlQuery = "INSERT INTO auftrag () VALUES ()";
-        }catch (Exception e){
+            PreparedStatement ps;
+            String sqlQuery = "INSERT INTO auftrag (kunden_id,von,bis,grund) VALUES (" +
+                    "'"+auftrag.getKundenid()+"','"+auftrag.getVon()+"','"+auftrag.getBis()+"','"+auftrag.getBezeichnung()+"')";
 
+            ps = connection.prepareStatement(sqlQuery,Statement.RETURN_GENERATED_KEYS);
+
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            if(rs.next()){
+                id=rs.getInt(1);
+            }
+            rs.close();
+            ps.close();
+            auftrag.setId(id);
+            String[][] auswertung = auftrag.getAuswertung();
+            for(int i=0;i<auftrag.getAbrechnungsintervall();i++){
+                statement = connection.createStatement();
+                String sqlQuery1 = "INSERT INTO auftrag_teiler SET " +
+                        "(auftrag_id,von,bis) VALUES (" +
+                        "'"+auftrag.getId()+"','"+auswertung[i][0]+"','"+auswertung[i][1]+"')";
+                statement.executeUpdate(sqlQuery1);
+                statement.close();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     public ArrayList LoadAuftragList() {
@@ -287,14 +303,18 @@ public class DB_CON {
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
                 Auftrag auftrag = new Auftrag();
-
+                auftrag.setId(resultSet.getInt("id"));
+                auftrag.setKundenid(resultSet.getInt("kunden_id"));
+                auftrag.setVon(resultSet.getString("von"));
+                auftrag.setBis(resultSet.getString("bis"));
+                auftrag.setBezeichnung(resultSet.getString("grund"));
                 auftragliste.add(auftrag);
             }
             statement.close();
 
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
         return auftragliste;
@@ -307,12 +327,15 @@ public class DB_CON {
 
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-
+                auftrag.setId(resultSet.getInt("id"));
+                auftrag.setKundenid(resultSet.getInt("kunden_id"));
+                auftrag.setVon(resultSet.getString("von"));
+                auftrag.setBis(resultSet.getString("bis"));
+                auftrag.setBezeichnung(resultSet.getString("grund"));
             }
-
             statement.close();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return auftrag;
     }
@@ -323,13 +346,25 @@ public class DB_CON {
             String sqlQuery = "DELETE FROM auftrag WHERE id = '"+ID+"'";
             statement.executeUpdate(sqlQuery);
             statement.close();
-
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 
-    public void EditAuftrag(int ID, Auftrag auftrag) {
+    public void EditAuftrag(Auftrag auftrag) {
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "Update auftrag SET " +
+                    "kunden_id = '"+auftrag.getKundenid()+"'," +
+                    "von = '"+auftrag.getVon()+"'," +
+                    "bis = '"+auftrag.getBis()+"'," +
+                    "grund = '"+auftrag.getBezeichnung()+"' " +
+                    " WHERE id = '"+auftrag.getId()+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -351,7 +386,7 @@ public class DB_CON {
         try{
             connection.close();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 
@@ -447,7 +482,7 @@ public class DB_CON {
             connection.commit();
             statement.close();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 }
