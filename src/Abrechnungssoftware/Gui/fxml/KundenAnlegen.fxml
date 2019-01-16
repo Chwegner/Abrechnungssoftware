@@ -78,7 +78,7 @@
                         <TextField fx:id="name" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="2" />
                         <TextField fx:id="vorname" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3" />
                         <TextField fx:id="strasse" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-                        <TextField fx:id="ort" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <TextField fx:id="ort" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5" />
                         <TextField fx:id="nummer" GridPane.columnIndex="6" GridPane.rowIndex="4" />
                         <TextField fx:id="telefax" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="7" />
                         <TextField fx:id="website" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="8" />
@@ -89,7 +89,7 @@
                             </padding>
                         </Label>
                         <TextField fx:id="plz" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-                        <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="3" GridPane.rowIndex="1">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Herr" />
