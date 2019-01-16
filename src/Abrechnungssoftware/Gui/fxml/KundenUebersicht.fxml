@@ -33,6 +33,10 @@
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="firmaColumn" prefWidth="75.0" text="Firma" />
+                           </columns>
                                 </TableView>
                             </children>
                         </AnchorPane>
@@ -102,7 +106,7 @@
                                         <TextField fx:id="website" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="9" />
                                         <TextField fx:id="mail" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="10" />
                                         <Button mnemonicParsing="false" onAction="#KundenBearbeiten" text="Speichern" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
-                                        <ChoiceBox fx:id="anrede" prefWidth="150.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" value="Herr">
+                                        <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="Herr" />

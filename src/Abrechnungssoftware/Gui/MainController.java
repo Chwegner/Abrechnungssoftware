@@ -53,7 +53,6 @@ public class MainController extends Application
         stammdatenAendernController.injectMainController(this);
 
         getMenuBarController().UebersichtFensterAufrufen();
-        getKundenUebersichtController().KundenAuflisten();
     }
 
     //// Getter und Setter ////

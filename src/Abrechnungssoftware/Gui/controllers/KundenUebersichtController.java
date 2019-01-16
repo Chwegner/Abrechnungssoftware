@@ -26,6 +26,8 @@ public class KundenUebersichtController
     private TextField firma, name, vorname, strasse, nummer, ort, plz, telefon, telefax, website, mail;
     @FXML
     private TableView<Kunde> kundenTable;
+    @FXML
+    private TableColumn<Kunde, String> idColumn, firmaColumn;
 
     private MainController mainController;
 
@@ -45,13 +47,16 @@ public class KundenUebersichtController
 
         DB_CON db = mainController.getDb();
 
-        TableColumn<Kunde, String> idColumn = new TableColumn<>("ID");
+        kundenTable.getItems().remove(this);
+
+        //TableColumn<Kunde, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Kunde, String> firmaColumn = new TableColumn<>("Firma");
+        //TableColumn<Kunde, String> firmaColumn = new TableColumn<>("Firma");
         firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
 
-        kundenTable.getColumns().addAll(idColumn, firmaColumn);
+        //kundenTable.getColumns().addAll(idColumn, firmaColumn);
+
 
         ObservableList<Kunde> ob_liste = FXCollections.observableArrayList();
         kundenTable.setItems(ob_liste);

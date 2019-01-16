@@ -59,6 +59,7 @@ public class MenuBarController
     {
         mainController.getMainPane().getChildren().clear();
         mainController.getMainPane().getChildren().add(mainController.getKundenUebersichtController().getKundenUebersicht());
+        mainController.getKundenUebersichtController().KundenAuflisten();
     }
 
     public void StammdatenAendernAufrufen()
