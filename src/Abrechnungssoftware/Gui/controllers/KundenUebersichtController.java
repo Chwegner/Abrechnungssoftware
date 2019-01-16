@@ -29,6 +29,9 @@ public class KundenUebersichtController
     @FXML
     private TableColumn<Kunde, String> idColumn, firmaColumn;
 
+    private ObservableList<Kunde> ob_liste;
+    private ArrayList<Kunde> liste;
+
     private MainController mainController;
 
 
@@ -42,25 +45,19 @@ public class KundenUebersichtController
         return kundenUebersicht;
     }
 
+
     public void KundenAuflisten()
     {
 
         DB_CON db = mainController.getDb();
 
-        kundenTable.getItems().remove(this);
-
-        //TableColumn<Kunde, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        //TableColumn<Kunde, String> firmaColumn = new TableColumn<>("Firma");
         firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
 
-        //kundenTable.getColumns().addAll(idColumn, firmaColumn);
 
-
-        ObservableList<Kunde> ob_liste = FXCollections.observableArrayList();
+        ob_liste = FXCollections.observableArrayList();
         kundenTable.setItems(ob_liste);
-        ArrayList<Kunde> liste = db.LoadKundenList();
+        liste = db.LoadKundenList();
 
 
         int i = 0;
@@ -72,6 +69,7 @@ public class KundenUebersichtController
 
             i++;
         }
+        liste.clear();
     }
 
 
@@ -123,6 +121,7 @@ public class KundenUebersichtController
 
             int index = kundenTable.getSelectionModel().getSelectedItem().getId();
             db.EditKunde(index, kunde);
+            KundenAuflisten();
 
 
         } catch (Exception e)
@@ -133,5 +132,8 @@ public class KundenUebersichtController
 
     }
 
-
+    public ObservableList<Kunde> getOb_liste()
+    {
+        return ob_liste;
+    }
 }
