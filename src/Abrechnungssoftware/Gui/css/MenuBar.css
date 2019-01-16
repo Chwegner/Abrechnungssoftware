@@ -1,0 +1,46 @@
+
+.menu-bar
+{
+    -fx-padding: 10 10 10 10;
+    -fx-background-color: #bdc3c7;
+}
+
+.menu:hover
+{
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 20 20 20 20;
+    -fx-effect: innershadow(one-pass-box, #ecf0f1, 5, 0.3, 1, 1);
+
+}
+
+.menu:showing
+{
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 20 20 20 20;
+    -fx-effect: innershadow(one-pass-box, #ecf0f1, 5, 0.3, 1, 1);
+
+}
+
+.menu-bar .chart
+{
+    -fx-background-color: red;
+
+}
+
+
+.menu-item
+{
+
+
+}
+
+.menu-item:hover
+{
+    -fx-background-color: #bdc3c7;
+}
+
+.menu-item:focused
+{
+
+    -fx-background-color: #bdc3c7;
+}
