@@ -3,8 +3,8 @@ package Abrechnungssoftware.Verarbeitung;
 public class Kunde {
 	int id;
 	String
-	firma, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, web, email,
-	anrede, apName, apVorname, apTelefon, apEmail;
+	firma, anrede, name, vorname, strasse, hausnummer, ort, plz, telefon, fax, web, email,
+	apAnrede, apName, apVorname, apTelefon, apEmail;
 	double
 	stundenSatz ;
 
@@ -19,6 +19,12 @@ public class Kunde {
 	}
 	public void setFirma(String firma) {
 		this.firma = firma;
+	}
+	public void setApAnrede(String apAnrede){
+		this.apAnrede = apAnrede;
+	}
+	public String getApAnrede(){
+		return apAnrede;
 	}
 	public String getName() {
 		return name;
