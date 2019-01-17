@@ -3,6 +3,10 @@
     src: url(../resources/Arvo-Regular.ttf);
 }
 
+@font-face {
+    font-family: ArvoBold;
+    src: url(../resources/Arvo-Bold.ttf);
+}
 
 *
 {
@@ -39,7 +43,8 @@
 .text-field
 {
     -fx-font-size: 12pt;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #262626;
+    -fx-font-family: ArvoBold;
     -fx-background-radius: 10 10 10 10;
     -fx-border-radius: 10 10 10 10;
     -fx-background-color: #d9d9d9;

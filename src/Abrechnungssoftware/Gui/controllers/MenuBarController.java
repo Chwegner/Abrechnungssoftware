@@ -45,6 +45,7 @@ public class MenuBarController
     {
         mainController.getMainPane().getChildren().clear();
         mainController.getMainPane().getChildren().add(mainController.getAuftragErstellenController().getAuftragErstellen());
+        mainController.getAuftragErstellenController().KundenlisteEinfuegen();
 
     }
 
