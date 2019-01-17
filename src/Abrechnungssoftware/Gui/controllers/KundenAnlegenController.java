@@ -55,12 +55,32 @@ public class KundenAnlegenController
 
             mainController.getDb().NewKunde(kunde);
 
+            KundenFelderLeeren();
+
+
         } catch (Exception e)
         {
             e.printStackTrace();
 
         }
 
+
+    }
+
+    public void KundenFelderLeeren()
+    {
+        firma.setText("");
+        anrede.setValue("Herr");
+        name.setText("");
+        vorname.setText("");
+        strasse.setText("");
+        nummer.setText("");
+        ort.setText("");
+        plz.setText("");
+        telefon.setText("");
+        telefax.setText("");
+        website.setText("");
+        mail.setText("");
 
     }
 

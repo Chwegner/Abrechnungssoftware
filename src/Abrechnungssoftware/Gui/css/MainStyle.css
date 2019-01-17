@@ -61,7 +61,8 @@
     -fx-text-fill: #ecf0f1;
 }
 
-.table-view{
+.table-view
+{
     -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0.1;
