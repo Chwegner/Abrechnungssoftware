@@ -7,10 +7,7 @@ import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -30,6 +27,8 @@ public class AuftragErstellenController
     private TextField grund;
     @FXML
     private DatePicker starttermin, endtermin;
+    @FXML
+    private Label AuftragInfoLabel;
 
     private MainController mainController;
     private Kunde kunde;
@@ -74,6 +73,14 @@ public class AuftragErstellenController
 
     }
 
+    public void InfoLabelSchreiben()
+    {
+        int index = kundenTable.getSelectionModel().getSelectedItem().getId();
+        String firma = kundenTable.getSelectionModel().getSelectedItem().getFirma();
+
+        AuftragInfoLabel.setText("Auftrag erstellen für:\r\n" + firma + " - ID: " + index);
+
+    }
 
 
     public void AuftragSpeichern()
@@ -85,16 +92,17 @@ public class AuftragErstellenController
         LocalDate startDate = starttermin.getValue();
         LocalDate endDate = endtermin.getValue();
 
-        String von = startDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String bis = endDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String von = startDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String bis = endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         String bezeichnung = grund.getText();
 
+        System.out.println(von + bis + index + bezeichnung);
         Auftrag auftrag = new Auftrag(von, bis, index, bezeichnung);
 
-        grund.setText("");
-        starttermin.setValue(null);
-        endtermin.setValue(null);
+        //grund.setText("");
+        //starttermin.setValue(null);
+        //endtermin.setValue(null);
 
 
     }

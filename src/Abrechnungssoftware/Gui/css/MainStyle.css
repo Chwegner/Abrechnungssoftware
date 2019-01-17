@@ -1,9 +1,11 @@
-@font-face {
+@font-face
+{
     font-family: Arvo;
     src: url(../resources/Arvo-Regular.ttf);
 }
 
-@font-face {
+@font-face
+{
     font-family: ArvoBold;
     src: url(../resources/Arvo-Bold.ttf);
 }
@@ -79,6 +81,12 @@
 {
     -fx-background-radius: 20 20 20 20;
     -fx-background-color: #d9d9d9;
+
+}
+
+#auftragsinfo
+{
+    -fx-font-size: 2em;
 
 }
 
