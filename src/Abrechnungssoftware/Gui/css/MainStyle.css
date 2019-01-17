@@ -61,6 +61,8 @@
     -fx-background-insets: 0, 1, 2;
     -fx-text-fill: black;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+    -fx-padding: 10 10 10 10;
+    -fx-font-size: 1.1em;
 
 }
 
@@ -77,6 +79,12 @@
     -fx-border-width: 0.1;
 }
 
+.split-pane
+{
+
+
+}
+
 .choice-box
 {
     -fx-background-radius: 20 20 20 20;
@@ -87,6 +95,13 @@
 #auftragsinfo
 {
     -fx-font-size: 2em;
+
+}
+
+
+#kundengrid
+{
+
 
 }
 
