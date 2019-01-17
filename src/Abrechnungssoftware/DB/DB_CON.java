@@ -282,7 +282,7 @@ public class DB_CON {
             String[][] auswertung = auftrag.getAuswertung();
             for(int i=0;i<auftrag.getAbrechnungsintervall();i++){
                 statement = connection.createStatement();
-                String sqlQuery1 = "INSERT INTO auftrag_teiler SET " +
+                String sqlQuery1 = "INSERT INTO auftrag_intervall SET " +
                         "(auftrag_id,von,bis) VALUES (" +
                         "'"+auftrag.getId()+"','"+auswertung[i][0]+"','"+auswertung[i][1]+"')";
                 statement.executeUpdate(sqlQuery1);
@@ -311,8 +311,6 @@ public class DB_CON {
                 auftragliste.add(auftrag);
             }
             statement.close();
-
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -439,7 +437,7 @@ public class DB_CON {
                 "  ADD PRIMARY KEY (`id`)";
         String query7 = "ALTER TABLE `kunden`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-        String query8 = "CREATE TABLE `auftrag` (" +
+        String query8 = "CREATE TABLE IF NOT EXISTS `auftrag` (" +
                 "  `id` int(11) NOT NULL," +
                 "  `kunden_id` int(11) NOT NULL," +
                 "  `von` varchar(20) NOT NULL," +
@@ -450,7 +448,7 @@ public class DB_CON {
                 "  ADD PRIMARY KEY (`id`);";
         String query10 = "ALTER TABLE `rechnung`" +
                 "  ADD PRIMARY KEY (`id`);";
-        String query11 = "CREATE TABLE `rechnung` (" +
+        String query11 = "CREATE TABLE IF NOT EXISTS `rechnung` (" +
                 "  `id` int(11) NOT NULL," +
                 "  `auftrag_id` int(11) NOT NULL," +
                 "  `re_nr` varchar(10) NOT NULL," +
@@ -459,6 +457,18 @@ public class DB_CON {
         String query12 = "ALTER TABLE `auftrag`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
         String query13 = "ALTER TABLE `rechnung`" +
+                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
+        String query14 = "CREATE TABLE IF NOT EXISTS `auftrag_intervall` (\n" +
+                "  `id` int(11) NOT NULL," +
+                "  `auftrag_id` int(11) NOT NULL," +
+                "  `von` int(11) NOT NULL," +
+                "  `bis` int(11) NOT NULL," +
+                "  `re_erstellt` enum('ja','nein') NOT NULL DEFAULT 'nein'," +
+                "  `re_bezahlt` enum('ja','nein') NOT NULL DEFAULT 'nein'" +
+                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
+        String query15 = "ALTER TABLE `auftrag_intervall`" +
+                "  ADD PRIMARY KEY (`id`)";
+        String query16 = "ALTER TABLE `auftrag_intervall`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
 
         try{
@@ -478,6 +488,9 @@ public class DB_CON {
             statement.addBatch(query11);
             statement.addBatch(query12);
             statement.addBatch(query13);
+            statement.addBatch(query14);
+            statement.addBatch(query15);
+            statement.addBatch(query16);
             statement.executeBatch();
             connection.commit();
             statement.close();
