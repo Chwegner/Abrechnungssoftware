@@ -292,7 +292,7 @@ public class DB_CON {
             String[][] auswertung = auftrag.getAuswertung();
             for(int i=0;i<auftrag.getAbrechnungsintervall();i++){
                 statement = connection.createStatement();
-                String sqlQuery1 = "INSERT INTO auftrag_intervall SET " +
+                String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
                         "(auftrag_id,von,bis) VALUES (" +
                         "'"+auftrag.getId()+"','"+auswertung[i][0]+"','"+auswertung[i][1]+"')";
                 statement.executeUpdate(sqlQuery1);
@@ -474,8 +474,8 @@ public class DB_CON {
         String query14 = "CREATE TABLE IF NOT EXISTS `auftrag_intervall` (\n" +
                 "  `id` int(11) NOT NULL," +
                 "  `auftrag_id` int(11) NOT NULL," +
-                "  `von` int(11) NOT NULL," +
-                "  `bis` int(11) NOT NULL," +
+                "  `von` varchar(20) NOT NULL," +
+                "  `bis` varchar(20) NOT NULL," +
                 "  `re_erstellt` enum('ja','nein') NOT NULL DEFAULT 'nein'," +
                 "  `re_bezahlt` enum('ja','nein') NOT NULL DEFAULT 'nein'" +
                 ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
