@@ -103,9 +103,9 @@ public class AuftragErstellenController
         db.NewAuftrag(auftrag);
 
 
-        //grund.setText("");
-        //starttermin.setValue(null);
-        //endtermin.setValue(null);
+        grund.setText("");
+        starttermin.setValue(null);
+        endtermin.setValue(null);
 
 
     }
