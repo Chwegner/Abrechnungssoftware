@@ -97,6 +97,23 @@ public class KundenUebersichtController
 
     }
 
+    public void TextfelderLeeren()
+    {
+        firma.setText("");
+        anrede.setValue("Herr");
+        name.setText("");
+        vorname.setText("");
+        strasse.setText("");
+        nummer.setText("");
+        ort.setText("");
+        plz.setText("");
+        telefon.setText("");
+        telefax.setText("");
+        website.setText("");
+        mail.setText("");
+
+    }
+
 
     public void KundenBearbeiten()
     {
@@ -121,6 +138,7 @@ public class KundenUebersichtController
 
             int index = kundenTable.getSelectionModel().getSelectedItem().getId();
             db.EditKunde(index, kunde);
+            TextfelderLeeren();
             KundenAuflisten();
 
 
