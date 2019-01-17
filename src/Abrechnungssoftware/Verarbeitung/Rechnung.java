@@ -2,8 +2,6 @@ package Abrechnungssoftware.Verarbeitung;
 import java.io.*;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 public class Rechnung {
 	//Variablen
