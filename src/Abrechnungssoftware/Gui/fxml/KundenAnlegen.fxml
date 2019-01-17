@@ -14,7 +14,7 @@
         <GridPane alignment="CENTER" layoutX="14.0" layoutY="31.0" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.9999694824219" minWidth="10.0" percentWidth="10.0" prefWidth="401.9999694824219" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.9999694824219" minWidth="10.0" percentWidth="100.0" prefWidth="401.9999694824219" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.9999694824219" minWidth="10.0" percentWidth="80.0" prefWidth="401.9999694824219" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.9999694824219" minWidth="10.0" percentWidth="10.0" prefWidth="401.9999694824219" />
             </columnConstraints>
             <rowConstraints>
@@ -26,103 +26,6 @@
 
                 <Label id="headline" alignment="CENTER" contentDisplay="CENTER" text="Neuen Kunden anlegen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 </Label>
-                <GridPane id="stammgrid" prefHeight="540.0" prefWidth="501.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <children>
-                        <TextField fx:id="telefon" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-                        <Label text="Website" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Name" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Vorname" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Straße/Nr." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Ort/PLZ" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label id="stammdatenGrid" text="Firma" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Telefon" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="Telefax" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <Label text="E-Mail" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="firma" GridPane.columnIndex="3" GridPane.columnSpan="3" />
-                        <TextField fx:id="name" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-                        <TextField fx:id="vorname" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-                        <TextField fx:id="strasse" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-                        <TextField fx:id="ort" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5" />
-                        <TextField fx:id="nummer" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                        <TextField fx:id="telefax" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="7" />
-                        <TextField fx:id="website" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="8" />
-                        <TextField fx:id="mail" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="9" />
-                        <Label text="Anrede" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <padding>
-                                <Insets right="20.0" />
-                            </padding>
-                        </Label>
-                        <TextField fx:id="plz" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-                        <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Herr" />
-                                    <String fx:value="Frau" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                    </children>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" percentWidth="10.0" prefWidth="20.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                </GridPane>
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -138,6 +41,75 @@
                         <Button fx:id="speichern" mnemonicParsing="false" onAction="#KundeNeu" text="Speichern" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                     </children>
                 </GridPane>
+            <GridPane id="stammgrid" alignment="CENTER" prefHeight="540.0" prefWidth="501.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="telefon" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+                  <Label text="Website" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                  <Label text="Name" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Label text="Vorname" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Label text="Straße/Nr." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <Label text="Ort/PLZ" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <Label id="stammdatenGrid" text="Firma" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+                  <Label text="Telefon" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <Label text="Telefax" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <Label text="E-Mail" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                  <TextField fx:id="firma" GridPane.columnIndex="2" GridPane.columnSpan="3" />
+                  <TextField fx:id="name" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="vorname" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="strasse" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="ort" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                  <TextField fx:id="nummer" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <TextField fx:id="telefax" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+                  <TextField fx:id="website" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+                  <TextField fx:id="mail" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="9" />
+                  <Label text="Anrede" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <TextField fx:id="plz" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Herr" />
+                           <String fx:value="Frau" />
+                        </FXCollections>
+                     </items>
+                  </ChoiceBox>
+                  <Label text="Ap Anrede" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label text="Ap Vorname" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Label text="Ap Nachname" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Label text="Ap Telefon" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <Label text="Ap E-Mail" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <Label text="Stundensatz" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="7" />
+                  <TextField GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <TextField GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <TextField GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <TextField GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <TextField GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="20.0" percentWidth="10.0" prefWidth="20.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
             </children>
         </GridPane>
     </children>
