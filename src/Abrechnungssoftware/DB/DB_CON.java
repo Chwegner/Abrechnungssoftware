@@ -31,8 +31,7 @@ public class DB_CON {
     private ArrayList rechnungliste;
 
 
-
-    public DB_CON(){
+    public DB_CON() {
         Reader reader = null;
         try {
             reader = new FileReader("system.ini");
@@ -62,10 +61,10 @@ public class DB_CON {
 
     }
 
-    /** Datenbankverbindung Öffnen
-     *
+    /**
+     * Datenbankverbindung Öffnen
      */
-    public void db_open(){
+    public void db_open() {
         try {
             String url = "jdbc:mysql://" + host + "/" + dbName;
             connection = DriverManager.getConnection(url, user, pass);
@@ -112,22 +111,22 @@ public class DB_CON {
         try {
             statement = connection.createStatement();
             String sqlQuery = "UPDATE stammdaten SET " +
-                    "firma = '"+daten.getFirma()+"'," +
-                    "vorname = '"+daten.getVorname()+"'," +
-                    "nachname = '"+daten.getNachname()+"'," +
-                    "strasse = '"+daten.getStr()+"'," +
-                    "hsnr = '"+daten.getHsnr()+"'," +
-                    "plz = '"+daten.getPlz()+"'," +
-                    "ort = '"+daten.getOrt()+"'," +
-                    "telefon = '"+daten.getTelefon()+"'," +
-                    "telefax = '"+daten.getTelefax()+"'," +
-                    "web = '"+daten.getWeb()+"'," +
-                    "email = '"+daten.getEmail()+"'," +
-                    "bankname = '"+daten.getBankname()+"'," +
-                    "kontoinhaber = '" + daten.getKontoinhaber() +"'," +
-                    "bic = '"+daten.getBic()+"'," +
-                    "iban = '"+daten.getIban()+"'," +
-                    "steuernummer = '"+daten.getSteuernummer()+"' where id = '1'";
+                    "firma = '" + daten.getFirma() + "'," +
+                    "vorname = '" + daten.getVorname() + "'," +
+                    "nachname = '" + daten.getNachname() + "'," +
+                    "strasse = '" + daten.getStr() + "'," +
+                    "hsnr = '" + daten.getHsnr() + "'," +
+                    "plz = '" + daten.getPlz() + "'," +
+                    "ort = '" + daten.getOrt() + "'," +
+                    "telefon = '" + daten.getTelefon() + "'," +
+                    "telefax = '" + daten.getTelefax() + "'," +
+                    "web = '" + daten.getWeb() + "'," +
+                    "email = '" + daten.getEmail() + "'," +
+                    "bankname = '" + daten.getBankname() + "'," +
+                    "kontoinhaber = '" + daten.getKontoinhaber() + "'," +
+                    "bic = '" + daten.getBic() + "'," +
+                    "iban = '" + daten.getIban() + "'," +
+                    "steuernummer = '" + daten.getSteuernummer() + "' where id = '1'";
             statement.executeUpdate(sqlQuery);
             statement.close();
         } catch (Exception e) {
@@ -166,7 +165,7 @@ public class DB_CON {
             }
             statement.close();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Fehler bei Abfrage: " + e);
         }
         return kundenliste;
@@ -176,30 +175,30 @@ public class DB_CON {
         try {
             statement = connection.createStatement();
             String sqlQuery = "UPDATE kunden SET " +
-                    "firma = '"+kunde.getFirma()+"'," +
-                    "anrede = '"+kunde.getAnrede()+"'," +
-                    "vorname = '"+kunde.getVorname()+"'," +
-                    "nachname = '"+kunde.getName()+"'," +
-                    "strasse = '"+kunde.getStrasse()+"'," +
-                    "hsnr = '"+kunde.getHausnummer()+"'," +
-                    "plz = '"+kunde.getPlz()+"'," +
-                    "ort = '"+kunde.getOrt()+"'," +
-                    "telefon = '"+kunde.getTelefon()+"'," +
-                    "telefax = '"+kunde.getFax()+"'," +
-                    "web = '"+kunde.getWeb()+"'," +
-                    "email = '"+kunde.getEmail()+"'," +
-                    "ap_anrede = '"+kunde.getAnrede()+"'," +
-                    "ap_vorname = '"+kunde.getApVorname()+"'," +
-                    "ap_nachname = '"+kunde.getApName()+"'," +
-                    "ap_telefon = '"+kunde.getApTelefon()+"'," +
-                    "ap_email = '"+kunde.getApEmail()+"'," +
-                    "stdsatz = '"+kunde.getStundenSatz()+"' " +
-                    "WHERE id = '"+ID+"'";
+                    "firma = '" + kunde.getFirma() + "'," +
+                    "anrede = '" + kunde.getAnrede() + "'," +
+                    "vorname = '" + kunde.getVorname() + "'," +
+                    "nachname = '" + kunde.getName() + "'," +
+                    "strasse = '" + kunde.getStrasse() + "'," +
+                    "hsnr = '" + kunde.getHausnummer() + "'," +
+                    "plz = '" + kunde.getPlz() + "'," +
+                    "ort = '" + kunde.getOrt() + "'," +
+                    "telefon = '" + kunde.getTelefon() + "'," +
+                    "telefax = '" + kunde.getFax() + "'," +
+                    "web = '" + kunde.getWeb() + "'," +
+                    "email = '" + kunde.getEmail() + "'," +
+                    "ap_anrede = '" + kunde.getAnrede() + "'," +
+                    "ap_vorname = '" + kunde.getApVorname() + "'," +
+                    "ap_nachname = '" + kunde.getApName() + "'," +
+                    "ap_telefon = '" + kunde.getApTelefon() + "'," +
+                    "ap_email = '" + kunde.getApEmail() + "'," +
+                    "stdsatz = '" + kunde.getStundenSatz() + "' " +
+                    "WHERE id = '" + ID + "'";
 
             statement.executeUpdate(sqlQuery);
             statement.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -211,37 +210,37 @@ public class DB_CON {
             String sqlQuery = "INSERT INTO kunden (" +
                     "firma,anrede,vorname,nachname, strasse, hsnr, plz, ort, telefon, telefax, web, email, " +
                     "ap_anrede, ap_vorname, ap_nachname, ap_telefon, ap_email, stdsatz) VALUES(" +
-                    "'"+kunde.getFirma()+ "','"+kunde.getAnrede()+ "','"+kunde.getVorname()+"','"+kunde.getName()+"'," +
-                    "'"+kunde.getStrasse()+"','"+kunde.getHausnummer()+"'," +
-                    "'"+kunde.getPlz()+"','"+kunde.getOrt()+"','"+kunde.getTelefon()+"','"+kunde.getFax()+"'," +
-                    "'"+kunde.getWeb()+"','"+kunde.getEmail()+"','"+kunde.getAnrede()+"','"+kunde.getApVorname()+"'," +
-                    "'"+kunde.getApName()+"','"+kunde.getApTelefon()+"','"+kunde.getApEmail()+"'," +
-                    "'"+kunde.getStundenSatz()+"') ";
+                    "'" + kunde.getFirma() + "','" + kunde.getAnrede() + "','" + kunde.getVorname() + "','" + kunde.getName() + "'," +
+                    "'" + kunde.getStrasse() + "','" + kunde.getHausnummer() + "'," +
+                    "'" + kunde.getPlz() + "','" + kunde.getOrt() + "','" + kunde.getTelefon() + "','" + kunde.getFax() + "'," +
+                    "'" + kunde.getWeb() + "','" + kunde.getEmail() + "','" + kunde.getAnrede() + "','" + kunde.getApVorname() + "'," +
+                    "'" + kunde.getApName() + "','" + kunde.getApTelefon() + "','" + kunde.getApEmail() + "'," +
+                    "'" + kunde.getStundenSatz() + "') ";
 
             statement.executeUpdate(sqlQuery);
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void DeleteKunde(int ID) {
-        try{
+        try {
             statement = connection.createStatement();
-            String sqlQuery = "DELETE FROM kunden WHERE id = '"+ID+"'";
+            String sqlQuery = "DELETE FROM kunden WHERE id = '" + ID + "'";
             statement.executeUpdate(sqlQuery);
             statement.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public Kunde LoadKunde(int ID) {
         Kunde kunde = new Kunde();
-        try{
+        try {
             statement = connection.createStatement();
-            String sqlQuery = "SELECT * FROM kunden WHERE id = '"+ID+"'";
+            String sqlQuery = "SELECT * FROM kunden WHERE id = '" + ID + "'";
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
                 kunde.setId(resultSet.getInt("id"));
@@ -265,7 +264,7 @@ public class DB_CON {
             }
             statement.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Fehler bei Abfrage: " + e);
         }
 
@@ -273,40 +272,40 @@ public class DB_CON {
     }
 
     public void NewAuftrag(Auftrag auftrag) {
-        int id=0;
-        try{
+        int id = 0;
+        try {
             PreparedStatement ps;
             String sqlQuery = "INSERT INTO auftrag (kunden_id,von,bis,grund) VALUES (" +
-                    "'"+auftrag.getKundenid()+"','"+auftrag.getVon()+"','"+auftrag.getBis()+"','"+auftrag.getBezeichnung()+"')";
+                    "'" + auftrag.getKundenid() + "','" + auftrag.getVon() + "','" + auftrag.getBis() + "','" + auftrag.getBezeichnung() + "')";
 
-            ps = connection.prepareStatement(sqlQuery,Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
 
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
-            if(rs.next()){
-                id=rs.getInt(1);
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
             rs.close();
             ps.close();
             auftrag.setId(id);
             String[][] auswertung = auftrag.getAuswertung();
-            for(int i=0;i<auftrag.getAbrechnungsintervall();i++){
+            for (int i = 0; i < auftrag.getAbrechnungsintervall(); i++) {
                 statement = connection.createStatement();
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
                         "(auftrag_id,von,bis) VALUES (" +
-                        "'"+auftrag.getId()+"','"+auswertung[i][0]+"','"+auswertung[i][1]+"')";
+                        "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "')";
                 statement.executeUpdate(sqlQuery1);
                 statement.close();
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     public ArrayList LoadAuftragList() {
-        try{
+        try {
             statement = connection.createStatement();
             String sqlQuery = "SELECT * FROM auftrag";
 
@@ -321,7 +320,7 @@ public class DB_CON {
                 auftragliste.add(auftrag);
             }
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -329,9 +328,9 @@ public class DB_CON {
     }
 
     public Auftrag LoadAuftrag(int ID) {
-        try{
+        try {
             statement = connection.createStatement();
-            String sqlQuery = "SELECT * FROM auftrag WHERE id = '"+ID+"'";
+            String sqlQuery = "SELECT * FROM auftrag WHERE id = '" + ID + "'";
 
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -342,35 +341,35 @@ public class DB_CON {
                 auftrag.setBezeichnung(resultSet.getString("grund"));
             }
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return auftrag;
     }
 
     public void DeleteAuftrag(int ID) {
-        try{
+        try {
             statement = connection.createStatement();
-            String sqlQuery = "DELETE FROM auftrag WHERE id = '"+ID+"'";
+            String sqlQuery = "DELETE FROM auftrag WHERE id = '" + ID + "'";
             statement.executeUpdate(sqlQuery);
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void EditAuftrag(Auftrag auftrag) {
-        try{
+        try {
             statement = connection.createStatement();
             String sqlQuery = "Update auftrag SET " +
-                    "kunden_id = '"+auftrag.getKundenid()+"'," +
-                    "von = '"+auftrag.getVon()+"'," +
-                    "bis = '"+auftrag.getBis()+"'," +
-                    "grund = '"+auftrag.getBezeichnung()+"' " +
-                    " WHERE id = '"+auftrag.getId()+"'";
+                    "kunden_id = '" + auftrag.getKundenid() + "'," +
+                    "von = '" + auftrag.getVon() + "'," +
+                    "bis = '" + auftrag.getBis() + "'," +
+                    "grund = '" + auftrag.getBezeichnung() + "' " +
+                    " WHERE id = '" + auftrag.getId() + "'";
             statement.executeUpdate(sqlQuery);
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -390,16 +389,16 @@ public class DB_CON {
     }
 
 
-    public void db_close(){
-        try{
+    public void db_close() {
+        try {
             connection.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /* Installationsroutine*/
-    public void db_install(){
+    public void db_install() {
         String query0 = "CREATE DATABASE IF NOT EXISTS `" + dbName + "`";
         String query1 = "USE `" + dbName + "`";
         String query2 = "CREATE TABLE IF NOT EXISTS`stammdaten` (" +
@@ -430,7 +429,7 @@ public class DB_CON {
                 "  `firma` varchar(100) NOT NULL," +
                 "  `anrede` enum('Herr','Frau') NOT NULL DEFAULT 'Herr'," +
                 "  `vorname` varchar(100) NOT NULL," +
-                "  `nachname` varchar(100) NOT NULL,"+
+                "  `nachname` varchar(100) NOT NULL," +
                 "  `strasse` varchar(50) NOT NULL," +
                 "  `hsnr` varchar(20) NOT NULL," +
                 "  `plz` varchar(20) NOT NULL," +
@@ -484,7 +483,7 @@ public class DB_CON {
         String query16 = "ALTER TABLE `auftrag_intervall`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
 
-        try{
+        try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             statement.addBatch(query0);
@@ -507,7 +506,7 @@ public class DB_CON {
             statement.executeBatch();
             connection.commit();
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

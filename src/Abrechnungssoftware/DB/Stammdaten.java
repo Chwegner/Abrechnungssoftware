@@ -3,7 +3,7 @@ package Abrechnungssoftware.DB;
 
 public class Stammdaten {
     private int id;
-    private String firma,str,hsnr,plz,ort,telefon,telefax,web,email,vorname,nachname,kontoinhaber,bankname,bic,iban,steuernummer;
+    private String firma, str, hsnr, plz, ort, telefon, telefax, web, email, vorname, nachname, kontoinhaber, bankname, bic, iban, steuernummer;
 
     public Stammdaten() {
 
@@ -144,7 +144,6 @@ public class Stammdaten {
     public void setSteuernummer(String steuernummer) {
         this.steuernummer = steuernummer;
     }
-
 
 
 }
