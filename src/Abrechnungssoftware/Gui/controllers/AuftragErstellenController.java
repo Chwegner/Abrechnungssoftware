@@ -1,5 +1,7 @@
 package Abrechnungssoftware.Gui.controllers;
 
+
+
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Auftrag;
@@ -14,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+@SuppressWarnings("Duplicates")
 
 public class AuftragErstellenController
 {
@@ -31,7 +35,6 @@ public class AuftragErstellenController
     private Label AuftragInfoLabel;
 
     private MainController mainController;
-    private Kunde kunde;
 
     private ObservableList<Kunde> ob_liste;
     private ArrayList<Kunde> liste;
@@ -91,14 +94,14 @@ public class AuftragErstellenController
 
         LocalDate startDate = starttermin.getValue();
         LocalDate endDate = endtermin.getValue();
-
         String von = startDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         String bis = endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         String bezeichnung = grund.getText();
 
-        System.out.println(von + bis + index + bezeichnung);
         Auftrag auftrag = new Auftrag(von, bis, index, bezeichnung);
+        db.NewAuftrag(auftrag);
+
 
         //grund.setText("");
         //starttermin.setValue(null);

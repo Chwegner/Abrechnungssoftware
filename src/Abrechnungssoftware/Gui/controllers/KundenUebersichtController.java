@@ -45,6 +45,8 @@ public class KundenUebersichtController
     }
 
 
+    @SuppressWarnings("Duplicates")
+
     public void KundenAuflisten()
     {
 
@@ -96,6 +98,8 @@ public class KundenUebersichtController
 
     }
 
+    @SuppressWarnings("Duplicates")
+
     public void TextfelderLeeren()
     {
         firma.setText("");
@@ -113,6 +117,8 @@ public class KundenUebersichtController
 
     }
 
+
+    @SuppressWarnings("Duplicates")
 
     public void KundenBearbeiten()
     {

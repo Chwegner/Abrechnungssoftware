@@ -23,6 +23,8 @@ public class KundenAnlegenController
 
     private MainController mainController;
 
+
+
     public void injectMainController(MainController mainController)
     {
         this.mainController = mainController;
@@ -32,6 +34,8 @@ public class KundenAnlegenController
     {
         return kundenAnlegen;
     }
+
+    @SuppressWarnings("Duplicates")
 
     public void KundeNeu()
     {
@@ -66,6 +70,8 @@ public class KundenAnlegenController
 
 
     }
+
+    @SuppressWarnings("Duplicates")
 
     public void KundenFelderLeeren()
     {

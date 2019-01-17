@@ -45,6 +45,8 @@ public class UebersichtController
         return uebersicht;
     }
 
+    @SuppressWarnings("Duplicates")
+
     public void KundenListeEinfuegen()
     {
         db = mainController.getDb();
