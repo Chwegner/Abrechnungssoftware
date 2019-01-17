@@ -18,11 +18,11 @@ public class Auftrag {
 
     }
 
-    public Auftrag(String von, String bis,Kunde kunde,String bezeichnung){
+    public Auftrag(String von, String bis,int Kunden_id,String bezeichnung){
         this.setVon(von);
         this.setBis(bis);
         this.setBezeichnung(bezeichnung);
-        this.setKundenid(kunde.getId());
+        this.setKundenid(Kunden_id);
         this.setAuswertung(this.getAbrechnungsIntervall(this.von,this.bis));
         this.setAbrechnungsintervall(auswertung.length);
         this.arbeitstage = this.getArbeitstage(this.von,this.bis);
