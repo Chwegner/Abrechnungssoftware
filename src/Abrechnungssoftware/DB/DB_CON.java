@@ -145,6 +145,7 @@ public class DB_CON {
                 Kunde kunde = new Kunde();
                 kunde.setId(resultSet.getInt("id"));
                 kunde.setFirma(resultSet.getString("firma"));
+                kunde.setAnrede(resultSet.getString("anrede"));
                 kunde.setVorname(resultSet.getString("vorname"));
                 kunde.setName(resultSet.getString("nachname"));
                 kunde.setStrasse(resultSet.getString("strasse"));
@@ -176,6 +177,7 @@ public class DB_CON {
             statement = connection.createStatement();
             String sqlQuery = "UPDATE kunden SET " +
                     "firma = '"+kunde.getFirma()+"'," +
+                    "anrede = '"+kunde.getAnrede()+"'," +
                     "vorname = '"+kunde.getVorname()+"'," +
                     "nachname = '"+kunde.getName()+"'," +
                     "strasse = '"+kunde.getStrasse()+"'," +
@@ -207,9 +209,9 @@ public class DB_CON {
         try {
             statement = connection.createStatement();
             String sqlQuery = "INSERT INTO kunden (" +
-                    "firma,vorname,nachname, strasse, hsnr, plz, ort, telefon, telefax, web, email, " +
+                    "firma,anrede,vorname,nachname, strasse, hsnr, plz, ort, telefon, telefax, web, email, " +
                     "ap_anrede, ap_vorname, ap_nachname, ap_telefon, ap_email, stdsatz) VALUES(" +
-                    "'"+kunde.getFirma()+ "','"+kunde.getVorname()+"','"+kunde.getName()+"'," +
+                    "'"+kunde.getFirma()+ "','"+kunde.getAnrede()+ "','"+kunde.getVorname()+"','"+kunde.getName()+"'," +
                     "'"+kunde.getStrasse()+"','"+kunde.getHausnummer()+"'," +
                     "'"+kunde.getPlz()+"','"+kunde.getOrt()+"','"+kunde.getTelefon()+"','"+kunde.getFax()+"'," +
                     "'"+kunde.getWeb()+"','"+kunde.getEmail()+"','"+kunde.getAnrede()+"','"+kunde.getApVorname()+"'," +
@@ -244,6 +246,7 @@ public class DB_CON {
             while (resultSet.next()) {
                 kunde.setId(resultSet.getInt("id"));
                 kunde.setFirma(resultSet.getString("firma"));
+                kunde.setAnrede(resultSet.getString("anrede"));
                 kunde.setVorname(resultSet.getString("vorname"));
                 kunde.setName(resultSet.getString("nachname"));
                 kunde.setStrasse(resultSet.getString("strasse"));
@@ -254,7 +257,7 @@ public class DB_CON {
                 kunde.setFax(resultSet.getString("telefax"));
                 kunde.setWeb(resultSet.getString("web"));
                 kunde.setEmail(resultSet.getString("email"));
-                kunde.setAnrede(resultSet.getString("ap_anrede"));
+                kunde.setApAnrede(resultSet.getString("ap_anrede"));
                 kunde.setApVorname(resultSet.getString("ap_vorname"));
                 kunde.setApName(resultSet.getString("ap_nachname"));
                 kunde.setApEmail(resultSet.getString("ap_email"));
@@ -425,6 +428,7 @@ public class DB_CON {
         String query5 = "CREATE TABLE IF NOT EXISTS `kunden` (" +
                 "  `id` int(11) NOT NULL," +
                 "  `firma` varchar(100) NOT NULL," +
+                "  `anrede` enum('Herr','Frau') NOT NULL DEFAULT 'Herr'," +
                 "  `vorname` varchar(100) NOT NULL," +
                 "  `nachname` varchar(100) NOT NULL,"+
                 "  `strasse` varchar(50) NOT NULL," +
