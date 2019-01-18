@@ -122,6 +122,7 @@ public class MainController extends Application
         Scene scene = new Scene(root);
         stage.setTitle("Abrechnungssoftware");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 

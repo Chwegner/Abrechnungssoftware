@@ -6,10 +6,7 @@ import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -28,6 +25,8 @@ public class KundenUebersichtController
     private TableView<Kunde> kundenTable;
     @FXML
     private TableColumn<Kunde, String> idColumn, firmaColumn;
+    @FXML
+    private SplitPane kundensplit;
 
     private ObservableList<Kunde> ob_liste;
     private ArrayList<Kunde> liste;
@@ -45,6 +44,8 @@ public class KundenUebersichtController
         return kundenUebersicht;
     }
 
+
+    @SuppressWarnings("Duplicates")
 
     public void KundenAuflisten()
     {
@@ -97,6 +98,8 @@ public class KundenUebersichtController
 
     }
 
+    @SuppressWarnings("Duplicates")
+
     public void TextfelderLeeren()
     {
         firma.setText("");
@@ -114,6 +117,8 @@ public class KundenUebersichtController
 
     }
 
+
+    @SuppressWarnings("Duplicates")
 
     public void KundenBearbeiten()
     {
@@ -153,5 +158,10 @@ public class KundenUebersichtController
     public ObservableList<Kunde> getOb_liste()
     {
         return ob_liste;
+    }
+
+    public SplitPane getKundensplit()
+    {
+        return kundensplit;
     }
 }

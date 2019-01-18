@@ -1,6 +1,7 @@
 package Abrechnungssoftware;
 
 import Abrechnungssoftware.Gui.MainController;
+import Abrechnungssoftware.Verarbeitung.Rechnung;
 import javafx.application.Application;
 import Abrechnungssoftware.DB.DB_CON;
 //import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
@@ -13,6 +14,7 @@ import java.util.regex.Matcher;
 
 public class Main
 {
+    /*
     public static void main(String[] args) throws IOException {
         File file = new File("system.ini");
         boolean exists = file.exists();
@@ -53,7 +55,7 @@ public class Main
 
         Application.launch(MainController.class, args);
 
-
+*/
 //        try {
 //
 //            try (OutputStream os = new FileOutputStream("out.pdf")) {
@@ -83,8 +85,12 @@ public class Main
 //            e.printStackTrace();
 //
 //        }
+    public static void main(String[] args) throws IOException {
+        Rechnung rg = new Rechnung();
+        rg.exportToPdf();
+    }
 
 
 
     }
-}
+
