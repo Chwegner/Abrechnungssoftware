@@ -3,6 +3,7 @@ package Abrechnungssoftware.DB;
 
 import Abrechnungssoftware.Verarbeitung.Auftrag;
 import Abrechnungssoftware.Verarbeitung.Kunde;
+import Abrechnungssoftware.DB.Stammdaten;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,8 +24,8 @@ public class DB_CON {
     private String dbName;
     private String user;
     private String pass;
-    //private Stammdaten stamm;
-    //protected Kunde kunde;
+    private Stammdaten stamm;
+    private Kunde kunde;
     private Auftrag auftrag;
     private ArrayList<Kunde> kundenliste = new ArrayList<>();
     private ArrayList<Auftrag> auftragliste = new ArrayList<>();
