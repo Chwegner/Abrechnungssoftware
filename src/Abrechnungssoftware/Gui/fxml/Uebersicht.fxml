@@ -51,10 +51,15 @@
                                                 <Button mnemonicParsing="false" text="Alles drucken" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                             </children>
                                         </GridPane>
-                              <TableView id="rechnungsview" fixedCellSize="0.0" stylesheets="@../css/RechnungsErstellung.css">
+                              <TableView id="rechnungsview" fx:id="rechnungTable" fixedCellSize="0.0" stylesheets="@../css/RechnungsErstellung.css">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <columns>
+                                    <TableColumn fx:id="auftragnr" prefWidth="75.0" text="AuftragsNr." />
+                                    <TableColumn fx:id="rechnungnr" prefWidth="75.0" text="RechnungsNr." />
+                                    <TableColumn fx:id="bezahlt" prefWidth="75.0" text="Bezahlt?" />
+                                 </columns>
                               </TableView>
                                     </children>
                                 </GridPane>

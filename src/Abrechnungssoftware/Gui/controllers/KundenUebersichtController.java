@@ -46,6 +46,11 @@ public class KundenUebersichtController
         return kundenUebersicht;
     }
 
+    public void initialize()
+    {
+
+    }
+
 
     @SuppressWarnings("Duplicates")
 

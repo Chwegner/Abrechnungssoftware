@@ -37,7 +37,7 @@ public class MenuBarController
     {
         mainController.getMainPane().getChildren().clear();
         mainController.getMainPane().getChildren().add(mainController.getRechnungErstellenController().getRechnungErstellen());
-
+        mainController.getRechnungErstellenController().AuftraegeEinfuegen();
     }
 
 
