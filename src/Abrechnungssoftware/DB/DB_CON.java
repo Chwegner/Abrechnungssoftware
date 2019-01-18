@@ -187,7 +187,7 @@ public class DB_CON {
                     "telefax = '" + kunde.getFax() + "'," +
                     "web = '" + kunde.getWeb() + "'," +
                     "email = '" + kunde.getEmail() + "'," +
-                    "ap_anrede = '" + kunde.getAnrede() + "'," +
+                    "ap_anrede = '" + kunde.getApAnrede() + "'," +
                     "ap_vorname = '" + kunde.getApVorname() + "'," +
                     "ap_nachname = '" + kunde.getApName() + "'," +
                     "ap_telefon = '" + kunde.getApTelefon() + "'," +
