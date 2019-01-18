@@ -438,6 +438,7 @@ public class DB_CON {
                 help.setTelefon(resultSet.getString("telefon"));
                 help.setFax(resultSet.getString("telefax"));
                 help.setEmail(resultSet.getString("email"));
+                help.setGrund(resultSet.getString("grund"));
                 helper.add(help);
             }
 
