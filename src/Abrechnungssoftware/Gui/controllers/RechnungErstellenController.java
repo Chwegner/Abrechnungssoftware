@@ -26,7 +26,7 @@ public class RechnungErstellenController
     @FXML
     private TableView<helperClass> auftragTable;
     @FXML
-    private TableColumn<helperClass, String> grund, von, bis;
+    private TableColumn<helperClass, String> grund, von, bis, firma;
     @FXML
     private TableColumn<helperClass, Integer> auftragNr, kundeNr, tage, id;
     @FXML
@@ -35,8 +35,7 @@ public class RechnungErstellenController
 
     private MainController mainController;
 
-
-    private ArrayList<Integer> erstellenListe;
+    private ArrayList<String> idListe;
 
 
     public void injectMainController(MainController mainController)
@@ -53,7 +52,9 @@ public class RechnungErstellenController
     public void initialize()
     {
         auftragTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         statusLabel.setStyle("-fx-font-size: 1em;");
+
 
     }
 
@@ -61,16 +62,17 @@ public class RechnungErstellenController
     {
 
 
-       DB_CON db = mainController.getDb();
+        DB_CON db = mainController.getDb();
 
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
+        firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
         grund.setCellValueFactory(new PropertyValueFactory<>("grund"));
-        kundeNr.setCellValueFactory(new PropertyValueFactory<>("kundennr"));
-        auftragNr.setCellValueFactory(new PropertyValueFactory<>("auftragsnr"));
-        von.setCellValueFactory(new PropertyValueFactory<>("von"));
-        bis.setCellValueFactory(new PropertyValueFactory<>("bis"));
-        tage.setCellValueFactory(new PropertyValueFactory<>("arbeitstage"));
+        kundeNr.setCellValueFactory(new PropertyValueFactory<>("kunden_id"));
+        auftragNr.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
+        von.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
+        bis.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
+        tage.setCellValueFactory(new PropertyValueFactory<>("tage"));
 
 
         ObservableList<helperClass> ob_liste = FXCollections.observableArrayList();
@@ -97,12 +99,6 @@ public class RechnungErstellenController
 
     public void RechnungenAuswahl()
     {
-        int id = auftragTable.getSelectionModel().getSelectedItem().getId();
-
-        String text = rechnungLabel.getText() + " '" + id + "' ";
-        rechnungLabel.setText(text);
-
-        erstellenListe.add(id);
 
     }
 
