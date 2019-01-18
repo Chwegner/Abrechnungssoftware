@@ -110,7 +110,7 @@ public class RechnungErstellenController
         getRechnungErstellen();
         AuftraegeEinfuegen();
 
-        erstellenListe.clear();
+        //erstellenListe.clear();
         rechnungLabel.setText("Erstelle Rechnung für: ");
 
     }
