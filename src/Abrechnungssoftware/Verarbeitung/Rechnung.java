@@ -51,12 +51,12 @@ public class Rechnung {
 			}
 		}
 		//logo einbinden
-//		File fileLogo = new File("kopf.png");
-//		String pfadLogo = fileLogo.getAbsolutePath();
-//		pfadLogo = pfadLogo.replaceAll("\\\\", "/");
-//		pfadLogo = pfadLogo.substring(1);
-//		pfadLogo = pfadLogo.replaceAll(":/","");
-//		text = text.replaceAll("\\{LOGO\\}","<img src='file:///"+pfadLogo+"'></img>");
+		File fileLogo = new File("kopf.png");
+		String pfadLogo = fileLogo.getAbsolutePath();
+		pfadLogo = pfadLogo.replaceAll("\\\\", "/");
+		pfadLogo = pfadLogo.substring(1);
+		pfadLogo = pfadLogo.replaceAll(":/","");
+		text = text.replaceAll("\\{LOGO\\}","<img class='img' src='file:///"+pfadLogo+"' width='' height=''></img>");
 
 		text = text.replaceAll("\\{HEADLINE\\}","Dies ist die neue Überschrift!");
 
