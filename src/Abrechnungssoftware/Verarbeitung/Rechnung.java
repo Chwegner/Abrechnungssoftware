@@ -1,17 +1,20 @@
 package Abrechnungssoftware.Verarbeitung;
 import java.io.*;
-
+import Abrechnungssoftware.DB.DB_CON;
+import Abrechnungssoftware.DB.Stammdaten;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 public class Rechnung {
 	//Variablen
 	Auftrag auftrag;
-
+	DB_CON db = new DB_CON();
+	Stammdaten std = new Stammdaten();
 	//Methoden
 	//Als pdf exportieren
 	public void exportToPdf() {
-		//Daten aus Datenbank einlesen und in Variablen schreiben
-
+		//Datenbank oeffnen
+		db.db_open();
+		db.LoadStammdaten(std);
 		//html Template laden
 		FileReader fr = null;
 		//Variable zum Einlesen des Templates
@@ -56,9 +59,57 @@ public class Rechnung {
 		pfadLogo = pfadLogo.replaceAll("\\\\", "/");
 		pfadLogo = pfadLogo.substring(1);
 		pfadLogo = pfadLogo.replaceAll(":/","");
-		text = text.replaceAll("\\{LOGO\\}","<img class='img' src='file:///"+pfadLogo+"' width='' height=''></img>");
+		text = text.replaceAll("\\{LOGO\\}","file:///"+pfadLogo);
 
-		text = text.replaceAll("\\{HEADLINE\\}","Dies ist die neue Überschrift!");
+		//unterschrift einbinden
+		File filesign = new File("unterschrift.png");
+		String pfadsign = filesign.getAbsolutePath();
+		pfadsign = pfadsign.replaceAll("\\\\", "/");
+		pfadsign = pfadsign.substring(1);
+		pfadsign = pfadsign.replaceAll(":/","");
+		text = text.replaceAll("\\{SIGN\\}","file:///"+pfadsign);
+
+		//Daten einsetzen
+		String vname = std.getVorname();
+		text = text.replaceAll("\\{VORNAME\\}",vname);
+		String nname = std.getNachname();
+		text = text.replaceAll("\\{NACHNAME\\}",nname);
+		String str = std.getStr();
+		text = text.replaceAll("\\{STRASSE\\}",str);
+		String hsnr = std.getHsnr();
+		text = text.replaceAll("\\{HNR\\}",hsnr);
+		String plz = std.getPlz();
+		text = text.replaceAll("\\{PLZ\\}",plz);
+		String ort = std.getOrt();
+		text = text.replaceAll("\\{ORT\\}",ort);
+		String stnr = std.getSteuernummer();
+		text = text.replaceAll("\\{STNR\\}",stnr);
+
+		//Umlaute ersetzen
+		String A = "Ä";
+		text = text.replaceAll("\\{Ae\\}",A);
+		String a = "ä";
+		text = text.replaceAll("\\{ae\\}",a);
+		String O = "Ö";
+		text = text.replaceAll("\\{Oe\\}",O);
+		String o = "ö";
+		text = text.replaceAll("\\{oe\\}",o);
+		String U = "Ü";
+		text = text.replaceAll("\\{Ue\\}",U);
+		String u = "ü";
+		text = text.replaceAll("\\{ue\\}",u);
+		String ß = "ß";
+		text = text.replaceAll("\\{sz\\}",ß);
+
+		//Sonderzeichen ersetzen
+		String euro = "€";
+		text = text.replaceAll("\\{EURO\\}",euro);
+		String paragraph = "§";
+		text = text.replaceAll("\\{PARAGRAPH\\}",paragraph);
+//		String rgdatum = std;
+//		text = text.replaceAll("\\{RGDATUM\\}",rgdatum);
+//		String rgnr = std.;
+//		text = text.replaceAll("\\{RGNR\\}",rgnr);
 
 
 		//Export als pdf
@@ -81,7 +132,8 @@ public class Rechnung {
 
 	//Rechnung erstellen
 	public void rechnungErstellen() {
-
+		db.db_open();
+		db.LoadStammdaten(std);
 	}
 
 }
