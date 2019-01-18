@@ -4,9 +4,11 @@ import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Kunde;
+import Abrechnungssoftware.Verarbeitung.Rechnung;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,7 +22,13 @@ public class UebersichtController
     @FXML
     private AnchorPane uebersicht;
     @FXML
-    private TableView kundenTable;
+    private TableView kundenTable, rechnungTable;
+
+    @FXML
+    private TableColumn<Rechnung, Integer> auftragnr, rechnungnr;
+    @FXML
+    private TableColumn<Rechnung, String> bezahlt;
+
     @FXML
     private TableColumn<Kunde, String> idColumn, firmaColumn, anredeColumn, nameColumn, vornameColumn;
     @FXML
@@ -31,8 +39,12 @@ public class UebersichtController
 
     private MainController mainController;
     private DB_CON db;
+
     private ObservableList<Kunde> obListe;
     private ArrayList<Kunde> liste;
+
+    private ObservableList<Rechnung> obListeR;
+    private ArrayList<Rechnung> listeR;
 
 
     public void injectMainController(MainController mainController)
@@ -43,6 +55,13 @@ public class UebersichtController
     public AnchorPane getUebersicht()
     {
         return uebersicht;
+    }
+
+    public void initialize()
+    {
+        kundenTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        rechnungTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     }
 
     @SuppressWarnings("Duplicates")
@@ -80,7 +99,32 @@ public class UebersichtController
             i++;
         }
         liste.clear();
-
-
     }
+
+    public void RechnungsListeEinfuegen()
+    {
+        db = mainController.getDb();
+
+        auftragnr.setCellValueFactory(new PropertyValueFactory<>("auftragsnr."));
+        rechnungnr.setCellValueFactory(new PropertyValueFactory<>("rechnungsnr."));
+        bezahlt.setCellValueFactory(new PropertyValueFactory<>("bezahlt"));
+
+        obListeR = FXCollections.observableArrayList();
+        rechnungTable.setItems(obListeR);
+        listeR = db.LoadRechnungList();
+
+
+        int i = 0;
+        for (Object element : listeR)
+        {
+            Rechnung temp = listeR.get(i);
+            rechnungTable.getItems().add(temp);
+
+
+            i++;
+        }
+        liste.clear();
+    }
+
+
 }
