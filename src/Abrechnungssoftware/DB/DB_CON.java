@@ -4,6 +4,8 @@ package Abrechnungssoftware.DB;
 import Abrechnungssoftware.Verarbeitung.Auftrag;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import Abrechnungssoftware.DB.Stammdaten;
+import Abrechnungssoftware.Verarbeitung.Rechnung;
+import Abrechnungssoftware.DB.helperClass;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,9 +29,11 @@ public class DB_CON {
     private Stammdaten stamm;
     private Kunde kunde;
     private Auftrag auftrag;
+    private Rechnung rechnung;
+    private ArrayList<helperClass> helper = new ArrayList<>();
     private ArrayList<Kunde> kundenliste = new ArrayList<>();
     private ArrayList<Auftrag> auftragliste = new ArrayList<>();
-    private ArrayList rechnungliste;
+    private ArrayList<Rechnung> rechnungliste = new ArrayList<>();
 
 
     public DB_CON() {
@@ -288,15 +292,42 @@ public class DB_CON {
             }
             rs.close();
             ps.close();
+
             auftrag.setId(id);
             String[][] auswertung = auftrag.getAuswertung();
+
             for (int i = 0; i < auftrag.getAbrechnungsintervall(); i++) {
-                statement = connection.createStatement();
+
+                //Auftrag_intervall eintragen
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
                         "(auftrag_id,von,bis) VALUES (" +
                         "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "')";
-                statement.executeUpdate(sqlQuery1);
+                ps = connection.prepareStatement(sqlQuery1, Statement.RETURN_GENERATED_KEYS);
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                int ids = 0;
+                if (rs.next()) {
+                    ids = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+
+                //Rechnung eintragen
+                statement = connection.createStatement();
+                String sqlQuery2 = "INSERT INTO `rechnungen` (grund,kunden_id,auftrag_id,von,bis," +
+                        "auftrag_intervall_id,intervall_von,intervall_bis,tage) VALUES (" +
+                        "'"+auftrag.getBezeichnung()+"'," +
+                        "'"+auftrag.getKundenid()+"'," +
+                        "'"+auftrag.getId()+"'," +
+                        "'"+auftrag.getVon()+"'," +
+                        "'"+auftrag.getBis()+"'," +
+                        "'"+ids+"'," +
+                        "'"+auswertung[i][0]+"'," +
+                        "'"+auswertung[i][1]+"'," +
+                        "'"+auftrag.getArbeitstage(auswertung[i][0],auswertung[i][1])+"')";
+                statement.executeUpdate(sqlQuery2);
                 statement.close();
+
             }
 
         } catch (Exception e) {
@@ -373,22 +404,92 @@ public class DB_CON {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList LoadRechnungList() {
+        try{
+           /* statement = connection.createStatement();
+            String sqlQuery = "SELECT * FROM auftrag_intervall WHERE re_bezahlt = 'Nein' AND re_erstellt = 'Nein'";
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+                Rechnung re = new Rechnung();
+                re.setId(resultSet.getInt("id"));
+                re.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                re.setVon(resultSet.getString("von"));
+                re.setBis(resultSet.getString("bis"));
+                re.setErstellt(resultSet.getString("re_erstellt"));
+                re.setBetahlt(resultSet.getString("re_betahlt"));
+
+                rechnungliste.add(re);
+            }
+            statement.close();*/
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return rechnungliste;
     }
 
-    public void LoadRechnung(int ID) {
+    public Rechnung LoadRechnung(int ID) {
+        try{
+           /* statement = connection.createStatement();
+            String sqlQuery = "Select * FROM auftrag_intervall WHERE id = '"+ID+"'";
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()){
+                rechnung.setId(resultSet.getInt("id"));
+                rechnung.setAuftrag_id(resultSet.getString("auftrag_id"));
+                rechnung.setVon(resultSet.getString("von"));
+                rechnung.setBis(resultSet.getString("bis"));
+                rechnung.setErstellt(resultSet.getString("re_erstellt"));
+                rechnung.setBezahlt(resultSet.getString("re_bezahlt"));
+            }
+            statement.close();*/
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rechnung;
+    }
+
+    public void NewRechnung(int ID) {
+        try {
+            statement = connection.createStatement();
+            String sqlQuery = "Update auftrag_intervall SET re_erstellt = 'Ja'" +
+                    " WHERE id = '"+ID+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
-    public void NewRechnung() {
+    public ArrayList LoadHelper(){
+        try {
+            statement = connection.createStatement();
+            String sqlQuery = "SELECT * FROM rechnungen";
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()){
+                helperClass help = new helperClass();
+                help.setId(resultSet.getInt("id"));
+                help.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                help.setKunden_id(resultSet.getInt("kunden_id"));
+                help.setAuftrag_intervall_id(resultSet.getInt("auftrag_intervall_id"));
+                help.setVon(resultSet.getString("von"));
+                help.setBis(resultSet.getString("bis"));
+                help.setIntervall_von(resultSet.getString("intervall_von"));
+                help.setIntervall_bis(resultSet.getString("intervall_bis"));
+                help.setTage(resultSet.getInt("tage"));
+                help.setKorrektur_tage(resultSet.getInt("korrektur_tage"));
+                help.setGrund(resultSet.getString("grund"));
 
+                helper.add(help);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return helper;
     }
-
 
     public void db_close() {
         try {
@@ -483,6 +584,21 @@ public class DB_CON {
                 "  ADD PRIMARY KEY (`id`)";
         String query16 = "ALTER TABLE `auftrag_intervall`" +
                 "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
+        String query17 = "INSERT INTO stammdaten (firma) VALUES ('')";
+        String query18 = "CREATE TABLE IF NOT EXISTS `rechnungen`(" +
+                "id int auto_increment," +
+                "grund varchar(100) null," +
+                "kunden_id int null," +
+                "auftrag_id int(1) null," +
+                "von varchar(20) null," +
+                "bis varchar(20) null," +
+                "auftrag_intervall_id int null," +
+                "intervall_von varchar(20) null," +
+                "intervall_bis varchar(20) null," +
+                "tage int(3) null," +
+                "korrektur_tage int(2) null," +
+                "primary key (id)" +
+                ")  ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
         try {
             connection.setAutoCommit(false);
@@ -504,6 +620,8 @@ public class DB_CON {
             statement.addBatch(query14);
             statement.addBatch(query15);
             statement.addBatch(query16);
+            statement.addBatch(query17);
+            statement.addBatch(query18);
             statement.executeBatch();
             connection.commit();
             statement.close();
