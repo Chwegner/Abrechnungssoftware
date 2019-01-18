@@ -1,48 +1,53 @@
 package Abrechnungssoftware;
 
 import Abrechnungssoftware.Gui.MainController;
-import Abrechnungssoftware.Verarbeitung.Rechnung;
 import javafx.application.Application;
 import Abrechnungssoftware.DB.DB_CON;
-//import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 
 import javax.swing.*;
 import java.io.*;
 import java.util.Properties;
-import java.util.regex.Matcher;
 
 public class Main
 {
-    /*
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws IOException
+    {
         File file = new File("system.ini");
         boolean exists = file.exists();
         boolean install = false;
-        if (file.exists() && file.isFile()) {
+        if (file.exists() && file.isFile())
+        {
 
-        }else{
-            String host,benutzer,password,datenbank;
+        } else
+        {
+            String host, benutzer, password, datenbank;
             host = JOptionPane.showInputDialog("Datenbankserveradresse ?");
             benutzer = JOptionPane.showInputDialog("Benutzername ?");
             password = JOptionPane.showInputDialog("Passwort ?");
             datenbank = JOptionPane.showInputDialog("Datenbank ?");
 
             Writer writer = null;
-            try {
+            try
+            {
                 writer = new FileWriter("system.ini");
-                Properties prop1 = new Properties( System.getProperties() );
-                prop1.setProperty( "HOST", host );
-                prop1.setProperty( "USER", benutzer );
-                prop1.setProperty( "PWD", password );
-                prop1.setProperty( "DATENBANK", datenbank );
-                prop1.store( writer, "Keine manuellen Aenderungen vornehmen!" );
-            } catch (Exception e){
+                Properties prop1 = new Properties(System.getProperties());
+                prop1.setProperty("HOST", host);
+                prop1.setProperty("USER", benutzer);
+                prop1.setProperty("PWD", password);
+                prop1.setProperty("DATENBANK", datenbank);
+                prop1.store(writer, "Keine manuellen Aenderungen vornehmen!");
+            } catch (Exception e)
+            {
 
-            }finally{
-                try {
+            } finally
+            {
+                try
+                {
                     writer.close();
-                } catch ( Exception e ) {
+                } catch (Exception e)
+                {
 
                 }
 
@@ -55,7 +60,7 @@ public class Main
 
         Application.launch(MainController.class, args);
 
-*/
+
 //        try {
 //
 //            try (OutputStream os = new FileOutputStream("out.pdf")) {
@@ -85,12 +90,12 @@ public class Main
 //            e.printStackTrace();
 //
 //        }
-    public static void main(String[] args) throws IOException {
-        Rechnung rg = new Rechnung();
-        rg.exportToPdf();
+//    public static void main(String[] args) throws IOException {
+//        Rechnung rg = new Rechnung();
+//        rg.exportToPdf();
+//    }
+
+
     }
-
-
-
-    }
+}
 

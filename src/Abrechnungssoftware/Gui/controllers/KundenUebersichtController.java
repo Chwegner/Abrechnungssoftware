@@ -18,9 +18,11 @@ public class KundenUebersichtController
     @FXML
     private AnchorPane kundenUebersicht;
     @FXML
-    private ChoiceBox anrede;
+    private ChoiceBox anrede, apAnrede;
     @FXML
     private TextField firma, name, vorname, strasse, nummer, ort, plz, telefon, telefax, website, mail;
+    @FXML
+    private TextField apVorname, apNachname, apTelefon, apMail, stundensatz;
     @FXML
     private TableView<Kunde> kundenTable;
     @FXML
@@ -95,6 +97,12 @@ public class KundenUebersichtController
         telefax.setText(k.getFax());
         website.setText(k.getWeb());
         mail.setText(k.getEmail());
+        apAnrede.setValue(k.getApAnrede());
+        apVorname.setText(k.getApVorname());
+        apNachname.setText(k.getApName());
+        apTelefon.setText(k.getApTelefon());
+        apMail.setText(k.getApEmail());
+        stundensatz.setText(Double.toString(k.getStundenSatz()));
 
     }
 
@@ -113,7 +121,12 @@ public class KundenUebersichtController
         telefon.setText("");
         telefax.setText("");
         website.setText("");
-        mail.setText("");
+        apAnrede.setValue("Herr");
+        apVorname.setText("");
+        apNachname.setText("");
+        apTelefon.setText("");
+        apMail.setText("");
+        stundensatz.setText("");
 
     }
 
@@ -140,6 +153,12 @@ public class KundenUebersichtController
             kunde.setFax(telefax.getText());
             kunde.setWeb(website.getText());
             kunde.setEmail(mail.getText());
+            kunde.setApAnrede((String) apAnrede.getValue());
+            kunde.setApVorname(apVorname.getText());
+            kunde.setName(apNachname.getText());
+            kunde.setTelefon(apTelefon.getText());
+            kunde.setApEmail(apMail.getText());
+            kunde.setStundenSatz(Double.parseDouble(stundensatz.getText()));
 
             int index = kundenTable.getSelectionModel().getSelectedItem().getId();
             db.EditKunde(index, kunde);
@@ -152,6 +171,19 @@ public class KundenUebersichtController
             e.printStackTrace();
 
         }
+
+    }
+
+    public void KundenLoeschen()
+    {
+        DB_CON db = mainController.getDb();
+
+        int index = kundenTable.getSelectionModel().getSelectedItem().getId();
+        Kunde k = db.LoadKunde(index);
+
+        db.DeleteKunde(index);
+        mainController.getMenuBarController().KundenUebersichtAufrufen();
+        TextfelderLeeren();
 
     }
 
