@@ -82,6 +82,7 @@ public class RechnungErstellenController
         for (Object element : liste)
         {
             helperClass temp = liste.get(i);
+            System.out.println(temp.getAuftrag_id());
             auftragTable.getItems().add(temp);
 
 

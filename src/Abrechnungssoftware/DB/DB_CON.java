@@ -440,12 +440,13 @@ public class DB_CON {
                 help.setEmail(resultSet.getString("email"));
                 helper.add(help);
             }
+
             statement.close();
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return rechnungliste;
+        return helper;
     }
 
     public Rechnung LoadRechnung(int ID) {
