@@ -300,8 +300,9 @@ public class DB_CON {
 
                 //Auftrag_intervall eintragen
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
-                        "(auftrag_id,von,bis) VALUES (" +
-                        "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "')";
+                        "(auftrag_id,von,bis,tage) VALUES (" +
+                        "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "'" +
+                        "'"+auftrag.getTage()+"')";
                 ps = connection.prepareStatement(sqlQuery1, Statement.RETURN_GENERATED_KEYS);
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
@@ -312,21 +313,21 @@ public class DB_CON {
                 rs.close();
                 ps.close();
 
-                //Rechnung eintragen
-                statement = connection.createStatement();
-                String sqlQuery2 = "INSERT INTO `rechnungen` (grund,kunden_id,auftrag_id,von,bis," +
-                        "auftrag_intervall_id,intervall_von,intervall_bis,tage) VALUES (" +
-                        "'"+auftrag.getBezeichnung()+"'," +
-                        "'"+auftrag.getKundenid()+"'," +
-                        "'"+auftrag.getId()+"'," +
-                        "'"+auftrag.getVon()+"'," +
-                        "'"+auftrag.getBis()+"'," +
-                        "'"+ids+"'," +
-                        "'"+auswertung[i][0]+"'," +
-                        "'"+auswertung[i][1]+"'," +
-                        "'"+auftrag.getArbeitstage(auswertung[i][0],auswertung[i][1])+"')";
-                statement.executeUpdate(sqlQuery2);
-                statement.close();
+//                //Rechnung eintragen
+//                statement = connection.createStatement();
+//                String sqlQuery2 = "INSERT INTO `rechnungen` (grund,kunden_id,auftrag_id,von,bis," +
+//                        "auftrag_intervall_id,intervall_von,intervall_bis,tage) VALUES (" +
+//                        "'"+auftrag.getBezeichnung()+"'," +
+//                        "'"+auftrag.getKundenid()+"'," +
+//                        "'"+auftrag.getId()+"'," +
+//                        "'"+auftrag.getVon()+"'," +
+//                        "'"+auftrag.getBis()+"'," +
+//                        "'"+ids+"'," +
+//                        "'"+auswertung[i][0]+"'," +
+//                        "'"+auswertung[i][1]+"'," +
+//                        "'"+auftrag.getArbeitstage(auswertung[i][0],auswertung[i][1])+"')";
+//                statement.executeUpdate(sqlQuery2);
+//                statement.close();
 
             }
 
@@ -408,21 +409,38 @@ public class DB_CON {
 
     public ArrayList LoadRechnungList() {
         try{
-           /* statement = connection.createStatement();
-            String sqlQuery = "SELECT * FROM auftrag_intervall WHERE re_bezahlt = 'Nein' AND re_erstellt = 'Nein'";
-            resultSet = statement.executeQuery(sqlQuery);
-            while (resultSet.next()) {
-                Rechnung re = new Rechnung();
-                re.setId(resultSet.getInt("id"));
-                re.setAuftrag_id(resultSet.getInt("auftrag_id"));
-                re.setVon(resultSet.getString("von"));
-                re.setBis(resultSet.getString("bis"));
-                re.setErstellt(resultSet.getString("re_erstellt"));
-                re.setBetahlt(resultSet.getString("re_betahlt"));
-
-                rechnungliste.add(re);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT " +
+                    "t1.id AS intervall_id,t1.von AS intervall_von,t1.bis AS intervall_bis," +
+                    "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
+                    "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
+                    "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id");
+            while(resultSet.next()){
+                helperClass help = new helperClass();
+                help.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
+                help.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                help.setKunden_id(resultSet.getInt("id"));
+                help.setBis(resultSet.getString("bis"));
+                help.setVon(resultSet.getString("von"));
+                help.setIntervall_bis(resultSet.getString("intervall_bis"));
+                help.setIntervall_von(resultSet.getString("intervall_von"));
+                help.setTage(resultSet.getInt("tage"));
+                help.setKorrektur_tage(resultSet.getInt("korrektur_tage"));
+                help.setFirma(resultSet.getString("firma"));
+                help.setAnrede(resultSet.getString("anrede"));
+                help.setVorname(resultSet.getString("vorname"));
+                help.setName(resultSet.getString("nachname"));
+                help.setStrasse(resultSet.getString("strasse"));
+                help.setHausnummer(resultSet.getString("hsnr"));
+                help.setPlz(resultSet.getString("plz"));
+                help.setOrt(resultSet.getString("ort"));
+                help.setTelefon(resultSet.getString("telefon"));
+                help.setFax(resultSet.getString("telefax"));
+                help.setEmail(resultSet.getString("email"));
+                helper.add(help);
             }
-            statement.close();*/
+            statement.close();
         }catch (Exception e){
             e.printStackTrace();
         }

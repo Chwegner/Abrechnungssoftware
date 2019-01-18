@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 public class Auftrag {
     String bezeichnung, von, bis;
-    int arbeitstage, korrekturtage;
+    int arbeitstage, korrekturtage,tage;
     int abrechnungsintervall;
     int Kundenid,id;
     String[][] auswertung;
@@ -25,7 +25,15 @@ public class Auftrag {
         this.setKundenid(Kunden_id);
         this.setAuswertung(this.getAbrechnungsIntervall(this.von,this.bis));
         this.setAbrechnungsintervall(auswertung.length);
-        this.arbeitstage = this.getArbeitstage(this.von,this.bis);
+        this.setTage(this.getArbeitstage(this.von,this.bis));
+    }
+
+    public int getTage() {
+        return tage;
+    }
+
+    public void setTage(int tage) {
+        this.tage = tage;
     }
 
     public int getId(){
