@@ -26,14 +26,17 @@
                         </Label>
             <TableView id="rechnungsview" fx:id="auftragTable" fixedCellSize="0.0" onMouseClicked="#RechnungenAuswahl" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/RechnungsErstellung.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columns>
-                  <TableColumn fx:id="firma" prefWidth="75.0" text="Firma" />
-                <TableColumn fx:id="auftragNr" prefWidth="92.0" text="Auftrags-NR." />
+                  <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="grund" prefWidth="75.0" text="Grund" />
+                  <TableColumn fx:id="kundeNr" prefWidth="75.0" text="KundenNr" />
+                <TableColumn fx:id="auftragNr" prefWidth="92.0" text="AuftragsNr" />
                   <TableColumn prefWidth="75.0" text="Zeitraum">
                      <columns>
                         <TableColumn fx:id="von" prefWidth="75.0" text="von" />
                         <TableColumn fx:id="bis" prefWidth="75.0" text="bis" />
                      </columns>
                   </TableColumn>
+                  <TableColumn fx:id="tage" prefWidth="75.0" text="Arbeitstage" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
