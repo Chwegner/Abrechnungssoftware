@@ -301,7 +301,7 @@ public class DB_CON {
                 //Auftrag_intervall eintragen
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
                         "(auftrag_id,von,bis,tage) VALUES (" +
-                        "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "'" +
+                        "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "'," +
                         "'"+auftrag.getTage()+"')";
                 ps = connection.prepareStatement(sqlQuery1, Statement.RETURN_GENERATED_KEYS);
                 ps.executeUpdate();
@@ -440,12 +440,13 @@ public class DB_CON {
                 help.setEmail(resultSet.getString("email"));
                 helper.add(help);
             }
+
             statement.close();
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return rechnungliste;
+        return helper;
     }
 
     public Rechnung LoadRechnung(int ID) {
