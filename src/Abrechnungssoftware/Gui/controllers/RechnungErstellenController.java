@@ -3,21 +3,17 @@ package Abrechnungssoftware.Gui.controllers;
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.helperClass;
 import Abrechnungssoftware.Gui.MainController;
-import Abrechnungssoftware.Verarbeitung.Auftrag;
-import Abrechnungssoftware.Verarbeitung.Kunde;
-import Abrechnungssoftware.Verarbeitung.Rechnung;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RechnungErstellenController
 {
@@ -35,7 +31,7 @@ public class RechnungErstellenController
 
     private MainController mainController;
 
-    private ArrayList<String> idListe;
+    private ArrayList<Integer> intervallListe = new ArrayList<>();
 
 
     public void injectMainController(MainController mainController)
@@ -51,19 +47,12 @@ public class RechnungErstellenController
 
     public void initialize()
     {
-        auftragTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         statusLabel.setStyle("-fx-font-size: 1em;");
-
-
     }
 
     public void AuftraegeEinfuegen()
     {
-
-
         DB_CON db = mainController.getDb();
-
 
         id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
         firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
@@ -74,23 +63,18 @@ public class RechnungErstellenController
         bis.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
         tage.setCellValueFactory(new PropertyValueFactory<>("tage"));
 
-
         ObservableList<helperClass> ob_liste = FXCollections.observableArrayList();
         auftragTable.setItems(ob_liste);
         ArrayList<helperClass> liste = db.LoadRechnungList();
-
 
         int i = 0;
         for (Object element : liste)
         {
             helperClass temp = liste.get(i);
-            System.out.println(temp.getAuftrag_id());
             auftragTable.getItems().add(temp);
-
 
             i++;
         }
-
 
         liste.clear();
 
@@ -99,15 +83,40 @@ public class RechnungErstellenController
 
     public void RechnungenAuswahl()
     {
+        int index = auftragTable.getSelectionModel().getSelectedItem().getAuftrag_intervall_id();
+
+        if (!intervallListe.contains(index))
+        {
+            intervallListe.add(index);
+        } else
+        {
+            intervallListe.removeIf(integer -> integer == index);
+        }
+        Collections.sort(intervallListe);
+
+        RechnungenAnzeigen();
+    }
+
+    public void RechnungenAnzeigen()
+    {
+        String liste = "";
+
+        for (int i = 0; i < intervallListe.size(); i++)
+        {
+            liste = liste + "ID: " + intervallListe.get(i) + " ";
+        }
+
+        rechnungLabel.setText("Rechnungen erstellen für: " + liste);
 
     }
+
 
     public void RechnungAbbrechen()
     {
         getRechnungErstellen();
         AuftraegeEinfuegen();
 
-        //erstellenListe.clear();
+        intervallListe.clear();
         rechnungLabel.setText("Erstelle Rechnung für: ");
 
     }
@@ -123,6 +132,18 @@ public class RechnungErstellenController
 
         try
         {
+            for (int i = 0; i < intervallListe.size(); i++)
+            {
+                db.NewRechnung(intervallListe.get(i));
+
+                ////Todo Re-Erstellt auf "Ja" setzen.
+
+                RechnungAbbrechen();
+
+                mainController.getMenuBarController().RechnungErstellenAufrufen();
+
+                ////Todo Status-Label updaten
+            }
 
         } catch (Exception e)
         {
@@ -133,6 +154,4 @@ public class RechnungErstellenController
 
 
     }
-
-
 }
