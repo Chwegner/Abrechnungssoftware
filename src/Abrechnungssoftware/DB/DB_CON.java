@@ -483,6 +483,18 @@ public class DB_CON {
 
     }
 
+    public void Rechnungbezahlt(int ID){
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "UPDATE auftrag_intervall SET re_bezahlt = 'Ja'" +
+                    " WHERE id = '"+ID+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList LoadHelper(){
         try {
             statement = connection.createStatement();
