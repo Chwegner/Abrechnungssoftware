@@ -1,6 +1,9 @@
 package Abrechnungssoftware.Gui.controllers;
 
+import Abrechnungssoftware.Gui.AlertBox;
 import Abrechnungssoftware.Gui.MainController;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 
 public class MenuBarController
 {
@@ -26,48 +29,88 @@ public class MenuBarController
 
     public void UebersichtFensterAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getUebersichtController().KundenListeEinfuegen();
-        mainController.getMainPane().getChildren().add(mainController.getUebersichtController().getUebersicht());
-
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getUebersichtController().KundenListeEinfuegen();
+            mainController.getUebersichtController().RechnungsListeEinfuegen();
+            mainController.getMainPane().getChildren().add(mainController.getUebersichtController().getUebersicht());
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Übersicht konnte nicht geladen werden");
+            System.exit(0);
+        }
 
     }
 
     public void RechnungErstellenAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getRechnungErstellenController().getRechnungErstellen());
-        mainController.getRechnungErstellenController().AuftraegeEinfuegen();
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getMainPane().getChildren().add(mainController.getRechnungErstellenController().getRechnungErstellen());
+            mainController.getRechnungErstellenController().AuftraegeEinfuegen();
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");
+            mainController.getMenuBarController().UebersichtFensterAufrufen();
+        }
     }
 
 
     public void AuftragErstellenAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getAuftragErstellenController().getAuftragErstellen());
-        mainController.getAuftragErstellenController().KundenlisteEinfuegen();
-
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getMainPane().getChildren().add(mainController.getAuftragErstellenController().getAuftragErstellen());
+            mainController.getAuftragErstellenController().KundenlisteEinfuegen();
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");
+            mainController.getMenuBarController().UebersichtFensterAufrufen();
+        }
     }
 
     public void KundenAnlegenAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getKundenAnlegenController().getKundenAnlegen());
-
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getMainPane().getChildren().add(mainController.getKundenAnlegenController().getKundenAnlegen());
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");
+            mainController.getMenuBarController().UebersichtFensterAufrufen();
+        }
     }
 
     public void KundenUebersichtAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getKundenUebersichtController().getKundenUebersicht());
-        mainController.getKundenUebersichtController().KundenAuflisten();
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getMainPane().getChildren().add(mainController.getKundenUebersichtController().getKundenUebersicht());
+            mainController.getKundenUebersichtController().KundenAuflisten();
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");
+            mainController.getMenuBarController().UebersichtFensterAufrufen();
+        }
     }
 
     public void StammdatenAendernAufrufen()
     {
-        mainController.getMainPane().getChildren().clear();
-        mainController.getMainPane().getChildren().add(mainController.getStammdatenAendernController().getStammdatenAendern());
-        mainController.getStammdatenAendernController().DatensaetzeEinsetzen();
+        try
+        {
+            mainController.getMainPane().getChildren().clear();
+            mainController.getMainPane().getChildren().add(mainController.getStammdatenAendernController().getStammdatenAendern());
+            mainController.getStammdatenAendernController().DatensaetzeEinsetzen();
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");
+            mainController.getMenuBarController().UebersichtFensterAufrufen();
+        }
     }
 
 

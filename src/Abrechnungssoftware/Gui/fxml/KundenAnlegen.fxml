@@ -38,6 +38,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
+                  <Label fx:id="statusLabel" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Button fx:id="speichern" mnemonicParsing="false" onAction="#KundeNeu" text="Speichern" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                     </children>
                 </GridPane>

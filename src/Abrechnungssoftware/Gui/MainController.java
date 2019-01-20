@@ -3,14 +3,20 @@ package Abrechnungssoftware.Gui;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Gui.controllers.*;
 import Abrechnungssoftware.Verarbeitung.Kunde;
+import Abrechnungssoftware.DB.DB_CON;
+
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import Abrechnungssoftware.DB.DB_CON;
+
+import java.net.ConnectException;
+
 
 public class MainController extends Application
 
@@ -42,17 +48,29 @@ public class MainController extends Application
     @FXML
     private void initialize()
     {
-        db.db_open();
+        try
+        {
 
-        menuBarController.injectMainController(this);
-        uebersichtController.injectMainController(this);
-        rechnungErstellenController.injectMainController(this);
-        auftragErstellenController.injectMainController(this);
-        kundenAnlegenController.injectMainController(this);
-        kundenUebersichtController.injectMainController(this);
-        stammdatenAendernController.injectMainController(this);
 
-        getMenuBarController().UebersichtFensterAufrufen();
+            db.db_open();
+
+            menuBarController.injectMainController(this);
+            uebersichtController.injectMainController(this);
+            rechnungErstellenController.injectMainController(this);
+            auftragErstellenController.injectMainController(this);
+            kundenAnlegenController.injectMainController(this);
+            kundenUebersichtController.injectMainController(this);
+            stammdatenAendernController.injectMainController(this);
+
+            getMenuBarController().UebersichtFensterAufrufen();
+
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler!", "Programm konnte nicht initialisiert werden!");
+            e.printStackTrace();
+            System.exit(0);
+
+        }
     }
 
     //// Getter und Setter ////
@@ -115,15 +133,33 @@ public class MainController extends Application
     /// App starten ///
 
     @Override
-    public void start(Stage stage) throws Exception
+    public void start(Stage stage)
     {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Abrechnungssoftware");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
+        try
+        {
+            Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Abrechnungssoftware");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (ConnectException e)
+        {
+            AlertBox.display("Fehler", "Datenbankverbindung gescheitert!");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (LoadException e)
+        {
+            AlertBox.display("Fehler", "Fehler beim Laden der FXML files!");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler!", "Programmstart gescheitert!");
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
 }

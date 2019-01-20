@@ -1,12 +1,15 @@
 package Abrechnungssoftware;
 
+import Abrechnungssoftware.Gui.AlertBox;
 import Abrechnungssoftware.Gui.MainController;
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import javafx.application.Application;
 import Abrechnungssoftware.DB.DB_CON;
 
 
 import javax.swing.*;
 import java.io.*;
+import java.net.ConnectException;
 import java.util.Properties;
 
 public class Main
@@ -14,6 +17,8 @@ public class Main
 
     public static void main(String[] args) throws IOException
     {
+
+
         File file = new File("system.ini");
         boolean exists = file.exists();
         boolean install = false;
@@ -57,8 +62,16 @@ public class Main
             inst_db.db_install();
             inst_db.db_close();
         }
+        try
+        {
 
-        Application.launch(MainController.class, args);
+
+            Application.launch(MainController.class, args);
+        } catch (Exception e)
+        {
+            AlertBox.display("Fehler!", "Programm kann nicht geladen werden!");
+            System.exit(0);
+        }
 
 
 //        try {

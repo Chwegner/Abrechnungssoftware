@@ -3,6 +3,7 @@ package Abrechnungssoftware.Gui.controllers;
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Kunde;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class KundenUebersichtController
 {
