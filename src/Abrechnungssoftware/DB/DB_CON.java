@@ -533,108 +533,126 @@ public class DB_CON {
 
     /* Installationsroutine*/
     public void db_install() {
-        String query0 = "CREATE DATABASE IF NOT EXISTS `" + dbName + "`";
-        String query1 = "USE `" + dbName + "`";
-        String query2 = "CREATE TABLE IF NOT EXISTS`stammdaten` (" +
-                "  `id` tinyint(1) NOT NULL," +
-                "  `firma` varchar(100) NOT NULL," +
-                "  `vorname` varchar(50) NOT NULL," +
-                "  `nachname` varchar(50) NOT NULL," +
-                "  `strasse` varchar(100) NOT NULL," +
-                "  `hsnr` varchar(20) NOT NULL," +
-                "  `plz` varchar(10) NOT NULL," +
-                "  `ort` varchar(50) NOT NULL," +
-                "  `telefon` varchar(50) NOT NULL," +
-                "  `telefax` varchar(50) NOT NULL," +
-                "  `web` varchar(50) NOT NULL," +
-                "  `email` varchar(50) NOT NULL," +
-                "  `bankname` varchar(50) NOT NULL," +
-                "  `kontoinhaber` varchar(50) NOT NULL," +
-                "  `bic` varchar(50) NOT NULL," +
-                "  `iban` varchar(50) NOT NULL," +
-                "  `steuernummer` varchar(50) NOT NULL" +
-                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
-        String query3 = "ALTER TABLE `stammdaten`" +
-                "  ADD PRIMARY KEY (`id`)";
-        String query4 = "ALTER TABLE `stammdaten`" +
-                "  MODIFY `id` tinyint(1) NOT NULL AUTO_INCREMENT";
-        String query5 = "CREATE TABLE IF NOT EXISTS `kunden` (" +
-                "  `id` int(11) NOT NULL," +
-                "  `firma` varchar(100) NOT NULL," +
-                "  `anrede` enum('Herr','Frau') NOT NULL DEFAULT 'Herr'," +
-                "  `vorname` varchar(100) NOT NULL," +
-                "  `nachname` varchar(100) NOT NULL," +
-                "  `strasse` varchar(50) NOT NULL," +
-                "  `hsnr` varchar(20) NOT NULL," +
-                "  `plz` varchar(20) NOT NULL," +
-                "  `ort` varchar(50) NOT NULL," +
-                "  `telefon` varchar(50) NOT NULL," +
-                "  `telefax` varchar(50) NOT NULL," +
-                "  `web` varchar(50) NOT NULL," +
-                "  `email` varchar(50) NOT NULL," +
-                "  `ap_anrede` enum('Herr','Frau') NOT NULL DEFAULT 'Herr'," +
-                "  `ap_vorname` varchar(50) NOT NULL," +
-                "  `ap_nachname` varchar(50) NOT NULL," +
-                "  `ap_telefon` varchar(50) NOT NULL," +
-                "  `ap_email` varchar(50) NOT NULL," +
-                "  `stdsatz` decimal(10,2) NOT NULL" +
-                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
-        String query6 = "ALTER TABLE `kunden`" +
-                "  ADD PRIMARY KEY (`id`)";
-        String query7 = "ALTER TABLE `kunden`" +
-                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-        String query8 = "CREATE TABLE IF NOT EXISTS `auftrag` (" +
-                "  `id` int(11) NOT NULL," +
-                "  `kunden_id` int(11) NOT NULL," +
-                "  `von` varchar(20) NOT NULL," +
-                "  `bis` varchar(20) NOT NULL," +
-                "  `grund` varchar(250) NOT NULL" +
-                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
-        String query9 = "ALTER TABLE `auftrag`" +
-                "  ADD PRIMARY KEY (`id`);";
-        String query10 = "ALTER TABLE `rechnung`" +
-                "  ADD PRIMARY KEY (`id`);";
-        String query11 = "CREATE TABLE IF NOT EXISTS `rechnung` (" +
-                "  `id` int(11) NOT NULL," +
-                "  `auftrag_id` int(11) NOT NULL," +
-                "  `re_nr` varchar(10) NOT NULL," +
-                "  `bezahlt` enum('ja','nein') NOT NULL DEFAULT 'nein'" +
-                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
-        String query12 = "ALTER TABLE `auftrag`" +
-                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-        String query13 = "ALTER TABLE `rechnung`" +
-                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-        String query14 = "CREATE TABLE IF NOT EXISTS `auftrag_intervall` (\n" +
-                "  `id` int(11) NOT NULL," +
-                "  `auftrag_id` int(11) NOT NULL," +
-                "  `von` varchar(20) NOT NULL," +
-                "  `bis` varchar(20) NOT NULL," +
-                "  `re_erstellt` enum('ja','nein') NOT NULL DEFAULT 'nein'," +
-                "  `re_bezahlt` enum('ja','nein') NOT NULL DEFAULT 'nein'" +
-                ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
-        String query15 = "ALTER TABLE `auftrag_intervall`" +
-                "  ADD PRIMARY KEY (`id`)";
-        String query16 = "ALTER TABLE `auftrag_intervall`" +
-                "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-        String query17 = "INSERT INTO stammdaten (firma) VALUES ('')";
-        String query18 = "CREATE TABLE IF NOT EXISTS `rechnungen`(" +
-                "id int auto_increment," +
-                "grund varchar(100) null," +
-                "kunden_id int null," +
-                "auftrag_id int(1) null," +
-                "von varchar(20) null," +
-                "bis varchar(20) null," +
-                "auftrag_intervall_id int null," +
-                "intervall_von varchar(20) null," +
-                "intervall_bis varchar(20) null," +
-                "tage int(3) null," +
-                "korrektur_tage int(2) null," +
-                "primary key (id)" +
-                ")  ENGINE=MyISAM DEFAULT CHARSET=utf8";
+        // Tabellen löschen für eine saubere installation
+        String query01 = "drop table auftrag";
+        String query02 = "drop table auftrag_intervall";
+        String query03 = "drop table kunden";
+        String query04 = "drop table rechnung";
+        String query05 = "drop table rechnungen";
+        String query06 = "drop table stammdaten";
+        // Tabellen anlegen und leeren Stammdatensatz erzeugen
+        String query0 = "create table if not exists auftrag" +
+                "(" +
+                "  id        int(11) auto_increment" +
+                "    primary key," +
+                "  kunden_id int(11)      not null," +
+                "  von       varchar(20)  not null," +
+                "  bis       varchar(20)  not null," +
+                "  grund     varchar(250) not null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8";
+        String query1 = "create table if not exists auftrag_intervall" +
+                "(" +
+                "  id             int(11) auto_increment" +
+                "    primary key," +
+                "  auftrag_id     int(11)                            not null," +
+                "  von            varchar(20)                        not null," +
+                "  bis            varchar(20)                        not null," +
+                "  tage           int(2)                             null," +
+                "  re_erstellt    enum ('ja', 'nein') default 'nein' not null," +
+                "  re_bezahlt     enum ('ja', 'nein') default 'nein' not null," +
+                "  korrektur_tage int(2)                             null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8;";
+        String query2 = "create table if not exists kunden" +
+                "(" +
+                "  id          int(11) auto_increment" +
+                "    primary key," +
+                "  firma       varchar(100)                         not null," +
+                "  anrede      enum ('Herr', 'Frau') default 'Herr' not null," +
+                "  vorname     varchar(100)                         not null," +
+                "  nachname    varchar(100)                         not null," +
+                "  strasse     varchar(50)                          not null," +
+                "  hsnr        varchar(20)                          not null," +
+                "  plz         varchar(20)                          not null," +
+                "  ort         varchar(50)                          not null," +
+                "  telefon     varchar(50)                          not null," +
+                "  telefax     varchar(50)                          not null," +
+                "  web         varchar(50)                          not null," +
+                "  email       varchar(50)                          not null," +
+                "  ap_anrede   enum ('Herr', 'Frau') default 'Herr' not null," +
+                "  ap_vorname  varchar(50)                          not null," +
+                "  ap_nachname varchar(50)                          not null," +
+                "  ap_telefon  varchar(50)                          not null," +
+                "  ap_email    varchar(50)                          not null," +
+                "  stdsatz     decimal(10, 2)                       not null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8";
+        String query3 = "create table if not exists rechnung" +
+                "(" +
+                "  id         int(11)     not null," +
+                "  auftrag_id int(11)     not null," +
+                "  re_nr      varchar(10) not null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8";
+        String query4  = "create table if not exists rechnungen" +
+                "(" +
+                "  id                   int(11) auto_increment" +
+                "    primary key," +
+                "  grund                varchar(100) charset latin1 null," +
+                "  kunden_id            int(11)                     null," +
+                "  auftrag_id           int(11)                     null," +
+                "  von                  varchar(20) charset latin1  null," +
+                "  bis                  varchar(20) charset latin1  null," +
+                "  auftrag_intervall_id int(11)                     null," +
+                "  intervall_von        varchar(20) charset latin1  null," +
+                "  intervall_bis        varchar(20) charset latin1  null," +
+                "  tage                 int(3)                      null," +
+                "  korrektur_tage       int(2)                      null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8";
+        String query5 = "create table if not exists stammdaten" +
+                "(" +
+                "  id           tinyint(1) auto_increment" +
+                "    primary key," +
+                "  firma        varchar(100) not null," +
+                "  vorname      varchar(50)  not null," +
+                "  nachname     varchar(50)  not null," +
+                "  strasse      varchar(100) not null," +
+                "  hsnr         varchar(20)  not null," +
+                "  plz          varchar(10)  not null," +
+                "  ort          varchar(50)  not null," +
+                "  telefon      varchar(50)  not null," +
+                "  telefax      varchar(50)  not null," +
+                "  web          varchar(50)  not null," +
+                "  email        varchar(50)  not null," +
+                "  bankname     varchar(50)  not null," +
+                "  kontoinhaber varchar(50)  not null," +
+                "  bic          varchar(50)  not null," +
+                "  iban         varchar(50)  not null," +
+                "  steuernummer varchar(50)  not null" +
+                ")" +
+                "  engine = MyISAM " +
+                "  charset = utf8";
+        String query6 = "INSERT INTO stammdaten (" +
+                "firma, vorname, nachname, strasse, hsnr, plz, ort, telefon, telefax, web, email, bankname," +
+                " kontoinhaber, bic, iban, steuernummer) VALUES (" +
+                "'','','','','','','','','','','','','','','','')";
 
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
+            statement.addBatch(query01);
+            statement.addBatch(query02);
+            statement.addBatch(query03);
+            statement.addBatch(query04);
+            statement.addBatch(query05);
+            statement.addBatch(query06);
             statement.addBatch(query0);
             statement.addBatch(query1);
             statement.addBatch(query2);
@@ -642,18 +660,6 @@ public class DB_CON {
             statement.addBatch(query4);
             statement.addBatch(query5);
             statement.addBatch(query6);
-            statement.addBatch(query7);
-            statement.addBatch(query8);
-            statement.addBatch(query9);
-            statement.addBatch(query10);
-            statement.addBatch(query11);
-            statement.addBatch(query12);
-            statement.addBatch(query13);
-            statement.addBatch(query14);
-            statement.addBatch(query15);
-            statement.addBatch(query16);
-            statement.addBatch(query17);
-            statement.addBatch(query18);
             statement.executeBatch();
             connection.commit();
             statement.close();
