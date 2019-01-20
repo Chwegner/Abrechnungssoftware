@@ -2,12 +2,14 @@ package Abrechnungssoftware.Gui.controllers;
 
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
+import Abrechnungssoftware.DB.helperClass;
 import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import Abrechnungssoftware.Verarbeitung.Rechnung;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,9 +27,12 @@ public class UebersichtController
     private TableView kundenTable, rechnungTable;
 
     @FXML
-    private TableColumn<Rechnung, Integer> auftragnr, rechnungnr;
+    private Label statusLabel;
+
     @FXML
-    private TableColumn<Rechnung, String> bezahlt;
+    private TableColumn<helperClass, Integer> rechnungnrRechnung, auftragnrRechnung;
+    @FXML
+    private TableColumn<helperClass, String> bezahltRechnung;
 
     @FXML
     private TableColumn<Kunde, String> idColumn, firmaColumn, anredeColumn, nameColumn, vornameColumn;
@@ -43,8 +48,8 @@ public class UebersichtController
     private ObservableList<Kunde> obListe;
     private ArrayList<Kunde> liste;
 
-    private ObservableList<Rechnung> obListeR;
-    private ArrayList<Rechnung> listeR;
+    private ObservableList<helperClass> obListeR;
+    private ArrayList<helperClass> listeR;
 
 
     public void injectMainController(MainController mainController)
@@ -59,71 +64,206 @@ public class UebersichtController
 
     public void initialize()
     {
+        statusLabel.setStyle("-fx-font-size: 2em");
+
         kundenTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         rechnungTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
     }
 
     @SuppressWarnings("Duplicates")
 
     public void KundenListeEinfuegen()
     {
-        db = mainController.getDb();
-
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
-        anredeColumn.setCellValueFactory(new PropertyValueFactory<>("anrede"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        vornameColumn.setCellValueFactory(new PropertyValueFactory<>("vorname"));
-        strasseColumn.setCellValueFactory(new PropertyValueFactory<>("strasse"));
-        hausnrColumn.setCellValueFactory(new PropertyValueFactory<>("hsnr."));
-        ortColumn.setCellValueFactory(new PropertyValueFactory<>("ort"));
-        plzColumn.setCellValueFactory(new PropertyValueFactory<>("plz"));
-        telefonColumn.setCellValueFactory(new PropertyValueFactory<>("telefon"));
-        faxColumn.setCellValueFactory(new PropertyValueFactory<>("fax"));
-        webColumn.setCellValueFactory(new PropertyValueFactory<>("web"));
-        mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
-        stundensatzColumn.setCellValueFactory(new PropertyValueFactory<>("st.satz"));
-
-        obListe = FXCollections.observableArrayList();
-        kundenTable.setItems(obListe);
-        liste = db.LoadKundenList();
-
-        int i = 0;
-        for (Object element : liste)
+        try
         {
-            Kunde temp = liste.get(i);
-            kundenTable.getItems().add(temp);
+            db = mainController.getDb();
 
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
+            anredeColumn.setCellValueFactory(new PropertyValueFactory<>("anrede"));
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            vornameColumn.setCellValueFactory(new PropertyValueFactory<>("vorname"));
+            strasseColumn.setCellValueFactory(new PropertyValueFactory<>("strasse"));
+            hausnrColumn.setCellValueFactory(new PropertyValueFactory<>("hsnr."));
+            ortColumn.setCellValueFactory(new PropertyValueFactory<>("ort"));
+            plzColumn.setCellValueFactory(new PropertyValueFactory<>("plz"));
+            telefonColumn.setCellValueFactory(new PropertyValueFactory<>("telefon"));
+            faxColumn.setCellValueFactory(new PropertyValueFactory<>("fax"));
+            webColumn.setCellValueFactory(new PropertyValueFactory<>("web"));
+            mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
+            stundensatzColumn.setCellValueFactory(new PropertyValueFactory<>("st.satz"));
 
-            i++;
+            obListe = FXCollections.observableArrayList();
+            kundenTable.setItems(obListe);
+            liste = db.LoadKundenList();
+
+            int i = 0;
+            for (Object element : liste)
+            {
+                Kunde temp = liste.get(i);
+                kundenTable.getItems().add(temp);
+
+                i++;
+            }
+            liste.clear();
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Laden aus der DB!");
+            e.printStackTrace();
         }
-        liste.clear();
     }
+
+    public void KundenAuswahlDrucken()
+    {
+        try
+        {
+            ObservableList<helperClass> list = kundenTable.getSelectionModel().getSelectedItems();
+
+            int i = 0;
+            for (Object element : list)
+            {
+                helperClass temp = list.get(i);
+
+                //// Todo PDF drucken
+
+                i++;
+            }
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("PDF erstellt!");
+        } catch (NullPointerException e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Kein Kunde ausgewählt!");
+            e.printStackTrace();
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Drucken der PDF!");
+            e.printStackTrace();
+        }
+    }
+
+    public void KundenAllesDrucken()
+    {
+        try
+        {
+            ObservableList<helperClass> list = kundenTable.getItems();
+
+            int i = 0;
+            for (Object element : list)
+            {
+                helperClass temp = list.get(i);
+
+                //// Todo PDF drucken
+
+                i++;
+
+            }
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("PDF erstellt!");
+
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Drucken der PDF!");
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     public void RechnungsListeEinfuegen()
     {
-        db = mainController.getDb();
+        try
+        {
+            db = mainController.getDb();
 
-        auftragnr.setCellValueFactory(new PropertyValueFactory<>("auftragsnr."));
-        rechnungnr.setCellValueFactory(new PropertyValueFactory<>("rechnungsnr."));
-        bezahlt.setCellValueFactory(new PropertyValueFactory<>("bezahlt"));
+            rechnungnrRechnung.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
+            auftragnrRechnung.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
+            bezahltRechnung.setCellValueFactory(new PropertyValueFactory<>("bezahlt"));
 
-        obListeR = FXCollections.observableArrayList();
-        rechnungTable.setItems(obListeR);
-        listeR = db.LoadRechnungList();
+            obListeR = FXCollections.observableArrayList();
+            rechnungTable.setItems(obListeR);
+            listeR = db.LoadRechnungList();
 
+            int i = 0;
+            for (Object element : listeR)
+            {
+                helperClass temp = listeR.get(i);
+                rechnungTable.getItems().add(temp);
+
+
+                i++;
+            }
+            liste.clear();
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Laden aus der DB!");
+            e.printStackTrace();
+        }
+    }
+
+    public void RechnungAuswahlDrucken()
+    {
+        try
+        {
+            ObservableList<helperClass> list = rechnungTable.getSelectionModel().getSelectedItems();
+
+
+            int i = 0;
+            for (Object element : list)
+            {
+                helperClass temp = list.get(i);
+
+                //// Todo PDF drucken
+
+                i++;
+            }
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("PDF erstellt!");
+        } catch (NullPointerException e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Keine Rechnung ausgewählt!");
+            e.printStackTrace();
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Drucken der PDF!");
+            e.printStackTrace();
+        }
+    }
+
+    public void RechnungAllesDrucken()
+    {
+        try
+    {
+        ObservableList<helperClass> list = rechnungTable.getItems();
 
         int i = 0;
-        for (Object element : listeR)
+        for (Object element : list)
         {
-            Rechnung temp = listeR.get(i);
-            rechnungTable.getItems().add(temp);
+            helperClass temp = list.get(i);
 
+            //// Todo PDF drucken
 
             i++;
+
         }
-        liste.clear();
+        statusLabel.setStyle("-fx-text-fill: green");
+        statusLabel.setText("PDF erstellt!");
+
+    } catch (Exception e)
+    {
+        statusLabel.setStyle("-fx-text-fill: red");
+        statusLabel.setText("Fehler beim Drucken der PDF!");
+        e.printStackTrace();
+    }
+
+
     }
 
 

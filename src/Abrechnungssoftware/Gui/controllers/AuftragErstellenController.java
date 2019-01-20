@@ -1,7 +1,6 @@
 package Abrechnungssoftware.Gui.controllers;
 
 
-
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Auftrag;
@@ -32,7 +31,7 @@ public class AuftragErstellenController
     @FXML
     private DatePicker starttermin, endtermin;
     @FXML
-    private Label AuftragInfoLabel;
+    private Label AuftragInfoLabel, statusLabel;
 
     private MainController mainController;
 
@@ -51,28 +50,35 @@ public class AuftragErstellenController
 
     public void KundenlisteEinfuegen()
     {
-        DB_CON db = mainController.getDb();
-
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
-
-
-        ob_liste = FXCollections.observableArrayList();
-        kundenTable.setItems(ob_liste);
-        liste = db.LoadKundenList();
-
-
-        int i = 0;
-        for (Object element : liste)
+        try
         {
-            Kunde temp = liste.get(i);
-            kundenTable.getItems().add(temp);
+            DB_CON db = mainController.getDb();
+
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            firmaColumn.setCellValueFactory(new PropertyValueFactory<>("firma"));
 
 
-            i++;
+            ob_liste = FXCollections.observableArrayList();
+            kundenTable.setItems(ob_liste);
+            liste = db.LoadKundenList();
+
+
+            int i = 0;
+            for (Object element : liste)
+            {
+                Kunde temp = liste.get(i);
+                kundenTable.getItems().add(temp);
+
+
+                i++;
+            }
+            liste.clear();
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Laden der Kundenliste!");
+            e.printStackTrace();
         }
-        liste.clear();
-
 
     }
 
@@ -88,26 +94,42 @@ public class AuftragErstellenController
 
     public void AuftragSpeichern()
     {
-        DB_CON db = mainController.getDb();
+        try
+        {
+            DB_CON db = mainController.getDb();
 
-        int index = kundenTable.getSelectionModel().getSelectedItem().getId();
+            int index = kundenTable.getSelectionModel().getSelectedItem().getId();
 
-        LocalDate startDate = starttermin.getValue();
-        LocalDate endDate = endtermin.getValue();
-        String von = startDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        String bis = endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            LocalDate startDate = starttermin.getValue();
+            LocalDate endDate = endtermin.getValue();
+            String von = startDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            String bis = endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
-        String bezeichnung = grund.getText();
+            String bezeichnung = grund.getText();
 
-        Auftrag auftrag = new Auftrag(von, bis, index, bezeichnung);
-        db.NewAuftrag(auftrag);
-
-
-        grund.setText("");
-        starttermin.setValue(null);
-        endtermin.setValue(null);
+            Auftrag auftrag = new Auftrag(von, bis, index, bezeichnung);
+            db.NewAuftrag(auftrag);
 
 
+            grund.setText("");
+            starttermin.setValue(null);
+            endtermin.setValue(null);
+
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("Auftrag erstellt!");
+
+        } catch (NullPointerException e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Keine Auswahl getroffen!");
+            e.printStackTrace();
+
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Speichern!");
+            e.printStackTrace();
+        }
     }
 
 

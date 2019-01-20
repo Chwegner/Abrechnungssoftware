@@ -65,6 +65,7 @@
                               <DatePicker id="datepicker" fx:id="starttermin" stylesheets="@../css/Auftragserstellung.css" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3" />
                               <DatePicker id="datepicker" fx:id="endtermin" stylesheets="@../css/Auftragserstellung.css" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
                               <Label id="auftragsinfo" fx:id="AuftragInfoLabel" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Label fx:id="statusLabel" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />

@@ -6,6 +6,7 @@ import Abrechnungssoftware.Gui.MainController;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,9 +21,10 @@ public class KundenAnlegenController
     private TextField telefon, telefax, website, mail;
     @FXML
     private ChoiceBox anrede;
+    @FXML
+    private Label statusLabel;
 
     private MainController mainController;
-
 
 
     public void injectMainController(MainController mainController)
@@ -61,9 +63,19 @@ public class KundenAnlegenController
 
             KundenFelderLeeren();
 
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("Kunde erstellt!");
+
+        } catch (NullPointerException e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Felder bitte ausfüllen!");
+            e.printStackTrace();
 
         } catch (Exception e)
         {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Anlegen des Kunden!");
             e.printStackTrace();
 
         }

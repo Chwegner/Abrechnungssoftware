@@ -47,8 +47,9 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Button mnemonicParsing="false" text="Auswahl drucken" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                                <Button mnemonicParsing="false" text="Alles drucken" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                                <Button mnemonicParsing="false" onAction="#RechnungAuswahlDrucken" text="Auswahl drucken" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                                <Button mnemonicParsing="false" onAction="#RechnungAllesDrucken" text="Alles drucken" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label fx:id="statusLabel" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                             </children>
                                         </GridPane>
                               <TableView id="rechnungsview" fx:id="rechnungTable" fixedCellSize="0.0" stylesheets="@../css/RechnungsErstellung.css">
@@ -56,9 +57,9 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="auftragnr" prefWidth="75.0" text="AuftragsNr." />
-                                    <TableColumn fx:id="rechnungnr" prefWidth="75.0" text="RechnungsNr." />
-                                    <TableColumn fx:id="bezahlt" prefWidth="75.0" text="Bezahlt?" />
+                                    <TableColumn fx:id="rechnungnrRechnung" prefWidth="173.6666717529297" text="RechnungsNr." />
+                                    <TableColumn fx:id="auftragnrRechnung" prefWidth="268.3333282470703" text="AuftragsNr." />
+                                    <TableColumn fx:id="bezahltRechnung" prefWidth="75.0" text="Bezahlt?" />
                                  </columns>
                               </TableView>
                                     </children>
@@ -162,8 +163,8 @@
                                     <children>
                                         <GridPane GridPane.rowIndex="1">
                                             <children>
-                                                <Button mnemonicParsing="false" text="Auswahl drucken" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                                <Button mnemonicParsing="false" text="Alles drucken" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                                <Button mnemonicParsing="false" onAction="#KundenAuswahlDrucken" text="Auswahl drucken" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                                <Button mnemonicParsing="false" onAction="#KundenAllesDrucken" text="Alles drucken" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                             </children>
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />

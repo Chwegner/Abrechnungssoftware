@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,111 +46,143 @@ public class RechnungErstellenController
 
     public void initialize()
     {
-        statusLabel.setStyle("-fx-font-size: 1em;");
+        statusLabel.setStyle("-fx-font-size: 2em;");
     }
 
     public void AuftraegeEinfuegen()
     {
-        DB_CON db = mainController.getDb();
-
-        id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
-        firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
-        grund.setCellValueFactory(new PropertyValueFactory<>("grund"));
-        kundeNr.setCellValueFactory(new PropertyValueFactory<>("kunden_id"));
-        auftragNr.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
-        von.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
-        bis.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
-        tage.setCellValueFactory(new PropertyValueFactory<>("tage"));
-
-        ObservableList<helperClass> ob_liste = FXCollections.observableArrayList();
-        auftragTable.setItems(ob_liste);
-        ArrayList<helperClass> liste = db.LoadRechnungList();
-
-        int i = 0;
-        for (Object element : liste)
+        try
         {
-            helperClass temp = liste.get(i);
-            auftragTable.getItems().add(temp);
+            DB_CON db = mainController.getDb();
 
-            i++;
+            id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
+            firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
+            grund.setCellValueFactory(new PropertyValueFactory<>("grund"));
+            kundeNr.setCellValueFactory(new PropertyValueFactory<>("kunden_id"));
+            auftragNr.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
+            von.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
+            bis.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
+            tage.setCellValueFactory(new PropertyValueFactory<>("tage"));
+
+            ObservableList<helperClass> ob_liste = FXCollections.observableArrayList();
+            auftragTable.setItems(ob_liste);
+            ArrayList<helperClass> liste = db.LoadRechnungList();
+
+            int i = 0;
+            for (Object element : liste)
+            {
+                helperClass temp = liste.get(i);
+
+                auftragTable.getItems().add(temp);
+
+                i++;
+            }
+
+            liste.clear();
+
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Laden aus der DB!");
+            e.printStackTrace();
+
         }
-
-        liste.clear();
-
-
     }
 
     public void RechnungenAuswahl()
     {
-        int index = auftragTable.getSelectionModel().getSelectedItem().getAuftrag_intervall_id();
+        try
+        {
+            int index = auftragTable.getSelectionModel().getSelectedItem().getAuftrag_intervall_id();
 
-        if (!intervallListe.contains(index))
+            if (!intervallListe.contains(index))
+            {
+                intervallListe.add(index);
+            } else
+            {
+                intervallListe.removeIf(integer -> integer == index);
+            }
+            Collections.sort(intervallListe);
+
+            RechnungenAnzeigen();
+
+        } catch (Exception e)
         {
-            intervallListe.add(index);
-        } else
-        {
-            intervallListe.removeIf(integer -> integer == index);
+            e.printStackTrace();
+
         }
-        Collections.sort(intervallListe);
-
-        RechnungenAnzeigen();
     }
 
     public void RechnungenAnzeigen()
     {
-        String liste = "";
-
-        for (int i = 0; i < intervallListe.size(); i++)
+        try
         {
-            liste = liste + "ID: " + intervallListe.get(i) + " ";
+            String liste = "";
+
+            for (int i = 0; i < intervallListe.size(); i++)
+            {
+                liste = liste + "ID: " + intervallListe.get(i) + " ";
+            }
+
+            rechnungLabel.setText("Rechnungen erstellen für: " + liste);
+
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Anzeigen der Auswahl!");
+            e.printStackTrace();
         }
-
-        rechnungLabel.setText("Rechnungen erstellen für: " + liste);
-
     }
 
 
     public void RechnungAbbrechen()
     {
-        getRechnungErstellen();
-        AuftraegeEinfuegen();
+        try
+        {
+            getRechnungErstellen();
+            AuftraegeEinfuegen();
 
-        intervallListe.clear();
-        rechnungLabel.setText("Erstelle Rechnung für: ");
-
+            intervallListe.clear();
+            rechnungLabel.setText("Erstelle Rechnung für: ");
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Löschen der Auswahl!");
+            e.printStackTrace();
+        }
     }
 
 
     public void RechnungErstellen()
     {
-
-
-        DB_CON db = mainController.getDb();
-
-        int index = auftragTable.getSelectionModel().getSelectedItem().getId();
-
         try
         {
+            DB_CON db = mainController.getDb();
+
+            int index = auftragTable.getSelectionModel().getSelectedItem().getId();
+
             for (int i = 0; i < intervallListe.size(); i++)
             {
-                db.NewRechnung(intervallListe.get(i));
 
-                ////Todo Re-Erstellt auf "Ja" setzen.
+                db.NewRechnung(intervallListe.get(i));
 
                 RechnungAbbrechen();
 
                 mainController.getMenuBarController().RechnungErstellenAufrufen();
 
-                ////Todo Status-Label updaten
+                statusLabel.setStyle("-fx-text-fill: green");
+                statusLabel.setText("Rechnung erstellt!");
             }
-
+        } catch (NullPointerException e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Keine Rechnung ausgewählt!");
+            e.printStackTrace();
         } catch (Exception e)
         {
-            statusLabel.setTextFill(Color.RED);
+            statusLabel.setStyle("-fx-text-fill: red");
             statusLabel.setText("Fehler beim Erstellen der Rechnung!");
             e.printStackTrace();
         }
-
-
     }
 }
