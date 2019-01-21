@@ -308,9 +308,9 @@ public class DB_CON {
 
                 //Auftrag_intervall eintragen
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
-                        "(auftrag_id,von,bis,tage) VALUES (" +
+                        "(auftrag_id,von,bis,tage,korrektur_tage) VALUES (" +
                         "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "'," +
-                        "'"+auftrag.getTage()+"')";
+                        "'"+auftrag.getTage()+"','0')";
                 ps = connection.prepareStatement(sqlQuery1, Statement.RETURN_GENERATED_KEYS);
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
