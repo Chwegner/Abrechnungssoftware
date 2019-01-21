@@ -43,16 +43,21 @@ public class MainController extends Application
     private KundenUebersichtController kundenUebersichtController;
     @FXML
     private StammdatenAendernController stammdatenAendernController;
-
+    private FehltageController fehltageController = new FehltageController();
 
     @FXML
     private void initialize()
     {
         try
         {
+            boolean dbopen;
+            dbopen = db.db_open();
 
-
-            db.db_open();
+            if (dbopen == false)
+            {
+                AlertBox.display("Fehler", "Datenbank konnte nicht gelesen werden!");
+                System.exit(0);
+            }
 
             menuBarController.injectMainController(this);
             uebersichtController.injectMainController(this);
@@ -113,6 +118,11 @@ public class MainController extends Application
     public StammdatenAendernController getStammdatenAendernController()
     {
         return stammdatenAendernController;
+    }
+
+    public FehltageController getFehltageController()
+    {
+        return fehltageController;
     }
 
     public DB_CON getDb()

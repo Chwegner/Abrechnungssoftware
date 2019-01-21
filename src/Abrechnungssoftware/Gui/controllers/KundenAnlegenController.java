@@ -20,7 +20,9 @@ public class KundenAnlegenController
     @FXML
     private TextField telefon, telefax, website, mail;
     @FXML
-    private ChoiceBox anrede;
+    private TextField apVorname, apNachname, apTelefon, apMail, stundensatz;
+    @FXML
+    private ChoiceBox anrede, apAnrede;
     @FXML
     private Label statusLabel;
 
@@ -58,6 +60,12 @@ public class KundenAnlegenController
             kunde.setFax(telefax.getText());
             kunde.setWeb(website.getText());
             kunde.setEmail(mail.getText());
+            kunde.setApAnrede((String) apAnrede.getValue());
+            kunde.setApVorname(apVorname.getText());
+            kunde.setApName(apNachname.getText());
+            kunde.setApTelefon(apTelefon.getText());
+            kunde.setApEmail(apMail.getText());
+            kunde.setStundenSatz(Double.parseDouble(stundensatz.getText()));
 
             mainController.getDb().NewKunde(kunde);
 
@@ -99,6 +107,12 @@ public class KundenAnlegenController
         telefax.setText("");
         website.setText("");
         mail.setText("");
+        apAnrede.setValue("Herr");
+        apVorname.setText("");
+        apNachname.setText("");
+        apTelefon.setText("");
+        apMail.setText("");
+        stundensatz.setText("");
 
     }
 
