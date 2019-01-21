@@ -29,6 +29,7 @@ hs_err_pid*
 out
 system.ini
 unterschrift.png
-*.pdf
+vorschau-*
+rg_out.pdf
 
 
