@@ -30,6 +30,7 @@ public class DB_CON {
     private Kunde kunde;
     private Auftrag auftrag;
     private Rechnung rechnung;
+    private helperClass2 helpi;
     private ArrayList<helperClass> helper = new ArrayList<>();
     private ArrayList<Kunde> kundenliste = new ArrayList<>();
     private ArrayList<Auftrag> auftragliste = new ArrayList<>();
@@ -79,7 +80,7 @@ public class DB_CON {
             }else con = true;
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return con;
     }
@@ -396,6 +397,19 @@ public class DB_CON {
         }
     }
 
+    public void SaveKorrekturtage(int id,int tage){
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "UPDATE auftrag_interval SET" +
+                    " korrektur_tage = '"+tage+"' WHERE" +
+                    " id = '"+id+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList LoadRechnungList() {
         try{
             statement = connection.createStatement();
@@ -404,7 +418,7 @@ public class DB_CON {
                     "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
                     "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
                     "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
-                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id");
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Nein'");
             while(resultSet.next()){
                 helperClass help = new helperClass();
                 help.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
@@ -482,6 +496,52 @@ public class DB_CON {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public helperClass2 loadHelper(int ID){
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT " +
+                    "t1.id AS intervall_id,t1.von AS intervall_von,t1.bis AS intervall_bis," +
+                    "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
+                    "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
+                    "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Nein'");
+            while(resultSet.next()){
+                helpi.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
+                helpi.setKunden_id(resultSet.getInt("kunden_id"));
+                helpi.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                helpi.setKorrekturtage(resultSet.getInt("korrektur_tage"));
+                helpi.setTage(resultSet.getInt("tage"));
+                helpi.setFirma(resultSet.getString("firma"));
+                helpi.setAnrede(resultSet.getString("anrede"));
+                helpi.setVorname(resultSet.getString("vorname"));
+                helpi.setName(resultSet.getString("name"));
+                helpi.setStrasse(resultSet.getString("starsse"));
+                helpi.setHausnummer(resultSet.getString("hsnr"));
+                helpi.setPlz(resultSet.getString("plz"));
+                helpi.setOrt(resultSet.getString("ort"));
+                helpi.setTelefon(resultSet.getString("telefon"));
+                helpi.setFax(resultSet.getString("telefax"));
+                helpi.setWeb(resultSet.getString("web"));
+                helpi.setEmail(resultSet.getString("email"));
+                helpi.setApAnrede(resultSet.getString("ap_anrede"));
+                helpi.setApVorname(resultSet.getString("ap_vorname"));
+                helpi.setApName(resultSet.getString("ap_nachname"));
+                helpi.setApTelefon(resultSet.getString("ap_telefon"));
+                helpi.setApEmail(resultSet.getString("ap_email"));
+                helpi.setBezeichnung(resultSet.getString("grund"));
+                helpi.setVon(resultSet.getString("von"));
+                helpi.setBis(resultSet.getString("bis"));
+                helpi.setIntervall_von(resultSet.getString("intervall_von"));
+                helpi.setIntervall_bis(resultSet.getString("intervall_bis"));
+                helpi.setStundenSatz(resultSet.getDouble("stdsatz"));
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return helpi;
     }
 
     public void db_close() {
