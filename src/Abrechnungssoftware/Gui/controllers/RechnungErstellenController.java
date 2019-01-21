@@ -23,7 +23,7 @@ public class RechnungErstellenController
     @FXML
     private TableColumn<helperClass, String> grund, von, bis, firma;
     @FXML
-    private TableColumn<helperClass, Integer> auftragNr, kundeNr, tage, id;
+    private TableColumn<helperClass, Integer> auftragNr, kundeNr, tage, id, fehltageRechnung;
     @FXML
     private Label rechnungLabel, statusLabel;
 
@@ -63,6 +63,7 @@ public class RechnungErstellenController
             von.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
             bis.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
             tage.setCellValueFactory(new PropertyValueFactory<>("tage"));
+            fehltageRechnung.setCellValueFactory(new PropertyValueFactory<>("korrektur_tage"));
 
             ObservableList<helperClass> ob_liste = FXCollections.observableArrayList();
             auftragTable.setItems(ob_liste);
@@ -163,7 +164,6 @@ public class RechnungErstellenController
 
             for (int i = 0; i < intervallListe.size(); i++)
             {
-
                 db.NewRechnung(intervallListe.get(i));
 
                 RechnungAbbrechen();
@@ -186,8 +186,18 @@ public class RechnungErstellenController
         }
     }
 
+    public void FehltageFenster()
+    {
+        int id = auftragTable.getSelectionModel().getSelectedItem().getId();
+        int fehltage = mainController.getDb().LoadKorrekturtage(id);
+        mainController.getFehltageController().FehltageFenster(id, fehltage);
+
+    }
+
     public ArrayList<Integer> getIntervallListe()
     {
         return intervallListe;
     }
+
+
 }
