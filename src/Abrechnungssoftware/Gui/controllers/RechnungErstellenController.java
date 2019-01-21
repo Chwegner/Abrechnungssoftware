@@ -185,4 +185,9 @@ public class RechnungErstellenController
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Integer> getIntervallListe()
+    {
+        return intervallListe;
+    }
 }
