@@ -221,7 +221,6 @@ public class Auftrag {
                 int m = (calAnfangInt.get(Calendar.MONTH)+1);
                 int y = calAnfangInt.get(Calendar.YEAR);
                 //Formatierung fuer d aendern
-
                 if (d < 10) {
                     dStr = "0" + d;
                 } else {
@@ -233,8 +232,9 @@ public class Auftrag {
                 } else {
                     mStr = Integer.toString(m);
                 }
-
+                //Startdatum
                 intervallStart = dStr + "." + mStr + "." + y;
+
                 //Testausgabe
                 //System.out.println(calAnfangInt.getTime());
 

@@ -1,7 +1,10 @@
 package Abrechnungssoftware.Verarbeitung;
 import java.io.*;
+import java.util.ArrayList;
+
 import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.DB.Stammdaten;
+import Abrechnungssoftware.DB.helperClass2;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 public class Rechnung {
@@ -11,10 +14,13 @@ public class Rechnung {
 	Stammdaten std = new Stammdaten();
 	//Methoden
 	//Als pdf exportieren
-	public void exportToPdf() {
+	public void exportToPdf(ArrayList<Integer> daten) {
+		//Auftrag einbinden
+		Auftrag auftr = new Auftrag();
 		//Datenbank oeffnen
 		db.db_open();
 		db.LoadStammdaten(std);
+
 		//html Template laden
 		FileReader fr = null;
 		//Variable zum Einlesen des Templates
@@ -85,6 +91,50 @@ public class Rechnung {
 		String stnr = std.getSteuernummer();
 		text = text.replaceAll("\\{STNR\\}",stnr);
 
+		int i = 1;
+		int ges = 0;
+		String pos ="";
+		//Rechnungsdaten laden
+		int j = 0;
+		int k = 0;
+		helperClass2 help1 = new helperClass2();
+		for(Integer element : daten) {
+			int temp = daten.get(j);
+			help1 = db.loadHelper(temp);
+			String positionen =
+					"<tr>"+
+					"<td>"+i+"</td>"+
+					"<td>"+help1.getBezeichnung()+"</td>"+
+					"<td>"+((help1.getTage()-help1.getKorrekturtage())*8)+"</td>"+
+					"<td>"+help1.getStundenSatz()+"</td>"+
+					"<td>"+(((help1.getTage()-help1.getKorrekturtage())*8)*help1.getStundenSatz())+"</td>"+
+					"</tr>";
+					pos += positionen;
+					ges += (((help1.getTage()-help1.getKorrekturtage())*8)*help1.getStundenSatz());
+					j++ ;
+					i++ ;
+		}
+		helperClass2 help = db.loadHelper(daten.get(0));
+
+		//pos zu text hinzufuegen
+		text = text.replaceAll("\\{RGPOSITIONEN\\}",pos);
+		String summe = ges+" €";
+		text = text.replaceAll("\\{SUMMENETTO\\}",summe);
+		text = text.replaceAll("\\{RECHNUNGSBETRAG\\}",summe);
+
+		//Kontodaten
+		text = text.replaceAll("\\{KONTOINHABER\\}",std.getKontoinhaber());
+		text = text.replaceAll("\\{BANKNAME\\}",std.getBankname());
+		text = text.replaceAll("\\{IBAN\\}",std.getIban());
+		text = text.replaceAll("\\{BIC\\}",std.getBic());
+
+		//Kundendaten
+		text = text.replaceAll("\\{KDFIRMA\\}",help.getFirma());
+		text = text.replaceAll("\\{KDSTRASSE\\}",help.getStrasse());
+		text = text.replaceAll("\\{KDHSN\\}",help.getHausnummer());
+		text = text.replaceAll("\\{KDPLZ\\}",help.getPlz());
+		text = text.replaceAll("\\{KDORT\\}",help.getOrt());
+
 		//Umlaute ersetzen
 		String A = "Ä";
 		text = text.replaceAll("\\{Ae\\}",A);
@@ -131,9 +181,22 @@ public class Rechnung {
 	}
 
 	//Rechnung erstellen
-	public void rechnungErstellen() {
+	public void rechnungErstellen(ArrayList<Integer> daten, boolean erstellen) {
 		db.db_open();
 		db.LoadStammdaten(std);
-	}
 
+		if(erstellen){
+			exportToPdf(daten);
+			int j = 0;
+			for(int element : daten) {
+				int temp = daten.get(j);
+				db.NewRechnung(temp);
+				j++;
+			}
+		}else{
+			exportToPdf(daten);
+		}
+	}
 }
+
+
