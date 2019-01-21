@@ -67,7 +67,7 @@
                   <TextField fx:id="plz" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="anrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <items>
-                        <FXCollections fx:factory="observableArrayList" value="Herr">
+                        <FXCollections fx:factory="observableArrayList">
                            <String fx:value="Herr" />
                            <String fx:value="Frau" />
                         </FXCollections>
@@ -79,7 +79,14 @@
                   <Label text="Ap Telefon" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                   <Label text="Ap E-Mail" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                   <Label text="Stundensatz" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-                  <ChoiceBox fx:id="apAnrede" prefWidth="150.0" GridPane.columnIndex="7" />
+                  <ChoiceBox fx:id="apAnrede" prefWidth="150.0" value="Herr" GridPane.columnIndex="7">
+                     <items>
+                         <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="Herr" />
+                         <String fx:value="Frau" />
+                         </FXCollections>
+                     </items>
+                  </ChoiceBox>
                   <TextField fx:id="apVorname" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <TextField fx:id="apNachname" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <TextField fx:id="apTelefon" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
