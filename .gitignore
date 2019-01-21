@@ -28,4 +28,8 @@ hs_err_pid*
 *.iml
 out
 system.ini
+*.png
+*.html
+*.pdf
+
 
