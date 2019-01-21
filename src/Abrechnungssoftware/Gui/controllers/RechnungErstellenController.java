@@ -27,6 +27,7 @@ public class RechnungErstellenController
     @FXML
     private Label rechnungLabel, statusLabel;
 
+    private int fehltage = 0;
 
     private MainController mainController;
 
@@ -54,6 +55,7 @@ public class RechnungErstellenController
         try
         {
             DB_CON db = mainController.getDb();
+
 
             id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
             firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
@@ -188,8 +190,8 @@ public class RechnungErstellenController
 
     public void FehltageFenster()
     {
-        int id = auftragTable.getSelectionModel().getSelectedItem().getId();
-        int fehltage = mainController.getDb().LoadKorrekturtage(id);
+        int id = auftragTable.getSelectionModel().getSelectedItem().getAuftrag_intervall_id();
+        fehltage = mainController.getDb().LoadKorrekturtage(id);
         mainController.getFehltageController().FehltageFenster(id, fehltage);
 
     }

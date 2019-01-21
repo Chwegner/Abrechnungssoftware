@@ -58,9 +58,9 @@
                   <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#RechnungErstellen" text="Erstellen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#RechnungErstellen" text="Erstellen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Label fx:id="rechnungLabel" text="Erstelle Rechnung für: " GridPane.columnSpan="5" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                  <Button layoutX="144.0" layoutY="69.0" mnemonicParsing="false" onAction="#RechnungAbbrechen" text="Abbrechen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button layoutX="144.0" layoutY="69.0" mnemonicParsing="false" onAction="#RechnungAbbrechen" text="Abbrechen" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                   <Button mnemonicParsing="false" onAction="#FehltageFenster" text="Fehltage" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                </children>

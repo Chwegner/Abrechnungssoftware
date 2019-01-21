@@ -42,13 +42,20 @@ public class FehltageController
         tageEingabe.setMaxWidth(50);
 
         okButton = new Button("Speichern");
-        tage = tageEingabe.getText();
-        fehltage = Integer.parseInt(tage);
-        int finalFehltage = fehltage;
-        okButton.setOnAction(e -> mainController.getDb().SaveKorrekturtage(ID, finalFehltage));
+
+        okButton.setOnAction(event ->
+        {
+            tage = tageEingabe.getText();
+            System.out.println(tage);
+            int fehltage1 = Integer.parseInt(tage);
+            System.out.println(fehltage1);
+            System.out.println(ID);
+
+            mainController.getDb().SaveKorrekturtage(ID, fehltage1);
+        });
 
         layout = new VBox(10);
-        layout.getChildren().addAll(label, tageEingabe, okButton, cancelButton);
+        layout.getChildren().addAll(label, tageEingabe, okButton);
         layout.setAlignment(Pos.CENTER);
 
         scene = new Scene(layout);
