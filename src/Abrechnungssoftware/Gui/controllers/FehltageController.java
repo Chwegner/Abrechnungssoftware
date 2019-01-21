@@ -1,5 +1,6 @@
 package Abrechnungssoftware.Gui.controllers;
 
+import Abrechnungssoftware.DB.DB_CON;
 import Abrechnungssoftware.Gui.MainController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +25,12 @@ public class FehltageController
 
     private String tage;
 
+    public void injectMainController(MainController mainController)
+    {
+        this.mainController = mainController;
+    }
+
+
     public void FehltageFenster(int ID, int fehltage)
     {
 
@@ -35,7 +42,7 @@ public class FehltageController
         window.setMinHeight(250);
 
         label = new Label();
-        label.setText("Korrekturtage:");
+        label.setText("Korrekturtage anpassen:");
 
         tageEingabe = new TextField(Integer.toString(fehltage));
         tageEingabe.setMinWidth(50);
@@ -46,12 +53,11 @@ public class FehltageController
         okButton.setOnAction(event ->
         {
             tage = tageEingabe.getText();
-            System.out.println(tage);
             int fehltage1 = Integer.parseInt(tage);
-            System.out.println(fehltage1);
-            System.out.println(ID);
 
             mainController.getDb().SaveKorrekturtage(ID, fehltage1);
+            mainController.getMenuBarController().RechnungErstellenAufrufen();
+            window.close();
         });
 
         layout = new VBox(10);
@@ -59,8 +65,11 @@ public class FehltageController
         layout.setAlignment(Pos.CENTER);
 
         scene = new Scene(layout);
+        String css = this.getClass().getResource("../css/MainStyle.css").toExternalForm();
+        scene.getStylesheets().add(css);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
+
 
 }

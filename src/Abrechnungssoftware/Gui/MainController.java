@@ -5,7 +5,7 @@ import Abrechnungssoftware.Gui.controllers.*;
 import Abrechnungssoftware.Verarbeitung.Kunde;
 import Abrechnungssoftware.DB.DB_CON;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+import Abrechnungssoftware.Verarbeitung.Rechnung;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +26,7 @@ public class MainController extends Application
     DB_CON db = new DB_CON();
     Stammdaten stammdaten = new Stammdaten();
     Kunde kunde = new Kunde();
+    Rechnung rechnung = new Rechnung();
 
     /// Controllerklassen verbinden ///
 
@@ -44,6 +45,7 @@ public class MainController extends Application
     @FXML
     private StammdatenAendernController stammdatenAendernController;
     private FehltageController fehltageController = new FehltageController();
+    private VorschauController vorschauController = new VorschauController();
 
     @FXML
     private void initialize()
@@ -55,7 +57,7 @@ public class MainController extends Application
 
             if (dbopen == false)
             {
-                AlertBox.display("Fehler", "Datenbank konnte nicht gelesen werden!");
+                AlertBox.display("Fehler", "Datenbank konnte nicht geöffnet werden!");
                 System.exit(0);
             }
 
@@ -66,6 +68,8 @@ public class MainController extends Application
             kundenAnlegenController.injectMainController(this);
             kundenUebersichtController.injectMainController(this);
             stammdatenAendernController.injectMainController(this);
+            fehltageController.injectMainController(this);
+            vorschauController.injectMainController(this);
 
             getMenuBarController().UebersichtFensterAufrufen();
 
@@ -125,6 +129,11 @@ public class MainController extends Application
         return fehltageController;
     }
 
+    public VorschauController getVorschauController()
+    {
+        return vorschauController;
+    }
+
     public DB_CON getDb()
     {
         return db;
@@ -138,6 +147,11 @@ public class MainController extends Application
     public Kunde getKunde()
     {
         return kunde;
+    }
+
+    public Rechnung getRechnung()
+    {
+        return rechnung;
     }
 
     /// App starten ///

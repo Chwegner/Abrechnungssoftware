@@ -164,17 +164,21 @@ public class RechnungErstellenController
 
             int index = auftragTable.getSelectionModel().getSelectedItem().getId();
 
-            for (int i = 0; i < intervallListe.size(); i++)
-            {
-                db.NewRechnung(intervallListe.get(i));
+//            for (int i = 0; i < intervallListe.size(); i++)
+//            {
+//
+//                db.NewRechnung(intervallListe.get(i));
+//
+//            }
 
-                RechnungAbbrechen();
+            mainController.getVorschauController().Vorschau();
 
-                mainController.getMenuBarController().RechnungErstellenAufrufen();
+//            RechnungAbbrechen();
+//
+//            mainController.getMenuBarController().RechnungErstellenAufrufen();
 
-                statusLabel.setStyle("-fx-text-fill: green");
-                statusLabel.setText("Rechnung erstellt!");
-            }
+//            statusLabel.setStyle("-fx-text-fill: green");
+//            statusLabel.setText("Rechnung erstellt!");
         } catch (NullPointerException e)
         {
             statusLabel.setStyle("-fx-text-fill: red");
@@ -193,7 +197,6 @@ public class RechnungErstellenController
         int id = auftragTable.getSelectionModel().getSelectedItem().getAuftrag_intervall_id();
         fehltage = mainController.getDb().LoadKorrekturtage(id);
         mainController.getFehltageController().FehltageFenster(id, fehltage);
-
     }
 
     public ArrayList<Integer> getIntervallListe()
