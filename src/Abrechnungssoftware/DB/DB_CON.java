@@ -6,6 +6,7 @@ import Abrechnungssoftware.Verarbeitung.Kunde;
 import Abrechnungssoftware.DB.Stammdaten;
 import Abrechnungssoftware.Verarbeitung.Rechnung;
 import Abrechnungssoftware.DB.helperClass;
+import Abrechnungssoftware.DB.helperClass2;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -307,9 +308,9 @@ public class DB_CON {
 
                 //Auftrag_intervall eintragen
                 String sqlQuery1 = "INSERT INTO auftrag_intervall  " +
-                        "(auftrag_id,von,bis,tage) VALUES (" +
+                        "(auftrag_id,von,bis,tage,korrektur_tage) VALUES (" +
                         "'" + auftrag.getId() + "','" + auswertung[i][0] + "','" + auswertung[i][1] + "'," +
-                        "'"+auftrag.getTage()+"')";
+                        "'"+auftrag.getTage()+"','0')";
                 ps = connection.prepareStatement(sqlQuery1, Statement.RETURN_GENERATED_KEYS);
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
@@ -516,25 +517,28 @@ public class DB_CON {
     }
 
     public helperClass2 loadHelper(int ID){
+        helpi = new helperClass2();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT " +
+            String sqlQuery = "SELECT " +
                     "t1.id AS intervall_id,t1.von AS intervall_von,t1.bis AS intervall_bis," +
                     "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
                     "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
                     "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
-                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Nein'");
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt = 'Nein' AND t1.id = '"+ID+"'";
+            resultSet = statement.executeQuery(sqlQuery);
             while(resultSet.next()){
                 helpi.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
-                helpi.setKunden_id(resultSet.getInt("kunden_id"));
+                System.out.println(resultSet.getInt("intervall_id"));
+                helpi.setKunden_id(resultSet.getInt("id"));
                 helpi.setAuftrag_id(resultSet.getInt("auftrag_id"));
                 helpi.setKorrekturtage(resultSet.getInt("korrektur_tage"));
                 helpi.setTage(resultSet.getInt("tage"));
                 helpi.setFirma(resultSet.getString("firma"));
                 helpi.setAnrede(resultSet.getString("anrede"));
                 helpi.setVorname(resultSet.getString("vorname"));
-                helpi.setName(resultSet.getString("name"));
-                helpi.setStrasse(resultSet.getString("starsse"));
+                helpi.setName(resultSet.getString("nachname"));
+                helpi.setStrasse(resultSet.getString("strasse"));
                 helpi.setHausnummer(resultSet.getString("hsnr"));
                 helpi.setPlz(resultSet.getString("plz"));
                 helpi.setOrt(resultSet.getString("ort"));
