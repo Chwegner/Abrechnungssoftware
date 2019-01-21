@@ -69,13 +69,19 @@ public class DB_CON {
     /**
      * Datenbankverbindung Öffnen
      */
-    public void db_open() {
+    public boolean db_open() {
+        boolean con = false;
         try {
             String url = "jdbc:mysql://" + host + "/" + dbName;
             connection = DriverManager.getConnection(url, user, pass);
+            if(connection == null){
+                con = false;
+            }else con = true;
+
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
+        return con;
     }
 
 
@@ -312,23 +318,6 @@ public class DB_CON {
                 }
                 rs.close();
                 ps.close();
-
-//                //Rechnung eintragen
-//                statement = connection.createStatement();
-//                String sqlQuery2 = "INSERT INTO `rechnungen` (grund,kunden_id,auftrag_id,von,bis," +
-//                        "auftrag_intervall_id,intervall_von,intervall_bis,tage) VALUES (" +
-//                        "'"+auftrag.getBezeichnung()+"'," +
-//                        "'"+auftrag.getKundenid()+"'," +
-//                        "'"+auftrag.getId()+"'," +
-//                        "'"+auftrag.getVon()+"'," +
-//                        "'"+auftrag.getBis()+"'," +
-//                        "'"+ids+"'," +
-//                        "'"+auswertung[i][0]+"'," +
-//                        "'"+auswertung[i][1]+"'," +
-//                        "'"+auftrag.getArbeitstage(auswertung[i][0],auswertung[i][1])+"')";
-//                statement.executeUpdate(sqlQuery2);
-//                statement.close();
-
             }
 
         } catch (Exception e) {
@@ -493,34 +482,6 @@ public class DB_CON {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public ArrayList LoadHelper(){
-        try {
-            statement = connection.createStatement();
-            String sqlQuery = "SELECT * FROM rechnungen";
-            resultSet = statement.executeQuery(sqlQuery);
-            while (resultSet.next()){
-                helperClass help = new helperClass();
-                help.setId(resultSet.getInt("id"));
-                help.setAuftrag_id(resultSet.getInt("auftrag_id"));
-                help.setKunden_id(resultSet.getInt("kunden_id"));
-                help.setAuftrag_intervall_id(resultSet.getInt("auftrag_intervall_id"));
-                help.setVon(resultSet.getString("von"));
-                help.setBis(resultSet.getString("bis"));
-                help.setIntervall_von(resultSet.getString("intervall_von"));
-                help.setIntervall_bis(resultSet.getString("intervall_bis"));
-                help.setTage(resultSet.getInt("tage"));
-                help.setKorrektur_tage(resultSet.getInt("korrektur_tage"));
-                help.setGrund(resultSet.getString("grund"));
-
-                helper.add(help);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return helper;
     }
 
     public void db_close() {

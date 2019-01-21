@@ -62,10 +62,18 @@ public class Main
             inst_db.db_install();
             inst_db.db_close();
         }
+//        try{
+//            db_test = new DB_CON();
+//            boolean con = db_test.db_open();
+//        }catch (Exception e){
+//            AlertBox.display("Fehler", "Keine Verbindung zur Datenbank!");
+//            System.exit(0);
+//        }finally {
+//            db_test = new DB_CON();
+//            db_test.db_close();
+//        }
         try
         {
-
-
             Application.launch(MainController.class, args);
         } catch (Exception e)
         {
