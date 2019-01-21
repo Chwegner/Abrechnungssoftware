@@ -410,6 +410,23 @@ public class DB_CON {
         }
     }
 
+    public int LoadKorrekturtage(int id){
+        int korrekturtage = 0;
+        try{
+            statement = connection.createStatement();
+            String sqlQuery = "SELECT korrektur_tage FROM auftrag_intervall WHERE id = '"+id+"'";
+            resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+                korrekturtage = resultSet.getInt("korrektur_tage");
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return korrekturtage;
+    }
+
     public ArrayList LoadRechnungList() {
         try{
             statement = connection.createStatement();
