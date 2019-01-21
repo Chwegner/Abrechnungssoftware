@@ -401,7 +401,7 @@ public class DB_CON {
     public void SaveKorrekturtage(int id,int tage){
         try{
             statement = connection.createStatement();
-            String sqlQuery = "UPDATE auftrag_interval SET" +
+            String sqlQuery = "UPDATE auftrag_intervall SET" +
                     " korrektur_tage = '"+tage+"' WHERE" +
                     " id = '"+id+"'";
             statement.executeUpdate(sqlQuery);
