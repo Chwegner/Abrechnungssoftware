@@ -10,6 +10,7 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 public class Rechnung {
 	//Variablen
 	Auftrag auftrag;
+    ArrayList<Integer> daten;
 	DB_CON db = new DB_CON();
 	Stammdaten std = new Stammdaten();
 	//Methoden
@@ -17,6 +18,7 @@ public class Rechnung {
 	public void exportToPdf(ArrayList<Integer> daten) {
 		//Auftrag einbinden
 		Auftrag auftr = new Auftrag();
+        this.daten = daten;
 		//Datenbank oeffnen
 		db.db_open();
 		db.LoadStammdaten(std);
@@ -92,7 +94,7 @@ public class Rechnung {
 		text = text.replaceAll("\\{STNR\\}",stnr);
 
 		int i = 1;
-		int ges = 0;
+		double ges = 0;
 		String pos ="";
 		//Rechnungsdaten laden
 		int j = 0;
