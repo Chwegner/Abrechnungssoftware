@@ -30,6 +30,8 @@ public class VorschauController
 
     ImageView vorschau;
 
+    Button okButton, cancelButton;
+
     public void injectMainController(MainController mainController)
     {
         this.mainController = mainController;
@@ -67,8 +69,8 @@ public class VorschauController
         }
 
         vorschau.setImage(image);
-        vorschau.setFitHeight(image.getHeight()/2);
-        vorschau.setFitWidth(image.getWidth()/2);
+        vorschau.setFitHeight(image.getHeight() / 2);
+        vorschau.setFitWidth(image.getWidth() / 2);
         vorschau.setPreserveRatio(true);
         vorschau.setSmooth(true);
         CenterImage();
@@ -79,9 +81,11 @@ public class VorschauController
         pane.setStyle("-fx-padding: 20 20 20 20");
         pane.getContent().setStyle("-fx-alignment: Center");
 
-        Button okButton = new Button("Bestätigen");
+        okButton = new Button("Bestätigen");
+        okButton.setOnAction(event -> PDFSpeichern());
 
-        Button cancelButton = new Button("Abbrechen");
+        cancelButton = new Button("Abbrechen");
+        cancelButton.setOnAction(event -> window.close());
 
         HBox buttonLayout = new HBox();
         buttonLayout.getChildren().addAll(okButton, cancelButton);
@@ -101,11 +105,27 @@ public class VorschauController
 
     }
 
+    public void PDFSpeichern()
+    {
+        try
+        {
+            Rechnung rechnung = new Rechnung();
+            rechnung.rechnungErstellen(mainController.getRechnungErstellenController().getIntervallListe(), true);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public void pdfToImage()
     {
         String OUTPUT_DIR = "./";
 
-        try (final PDDocument document = PDDocument.load(new File("rg_out.pdf"))){
+
+        try (final PDDocument document = PDDocument.load(new File("rg_out.pdf")))
+        {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             for (int page = 0; page < document.getNumberOfPages(); ++page)
             {
@@ -113,14 +133,18 @@ public class VorschauController
                 String fileName = OUTPUT_DIR + "vorschau-" + page + ".png";
                 ImageIOUtil.writeImage(bim, fileName, 300);
             }
-        } catch (IOException e){
+        } catch (IOException e)
+        {
             System.err.println("Exception while trying to create pdf document - " + e);
         }
 
     }
-    public void CenterImage() {
+
+    public void CenterImage()
+    {
         Image img = vorschau.getImage();
-        if (img != null) {
+        if (img != null)
+        {
             double w = 0;
             double h = 0;
 
@@ -128,9 +152,11 @@ public class VorschauController
             double ratioY = vorschau.getFitHeight() / img.getHeight();
 
             double reducCoeff = 0;
-            if(ratioX >= ratioY) {
+            if (ratioX >= ratioY)
+            {
                 reducCoeff = ratioY;
-            } else {
+            } else
+            {
                 reducCoeff = ratioX;
             }
 
