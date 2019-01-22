@@ -462,7 +462,90 @@ public class DB_CON {
                 help.setGrund(resultSet.getString("grund"));
                 helper.add(help);
             }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        return helper;
+    }
+
+    public ArrayList LoadRechnungList_ende() {
+        try{
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT " +
+                    "t1.id AS intervall_id,t1.von AS intervall_von,t1.bis AS intervall_bis," +
+                    "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
+                    "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
+                    "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Ja' AND re_bezahlt= 'Ja'");
+            while(resultSet.next()){
+                helperClass help = new helperClass();
+                help.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
+                help.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                help.setKunden_id(resultSet.getInt("id"));
+                help.setBis(resultSet.getString("bis"));
+                help.setVon(resultSet.getString("von"));
+                help.setIntervall_bis(resultSet.getString("intervall_bis"));
+                help.setIntervall_von(resultSet.getString("intervall_von"));
+                help.setTage(resultSet.getInt("tage"));
+                help.setKorrektur_tage(resultSet.getInt("korrektur_tage"));
+                help.setFirma(resultSet.getString("firma"));
+                help.setAnrede(resultSet.getString("anrede"));
+                help.setVorname(resultSet.getString("vorname"));
+                help.setName(resultSet.getString("nachname"));
+                help.setStrasse(resultSet.getString("strasse"));
+                help.setHausnummer(resultSet.getString("hsnr"));
+                help.setPlz(resultSet.getString("plz"));
+                help.setOrt(resultSet.getString("ort"));
+                help.setTelefon(resultSet.getString("telefon"));
+                help.setFax(resultSet.getString("telefax"));
+                help.setEmail(resultSet.getString("email"));
+                help.setGrund(resultSet.getString("grund"));
+                helper.add(help);
+            }
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return helper;
+    }
+
+    public ArrayList LoadRechnungList_offen() {
+        try{
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT " +
+                    "t1.id AS intervall_id,t1.von AS intervall_von,t1.bis AS intervall_bis," +
+                    "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
+                    "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
+                    "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Ja' AND re_bezahlt= 'Nein'");
+            while(resultSet.next()){
+                helperClass help = new helperClass();
+                help.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
+                help.setAuftrag_id(resultSet.getInt("auftrag_id"));
+                help.setKunden_id(resultSet.getInt("id"));
+                help.setBis(resultSet.getString("bis"));
+                help.setVon(resultSet.getString("von"));
+                help.setIntervall_bis(resultSet.getString("intervall_bis"));
+                help.setIntervall_von(resultSet.getString("intervall_von"));
+                help.setTage(resultSet.getInt("tage"));
+                help.setKorrektur_tage(resultSet.getInt("korrektur_tage"));
+                help.setFirma(resultSet.getString("firma"));
+                help.setAnrede(resultSet.getString("anrede"));
+                help.setVorname(resultSet.getString("vorname"));
+                help.setName(resultSet.getString("nachname"));
+                help.setStrasse(resultSet.getString("strasse"));
+                help.setHausnummer(resultSet.getString("hsnr"));
+                help.setPlz(resultSet.getString("plz"));
+                help.setOrt(resultSet.getString("ort"));
+                help.setTelefon(resultSet.getString("telefon"));
+                help.setFax(resultSet.getString("telefax"));
+                help.setEmail(resultSet.getString("email"));
+                help.setGrund(resultSet.getString("grund"));
+                helper.add(help);
+            }
             statement.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -516,6 +599,21 @@ public class DB_CON {
         }
     }
 
+    public int nextIdRechnung(){
+        int id = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlQuery = "SELECT id FROM rechnung ORDER BY id LIMIT 1";
+            resultSet = statement.executeQuery(sqlQuery);
+            while(resultSet.next()){
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return id;
+    }
     public helperClass2 loadHelper(int ID){
         helpi = new helperClass2();
         try {
@@ -635,7 +733,7 @@ public class DB_CON {
                 "  charset = utf8";
         String query3 = "create table if not exists rechnung" +
                 "(" +
-                "  id         int(11)     not null," +
+                "  id         int(11)    auto_increment primary key ," +
                 "  auftrag_id int(11)     not null," +
                 "  re_nr      varchar(10) not null" +
                 ")" +
