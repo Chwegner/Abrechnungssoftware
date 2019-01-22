@@ -42,7 +42,6 @@ public class VorschauController
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("PDF Vorschau");
-        window.setMaximized(true);
 
         ScrollPane pane = new ScrollPane();
         pane.setFitToWidth(true);
@@ -74,13 +73,11 @@ public class VorschauController
         vorschau.setFitWidth(image.getWidth() / 2);
         vorschau.setPreserveRatio(true);
         vorschau.setSmooth(true);
-        CenterImage();
 
         pane.setContent(vorschau);
-        pane.setPrefViewportHeight(vorschau.getFitHeight());
-        pane.setPrefViewportWidth(vorschau.getFitWidth());
         pane.setStyle("-fx-padding: 20 20 20 20");
         pane.getContent().setStyle("-fx-alignment: Center");
+        pane.setFitToWidth(true);
 
         okButton = new Button("Bestätigen");
         okButton.setOnAction(event -> PDFSpeichern());
@@ -91,18 +88,19 @@ public class VorschauController
         HBox buttonLayout = new HBox();
         buttonLayout.getChildren().addAll(okButton, cancelButton);
         buttonLayout.setAlignment(Pos.CENTER);
+        buttonLayout.setSpacing(50);
 
         VBox layout = new VBox();
         layout.getChildren().addAll(pane, buttonLayout);
         layout.setAlignment(Pos.CENTER);
-        layout.setSpacing(100);
-
+        layout.setPrefWidth(1200);
+        layout.setPrefHeight(800);
 
         Scene scene = new Scene(layout);
         String css = this.getClass().getResource("../css/MainStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
 
     }
 
@@ -113,6 +111,9 @@ public class VorschauController
             Rechnung rechnung = new Rechnung();
             rechnung.rechnungErstellen(mainController.getRechnungErstellenController().getIntervallListe(), true);
             window.close();
+
+//            mainController.getRechnungErstellenController().getStatusLabel().setStyle("-fx-text-fill: green");
+//            mainController.getRechnungErstellenController().getStatusLabel().setText("Rechnung erstellt!");
 
         } catch (Exception e)
         {
@@ -143,32 +144,6 @@ public class VorschauController
 
     }
 
-    public void CenterImage()
-    {
-        Image img = vorschau.getImage();
-        if (img != null)
-        {
-            double w = 0;
-            double h = 0;
 
-            double ratioX = vorschau.getFitWidth() / img.getWidth();
-            double ratioY = vorschau.getFitHeight() / img.getHeight();
 
-            double reducCoeff = 0;
-            if (ratioX >= ratioY)
-            {
-                reducCoeff = ratioY;
-            } else
-            {
-                reducCoeff = ratioX;
-            }
-
-            w = img.getWidth() * reducCoeff;
-            h = img.getHeight() * reducCoeff;
-
-            vorschau.setX((vorschau.getFitWidth() - w) / 2);
-            vorschau.setY((vorschau.getFitHeight() - h) / 2);
-
-        }
-    }
 }

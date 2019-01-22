@@ -79,8 +79,6 @@ public class RechnungErstellenController
 
                 i++;
             }
-
-
             liste.clear();
 
         } catch (Exception e)
@@ -176,10 +174,6 @@ public class RechnungErstellenController
             mainController.getMenuBarController().RechnungErstellenAufrufen();
             intervallListe.clear();
 
-
-
-            statusLabel.setStyle("-fx-text-fill: green");
-            statusLabel.setText("Rechnung erstellt!");
         } catch (NullPointerException e)
         {
             statusLabel.setStyle("-fx-text-fill: red");
@@ -208,5 +202,10 @@ public class RechnungErstellenController
     public TableView<helperClass> getAuftragTable()
     {
         return auftragTable;
+    }
+
+    public Label getStatusLabel()
+    {
+        return statusLabel;
     }
 }
