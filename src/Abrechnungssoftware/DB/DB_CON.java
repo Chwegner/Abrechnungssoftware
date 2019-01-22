@@ -520,7 +520,7 @@ public class DB_CON {
                     "t1.tage,t1.korrektur_tage,t1.re_erstellt,t1.re_bezahlt," +
                     "t2.id AS auftrag_id,t2.von,t2.bis,t2.grund," +
                     "t3.* FROM auftrag_intervall AS t1,auftrag AS t2, kunden AS t3 WHERE " +
-                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Ja' AND re_bezahlt= 'Nein'");
+                    "t2.id = t1.auftrag_id AND t3.id = t2.kunden_id AND t1.re_erstellt= 'Nein' AND re_bezahlt= 'Nein'");
             while(resultSet.next()){
                 helperClass help = new helperClass();
                 help.setAuftrag_intervall_id(resultSet.getInt("intervall_id"));
@@ -584,7 +584,24 @@ public class DB_CON {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    public void NewRechnung(int ID,int auftrag_id,String re_nr){
+        try {
+            statement = connection.createStatement();
+            String sqlQuery = "Update auftrag_intervall SET re_erstellt = 'Ja'" +
+                    " WHERE id = '"+ID+"'";
+            statement.executeUpdate(sqlQuery);
+            statement.close();
+
+            statement = connection.createStatement();
+            String sqlQuery1 = "INSERT INTO rechnung (auftrag_id,re_nr) VALUES ('"+auftrag_id+"','"+re_nr+"')";
+
+            statement.executeUpdate(sqlQuery1);
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void Rechnungbezahlt(int ID){
@@ -606,7 +623,10 @@ public class DB_CON {
             String sqlQuery = "SELECT id FROM rechnung ORDER BY id LIMIT 1";
             resultSet = statement.executeQuery(sqlQuery);
             while(resultSet.next()){
-
+                id = resultSet.getInt("id")+1;
+            }
+            if(id==0){
+                id = 1;
             }
         }catch (Exception e){
             e.printStackTrace();
