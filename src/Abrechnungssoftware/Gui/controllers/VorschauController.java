@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class VorschauController
 {
@@ -100,7 +101,7 @@ public class VorschauController
         String css = this.getClass().getResource("../css/MainStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
 
     }
 
@@ -109,11 +110,12 @@ public class VorschauController
         try
         {
             Rechnung rechnung = new Rechnung();
+            System.out.println(mainController.getRechnungErstellenController().getIntervallListe().toString());
             rechnung.rechnungErstellen(mainController.getRechnungErstellenController().getIntervallListe(), true);
             window.close();
 
-//            mainController.getRechnungErstellenController().getStatusLabel().setStyle("-fx-text-fill: green");
-//            mainController.getRechnungErstellenController().getStatusLabel().setText("Rechnung erstellt!");
+            mainController.getRechnungErstellenController().getStatusLabel().setStyle("-fx-text-fill: green");
+            mainController.getRechnungErstellenController().getStatusLabel().setText("Rechnung erstellt!");
 
         } catch (Exception e)
         {
