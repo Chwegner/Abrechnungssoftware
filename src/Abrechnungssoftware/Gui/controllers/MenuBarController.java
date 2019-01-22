@@ -34,6 +34,8 @@ public class MenuBarController
             mainController.getMainPane().getChildren().clear();
             mainController.getUebersichtController().KundenListeEinfuegen();
             mainController.getUebersichtController().RechnungsListeEinfuegen();
+            mainController.getUebersichtController().AuftragOffenListe();
+            mainController.getUebersichtController().AuftragEndeListe();
             mainController.getMainPane().getChildren().add(mainController.getUebersichtController().getUebersicht());
         } catch (Exception e)
         {

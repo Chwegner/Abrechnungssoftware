@@ -24,15 +24,18 @@ public class UebersichtController
     @FXML
     private AnchorPane uebersicht;
     @FXML
-    private TableView kundenTable, rechnungTable;
+    private TableView kundenTable, rechnungTable, offenTable, endeTable;
 
     @FXML
     private Label statusLabel;
 
     @FXML
-    private TableColumn<helperClass, Integer> rechnungnrRechnung, auftragnrRechnung;
+    private TableColumn<helperClass, Integer> rechnungnrRechnung, auftragnrRechnung, idOffen, auftragOffen, idEnde, auftragEnde;
+
     @FXML
-    private TableColumn<helperClass, String> bezahltRechnung;
+    private TableColumn<helperClass, String> bezahltRechnung, intervallVonOffen, intervallBisOffen, tageOffen, fehltageOffen,
+            auftragVonOffen, auftragBisOffen, grundOffen, intervallVonEnde, intervallBisEnde, tageEnde, fehltageEnde,
+    auftragVonEnde, auftragBisEnde, grundEnde;
 
     @FXML
     private TableColumn<Kunde, String> idColumn, firmaColumn, anredeColumn, nameColumn, vornameColumn;
@@ -48,8 +51,8 @@ public class UebersichtController
     private ObservableList<Kunde> obListe;
     private ArrayList<Kunde> liste;
 
-    private ObservableList<helperClass> obListeR;
-    private ArrayList<helperClass> listeR;
+    private ObservableList<helperClass> obListeR, obListeO, obListeB;
+    private ArrayList<helperClass> listeR, listeO, listeB;
 
 
     public void injectMainController(MainController mainController)
@@ -241,29 +244,89 @@ public class UebersichtController
     public void RechnungAllesDrucken()
     {
         try
-    {
-        ObservableList<helperClass> list = rechnungTable.getItems();
-
-        int i = 0;
-        for (Object element : list)
         {
-            helperClass temp = list.get(i);
+            ObservableList<helperClass> list = rechnungTable.getItems();
 
-            //// Todo PDF drucken
+            int i = 0;
+            for (Object element : list)
+            {
+                helperClass temp = list.get(i);
 
-            i++;
+                //// Todo PDF drucken
 
+                i++;
+
+            }
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("PDF erstellt!");
+
+        } catch (Exception e)
+        {
+            statusLabel.setStyle("-fx-text-fill: red");
+            statusLabel.setText("Fehler beim Drucken der PDF!");
+            e.printStackTrace();
         }
-        statusLabel.setStyle("-fx-text-fill: green");
-        statusLabel.setText("PDF erstellt!");
-
-    } catch (Exception e)
-    {
-        statusLabel.setStyle("-fx-text-fill: red");
-        statusLabel.setText("Fehler beim Drucken der PDF!");
-        e.printStackTrace();
     }
 
+    public void AuftragOffenListe()
+    {
+        db = mainController.getDb();
+
+        idOffen.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
+        intervallVonOffen.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
+        intervallBisOffen.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
+        tageOffen.setCellValueFactory(new PropertyValueFactory<>("tage"));
+        fehltageOffen.setCellValueFactory(new PropertyValueFactory<>("korrektur_tage"));
+        auftragOffen.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
+        auftragVonOffen.setCellValueFactory(new PropertyValueFactory<>("von"));
+        auftragBisOffen.setCellValueFactory(new PropertyValueFactory<>("bis"));
+        grundOffen.setCellValueFactory(new PropertyValueFactory<>("grund"));
+
+        obListeO = FXCollections.observableArrayList();
+        offenTable.setItems(obListeO);
+        listeO = db.LoadRechnungList_offen();
+
+        int i = 0;
+        for (Object element : listeO)
+        {
+            helperClass temp = listeO.get(i);
+            offenTable.getItems().add(temp);
+
+
+            i++;
+        }
+        listeO.clear();
+
+    }
+
+    public void AuftragEndeListe()
+    {
+        db = mainController.getDb();
+
+        idEnde.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
+        intervallVonEnde.setCellValueFactory(new PropertyValueFactory<>("intervall_von"));
+        intervallBisEnde.setCellValueFactory(new PropertyValueFactory<>("intervall_bis"));
+        tageEnde.setCellValueFactory(new PropertyValueFactory<>("tage"));
+        fehltageEnde.setCellValueFactory(new PropertyValueFactory<>("korrektur_tage"));
+        auftragEnde.setCellValueFactory(new PropertyValueFactory<>("auftrag_id"));
+        auftragVonEnde.setCellValueFactory(new PropertyValueFactory<>("von"));
+        auftragBisEnde.setCellValueFactory(new PropertyValueFactory<>("bis"));
+        grundEnde.setCellValueFactory(new PropertyValueFactory<>("grund"));
+
+        obListeB = FXCollections.observableArrayList();
+        endeTable.setItems(obListeB);
+        listeB = db.LoadRechnungList_ende();
+
+        int i = 0;
+        for (Object element : listeB)
+        {
+            helperClass temp = listeB.get(i);
+            endeTable.getItems().add(temp);
+
+
+            i++;
+        }
+        listeB.clear();
 
     }
 

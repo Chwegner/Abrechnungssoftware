@@ -93,15 +93,28 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                         </GridPane>
-                              <TableView id="rechnungsview" fixedCellSize="0.0" prefHeight="359.0" prefWidth="664.0" stylesheets="@../css/RechnungsErstellung.css">
+                              <TableView id="rechnungsview" fx:id="offenTable" fixedCellSize="0.0" prefHeight="359.0" prefWidth="664.0" stylesheets="@../css/RechnungsErstellung.css">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn prefWidth="92.0" text="Auftrags-NR." />
-                                    <TableColumn prefWidth="141.0" text="Kunde" />
-                                    <TableColumn prefWidth="164.0" text="Abrechnungszeitraum" />
-                                    <TableColumn prefWidth="103.0" text="Summe" />
+                                    <TableColumn fx:id="idOffen" prefWidth="92.0" text="ID" />
+                                    <TableColumn prefWidth="75.0" text="Intervall">
+                                       <columns>
+                                          <TableColumn fx:id="intervallVonOffen" prefWidth="141.0" text="von" />
+                                          <TableColumn fx:id="intervallBisOffen" prefWidth="164.0" text="bis" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="tageOffen" prefWidth="75.0" text="Tage" />
+                                    <TableColumn fx:id="fehltageOffen" prefWidth="75.0" text="Fehltage" />
+                                    <TableColumn fx:id="auftragOffen" prefWidth="75.0" text="AuftragsNr" />
+                                    <TableColumn prefWidth="75.0" text="Auftrag">
+                                       <columns>
+                                          <TableColumn fx:id="auftragVonOffen" prefWidth="75.0" text="von" />
+                                          <TableColumn fx:id="auftragBisOffen" prefWidth="75.0" text="bis" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="grundOffen" prefWidth="75.0" text="Grund" />
                                  </columns>
                               </TableView>
                                     </children>
@@ -135,15 +148,28 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                         </GridPane>
-                              <TableView id="rechnungsview" fixedCellSize="0.0" prefHeight="359.0" prefWidth="665.0" stylesheets="@../css/RechnungsErstellung.css">
+                              <TableView id="rechnungsview" fx:id="endeTable" fixedCellSize="0.0" prefHeight="359.0" prefWidth="664.0" stylesheets="@../css/RechnungsErstellung.css">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn prefWidth="92.0" text="Auftrags-NR." />
-                                    <TableColumn prefWidth="141.0" text="Kunde" />
-                                    <TableColumn prefWidth="164.0" text="Abrechnungszeitraum" />
-                                    <TableColumn prefWidth="103.0" text="Summe" />
+                                    <TableColumn fx:id="idEnde" prefWidth="92.0" text="ID" />
+                                    <TableColumn prefWidth="75.0" text="Intervall">
+                                       <columns>
+                                          <TableColumn fx:id="intervallVonEnde" prefWidth="141.0" text="von" />
+                                          <TableColumn fx:id="intervallBisEnde" prefWidth="164.0" text="bis" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="tageEnde" prefWidth="75.0" text="Tage" />
+                                    <TableColumn fx:id="fehltageEnde" prefWidth="75.0" text="Fehltage" />
+                                    <TableColumn fx:id="auftragEnde" prefWidth="75.0" text="AuftragsNr" />
+                                    <TableColumn prefWidth="75.0" text="Auftrag">
+                                       <columns>
+                                          <TableColumn fx:id="auftragVonEnde" prefWidth="75.0" text="von" />
+                                          <TableColumn fx:id="auftragBisEnde" prefWidth="75.0" text="bis" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="grundEnde" prefWidth="75.0" text="Grund" />
                                  </columns>
                               </TableView>
                                     </children>

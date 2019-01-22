@@ -169,10 +169,11 @@ public class RechnungErstellenController
 //
 //            }
 
+
             mainController.getVorschauController().Vorschau();
 
             mainController.getMenuBarController().RechnungErstellenAufrufen();
-            intervallListe.clear();
+            RechnungAbbrechen();
 
         } catch (NullPointerException e)
         {

@@ -119,6 +119,9 @@ public class VorschauController
 
         } catch (Exception e)
         {
+            mainController.getRechnungErstellenController().getStatusLabel().setStyle("-fx-text-fill: red");
+            mainController.getRechnungErstellenController().getStatusLabel().setText("Fehler beim Speichern der Rechnung!");
+
             e.printStackTrace();
         }
 
