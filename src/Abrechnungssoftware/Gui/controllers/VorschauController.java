@@ -110,7 +110,6 @@ public class VorschauController
         try
         {
             Rechnung rechnung = new Rechnung();
-            System.out.println(mainController.getRechnungErstellenController().getIntervallListe().toString());
             rechnung.rechnungErstellen(mainController.getRechnungErstellenController().getIntervallListe(), true);
             window.close();
 
