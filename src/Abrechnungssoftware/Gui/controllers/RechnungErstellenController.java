@@ -173,12 +173,11 @@ public class RechnungErstellenController
 
             mainController.getVorschauController().Vorschau();
 
-//            RechnungAbbrechen();
-//
-//            mainController.getMenuBarController().RechnungErstellenAufrufen();
+            mainController.getMenuBarController().RechnungErstellenAufrufen();
+            intervallListe.clear();
 
-//            statusLabel.setStyle("-fx-text-fill: green");
-//            statusLabel.setText("Rechnung erstellt!");
+            statusLabel.setStyle("-fx-text-fill: green");
+            statusLabel.setText("Rechnung erstellt!");
         } catch (NullPointerException e)
         {
             statusLabel.setStyle("-fx-text-fill: red");

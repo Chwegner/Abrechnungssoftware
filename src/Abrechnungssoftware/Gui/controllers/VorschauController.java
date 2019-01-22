@@ -26,11 +26,11 @@ import java.io.IOException;
 
 public class VorschauController
 {
-    MainController mainController;
+    private MainController mainController;
 
-    ImageView vorschau;
-
-    Button okButton, cancelButton;
+    private ImageView vorschau;
+    private Button okButton, cancelButton;
+    private Stage window
 
     public void injectMainController(MainController mainController)
     {
@@ -39,12 +39,13 @@ public class VorschauController
 
     public void Vorschau()
     {
-        Stage window = new Stage();
+        window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("PDF Vorschau");
         window.setMaximized(true);
 
         ScrollPane pane = new ScrollPane();
+        pane.setFitToWidth(true);
 
         try
         {
@@ -111,6 +112,8 @@ public class VorschauController
         {
             Rechnung rechnung = new Rechnung();
             rechnung.rechnungErstellen(mainController.getRechnungErstellenController().getIntervallListe(), true);
+            window.close();
+
         } catch (Exception e)
         {
             e.printStackTrace();
