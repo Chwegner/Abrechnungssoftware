@@ -48,8 +48,9 @@ public class MenuBarController
         try
         {
             mainController.getMainPane().getChildren().clear();
-            mainController.getMainPane().getChildren().add(mainController.getRechnungErstellenController().getRechnungErstellen());
             mainController.getRechnungErstellenController().AuftraegeEinfuegen();
+            mainController.getMainPane().getChildren().add(mainController.getRechnungErstellenController().getRechnungErstellen());
+
         } catch (Exception e)
         {
             AlertBox.display("Fehler", "Fenster konnte nicht geladen werden");

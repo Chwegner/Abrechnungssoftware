@@ -198,6 +198,7 @@ public class UebersichtController
                 i++;
             }
             liste.clear();
+            db.LoadRechnungList().clear();
         } catch (Exception e)
         {
             statusLabel.setStyle("-fx-text-fill: red");

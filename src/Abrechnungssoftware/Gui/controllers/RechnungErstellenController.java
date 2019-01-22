@@ -56,7 +56,6 @@ public class RechnungErstellenController
         {
             DB_CON db = mainController.getDb();
 
-
             id.setCellValueFactory(new PropertyValueFactory<>("auftrag_intervall_id"));
             firma.setCellValueFactory(new PropertyValueFactory<>("firma"));
             grund.setCellValueFactory(new PropertyValueFactory<>("grund"));
@@ -80,6 +79,7 @@ public class RechnungErstellenController
 
                 i++;
             }
+
 
             liste.clear();
 
@@ -176,6 +176,8 @@ public class RechnungErstellenController
             mainController.getMenuBarController().RechnungErstellenAufrufen();
             intervallListe.clear();
 
+
+
             statusLabel.setStyle("-fx-text-fill: green");
             statusLabel.setText("Rechnung erstellt!");
         } catch (NullPointerException e)
@@ -203,5 +205,8 @@ public class RechnungErstellenController
         return intervallListe;
     }
 
-
+    public TableView<helperClass> getAuftragTable()
+    {
+        return auftragTable;
+    }
 }
