@@ -30,7 +30,7 @@ public class VorschauController
 
     private ImageView vorschau;
     private Button okButton, cancelButton;
-    private Stage window
+    private Stage window;
 
     public void injectMainController(MainController mainController)
     {
